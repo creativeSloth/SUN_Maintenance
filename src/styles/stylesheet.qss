@@ -1,0 +1,365 @@
+/* Allgemeine Stile */
+
+/* Setzt die Standardschrift für alle Elemente */
+* {
+	font: 12pt "Sitka Heading";
+	background-color: transparent;
+}
+
+/* Zentrales Widget */
+/* -------------------------------------- */
+QWidget#centralwidget {
+	background-color: #aaffff; /* Hintergrundfarbe */
+	border-radius: 5px; /* Abgerundete Ecken */
+}
+
+/* MessageBox */
+/* -------------------------------------- */
+QMessageBox {
+	background-color: #aaffff;
+	border-radius: 5px; /* Abgerundete Ecken */
+}
+
+QMessageBox QPushButton {
+	padding: 10px;
+}
+
+/* QLabel */
+/* -------------------------------------- */
+QLabel {
+	padding-left: 5px;
+	color: #13213b; /* Textfarbe */
+}
+
+/* QTextEdit, QPlainTextEdit, QLineEdit */
+/* -------------------------------------- */
+QTextEdit,
+QPlainTextEdit,
+QLineEdit {
+	color: #ff13213b; /* Textfarbe */
+	border-radius: 5px; /* Abgerundete Ecken */
+	background-color: rgba(255, 255, 255, 255); /* Hintergrundfarbe */
+	font: 12pt "Sitka Heading"; /* Schriftart */
+	text-align: left;
+}
+
+QTextEdit::hover,
+QPlainTextEdit::hover {
+	color: rgba(19, 33, 59, 220); /* Textfarbe */
+	background-color: rgba(240, 255, 255, 255); /* Hintergrundfarbe */
+	text-align: left;
+	border: 1px solid rgba(19, 33, 59, 100)
+}
+
+/* Deaktivierte QTextEdit */
+QPlainTextEdit::disabled {
+	color: rgb(19, 33, 59); /* Textfarbe */
+	border-radius: 5px; /* Abgerundete Ecken */
+	background-color: rgb(210, 255, 255); /* Hintergrundfarbe */
+}
+
+/* QPushButton */
+/* -------------------------------------- */
+QPushButton {
+	background-color: rgb(226, 24, 57); /* Hintergrundfarbe */
+	color: rgba(19, 33, 59, 255); /* Textfarbe */
+	border-radius: 5px; /* Abgerundete Ecken */
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* QPushButton Hover */
+QPushButton::hover {
+	background-color: rgba(226, 24, 57, 200); /* Hintergrundfarbe */
+	color: rgba(19, 33, 59, 100); /* Textfarbe */
+}
+
+/* QPushButton Pressed */
+QPushButton::pressed {
+	background-color: rgba(226, 24, 57, 100); /* Hintergrundfarbe */
+	color: rgba(19, 33, 59, 30); /* Textfarbe */
+}
+
+/* Spezielle QPushButton */
+/* -------------------------------------- */
+QPushButton#load_articles_db_btn,
+QPushButton#load_articles_file_btn,
+QPushButton#store_device_specs_btn,
+QPushButton#load_data_to_device_lists_btn,
+QPushButton#fill_fields_btn {
+	color: rgba(226, 24, 57, 255);
+	background-color: rgba(19, 33, 59, 255);
+}
+
+/* Spezielle QPushButton Hover */
+QPushButton#load_articles_db_btn::hover,
+QPushButton#load_articles_file_btn::hover,
+QPushButton#store_device_specs_btn::hover,
+QPushButton#load_data_to_device_lists_btn::hover,
+QPushButton#fill_fields_btn::hover {
+	color: rgba(226, 24, 58, 100);
+	background-color: rgba(19, 33, 59, 150);
+}
+
+/* Spezielle QPushButton Pressed */
+QPushButton#load_articles_db_btn::pressed,
+QPushButton#load_articles_file_btn::pressed,
+QPushButton#store_device_specs_btn::pressed,
+QPushButton#load_data_to_device_lists_btn::pressed,
+QPushButton#fill_fields_btn::pressed {
+	color: rgba(226, 24, 58, 30);
+	background-color: rgba(19, 33, 59, 50);
+}
+
+
+
+/* Spezielle QPushButton-Groppen-Typen ["search", open_bl, doc_available, move_to_bl, move_from_bl] */
+/* -------------------------------------- */
+
+
+/*rgba(172, 32, 218, 255)*/
+QPushButton[button_type="search"] {
+	background-color: rgba(210, 255, 255, 255);
+}
+/* Spezielle QPushButton Hover */
+QPushButton[button_type="search"]::hover {
+	background-color: rgba(210, 255, 255, 150);
+}
+/* Spezielle QPushButton Pressed */
+QPushButton[button_type="search"]::pressed {
+	background-color: rgba(210, 255, 255, 50);
+}
+/* -------------------------------------- */
+QPushButton[button_type="open_bl"] {
+	background-color: rgba(255, 255, 255, 255);
+	border: 1px solid rgba(0, 0, 0, 255)
+}
+/* Spezielle QPushButton Hover */
+QPushButton[button_type="open_bl"]::hover {
+	background-color: rgba(255, 255, 255, 150);
+	border: 1px solid rgba(0, 0, 0, 60)
+}
+/* Spezielle QPushButton Pressed */
+QPushButton[button_type="open_bl"]::pressed {
+	background-color: rgba(255, 255, 255, 50);
+	border: 1px solid rgba(0, 0, 0, 20)
+}
+/* -------------------------------------- */
+QPushButton[button_type="doc_available"] {
+	background-color: rgba(19, 33, 59, 255);
+}
+/* Spezielle QPushButton Hover */
+QPushButton[button_type="doc_available"]::hover {
+	background-color: rgba(19, 33, 59, 150);
+}
+/* Spezielle QPushButton Pressed */
+QPushButton[button_type="doc_available"]::pressed {
+	background-color: rgba(19, 33, 59, 50);
+}
+/* -------------------------------------- */
+QPushButton[button_type="move_to_bl"] {
+	background-color: rgba(19, 33, 59, 255);
+}
+/* Spezielle QPushButton Hover */
+QPushButton[button_type="move_to_bl"]::hover {
+	background-color: rgba(19, 33, 59, 150);
+}
+/* Spezielle QPushButton Pressed */
+QPushButton[button_type="move_to_bl"]::pressed {
+	background-color: rgba(19, 33, 59, 50);
+}
+/* -------------------------------------- */
+QPushButton[button_type="move_from_bl"] {
+	background-color: rgba(19, 33, 59, 255);
+}
+/* Spezielle QPushButton Hover */
+QPushButton[button_type="move_from_bl"]::hover {
+	background-color: rgba(19, 33, 59, 150);
+}
+
+/* Spezielle QPushButton Pressed */
+QPushButton[button_type="move_from_bl"]::pressed {
+	background-color: rgba(19, 33, 59, 50);
+}
+/* -------------------------------------- */
+
+
+/* QFrame und QTabWidget-Panels (Inhalt) */
+/* -------------------------------------- */
+QFrame#frame010,
+QFrame#frame011 {
+	background-color: #ffaaffff; /* Hintergrundfarbe */
+	border-radius: 5px; /* Abgerundete Ecken */
+}
+
+/* QTabWidget */
+/* -------------------------------------- */
+QTabWidget,
+QTabWidget::pane {
+	background-color: rgb(170, 255, 255); /* Hintergrundfarbe */
+	border-top-right-radius: 5px; /* Abgerundete Ecken */
+	border-bottom-left-radius: 5px; /* Abgerundete Ecken */
+	border-bottom-right-radius: 5px; /* Abgerundete Ecken */
+}
+
+/* QTabBar */
+/* -------------------------------------- */
+QTabBar::tab,
+QTabBar::tab:selected,
+QTabBar:tab:!selected {
+	margin: 1px; /* Margin */
+	width: 30px; /* Breite */
+	min-height: 50px; /* Mindesthöhe */
+	max-height: 250px; /* Maximale Höhe */
+	padding-top: 10px; /* Padding nur oben */
+	padding-bottom: 10px; /* Padding nur unten */
+	border-top-left-radius: 5px; /* Obere linke Ecke abgerundet */
+	border-bottom-left-radius: 5px; /* Untere linke Ecke abgerundet */
+}
+
+/* Ausgewählte Registerkarten */
+QTabBar::tab:selected {
+	background-color: rgb(0, 170, 255); /* Hintergrundfarbe */
+	color: rgb(19, 33, 59); /* Textfarbe */
+}
+
+/* Nicht ausgewählte Registerkarten */
+QTabBar:tab:!selected {
+	background-color: rgb(210, 255, 255); /* Hintergrundfarbe */
+	color: rgb(170, 170, 255); /* Textfarbe */
+}
+
+/* Hover-Effekt für nicht ausgewählte Registerkarten */
+QTabBar:tab:!selected::hover {
+	alignment: top;
+	background-color: rgb(0, 255, 255); /* Hintergrundfarbe */
+	color: rgba(19, 33, 59, 200);
+}
+
+/* QTableWidget */
+/* -------------------------------------- */
+QTableWidget {
+	background-color: rgb(220, 255, 255);
+	border-radius: 5px; /* Abgerundete Ecken */
+}
+
+QTableWidget::item:alternate {
+	background-color: rgb(
+		240,
+		255,
+		255
+	); /* Beispielhintergrundfarbe für alternative Zeilen */
+}
+
+QTableWidget::item:alternate:selected {
+	background-color: rgba(
+		54, 169, 36, 255
+	); /* Beispielhintergrundfarbe für alternative Zeilen */
+	color: #13213b;
+}
+
+QTableWidget::item::selected {
+	background-color: rgba(54, 169, 36, 255); /* Beispielhintergrundfarbe für alternative Zeilen */
+	color: #13213b;
+}
+
+QTableWidget::item[property="isZero"]{
+
+	/* Beispielhintergrundfarbe für alternative Zeilen */
+	color: #e20000;
+}
+
+QTableWidget::item[property="isZero"]::selected {
+	background-color: rgb(
+		200,
+		255,
+		255
+	); /* Beispielhintergrundfarbe für alternative Zeilen */
+	color: #e20000;
+}
+
+
+QHeaderView::section {
+	background-color: rgb(220, 255, 255);
+}
+
+/* QAbstractScrollArea */
+/* -------------------------------------- */
+QAbstractScrollArea#scrollArea {
+	background-color: rgb(220, 255, 255); /* Hintergrundfarbe */
+	border: 1px solid rgb(19, 33, 59); /* Randstil */
+	border-radius: 5px; /* Abgerundete Ecken */	
+}
+
+/* QMenuBar */
+/* -------------------------------------- */
+QMenuBar {
+	color: #13213b;
+	background-color: #fff; /* Hintergrundfarbe */
+	border: 1px solid #ccc; /* Randstil */
+	border-radius: 5px; /* Abgerundete Ecken */	
+}
+
+/* QMenu */
+/* -------------------------------------- */
+QMenu {
+	color: #13213b;
+	background-color: #fff; /* Hintergrundfarbe */
+	border: 1px solid #ccc; /* Randstil */
+	border-radius: 5px; /* Abgerundete Ecken */
+	padding: 10px;
+}
+
+QMenu::hover {
+	color: rgba(19, 33, 59, 200);
+	background-color: rgba(19, 33, 59, 100); /* Hintergrundfarbe */
+	
+}
+
+/* QAction */
+/* -------------------------------------- */
+QMenu::item {
+	color: #13213b;
+	background-color: rgb(255, 255, 255); /* Hintergrundfarbe */
+	border-radius: 5px; /* Abgerundete Ecken */
+	padding: 10px;
+}
+
+QMenu::item::selected {
+	color: rgba(19, 33, 59, 200);
+	background-color: rgba(19, 33, 59, 50); /* Hintergrundfarbe */
+}
+
+/* QDialog */
+/* -------------------------------------- */
+QDialog {
+	color: #13213b;
+	background-color: #aaffff; /* Hintergrundfarbe */
+	border: 1px solid #13213b; /* Randstil */
+	border-radius: 5px; /* Abgerundete Ecken */
+	padding: 10px;
+}
+
+
+/* QDialogButtonBox */
+/* -------------------------------------- */
+QDialogButtonBox QPushButton {
+	padding: 10px;
+}
+
+/* QComboBox */
+/* -------------------------------------- */
+
+QComboBox {
+	color: #13213b;
+	background-color: #fff; /* Hintergrundfarbe */
+	border: 2px solid #ccc; /* Randstil */
+	border-radius: 5px; /* Abgerundete Ecken */
+}
+
+QComboBox QAbstractItemView {
+	color: #13213b;
+	background-color: #fff; /* Hintergrundfarbe */
+	border: 2px solid #ccc; /* Randstil */
+	border-radius: 5px; /* Abgerundete Ecken */
+}

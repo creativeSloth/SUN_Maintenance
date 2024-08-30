@@ -1,0 +1,6 @@
+DB_TABLENAME_USERS = "users"
+DB_TABLENAME_USER_POLICIES = "user_policies"
+DB_TABLENAME_USER_ROLES = "user_roles"
+DB_TABLENAME_ROLES = "roles"
+DB_TABLENAME_ROLE_PERMISSIONS = "role_permissions"
+DB_TABLENAME_LOGIN_DATES = "login_dates"
