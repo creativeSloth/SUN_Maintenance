@@ -2,7 +2,7 @@ import os
 
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from directories.constants import (
+from database.constants.c_directories import (
     DIRS,
     SOURCE,
     TARGET_1,

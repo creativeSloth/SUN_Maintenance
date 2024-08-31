@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Any
 
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
@@ -7,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from database.classes.cls_users import Users
 from database.utils.u_db_sess import create_session
 from database.utils.u_pwd import hash_pwd
+from database.utils.u_queries import commit_new_entry
 
 
 def update_db_user(
@@ -32,7 +32,7 @@ def update_db_user(
     try:
 
         # Überprüfen, ob article_no bereits in der Blacklists-Tabelle existiert
-        exstg_usr = sess.query(Users).filter_by(username=usr).first()
+        exstg_usr = sess.query(Users).filter(username=usr).first()
 
         if exstg_usr:
             usr_existed = True
@@ -43,19 +43,23 @@ def update_db_user(
             password_hashed, hex_encoded_salt = hash_pwd(pwd)
             date_created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-            print(password_hashed)
-
-            new_usr_entry = commit_new_entry_and_return(
+            new_usr_entry = commit_new_entry(
                 db_object=Users,
                 session=sess,
                 username=usr,
                 password_hashed=password_hashed,
                 hex_encoded_salt=hex_encoded_salt,  # Speichere das Salt in der Datenbank
                 date_created=date_created,
+                is_active=False,
+                is_enabled=True,
                 date_last_login=None,
             )
             usr_existed = False
             usr_created = True
+
+            count = sess.query(Users).filter(is_enabled=True).count()
+            if count == 1:
+                new_usr_entry
 
     except SQLAlchemyError as e:
         if sess:
@@ -64,19 +68,3 @@ def update_db_user(
     finally:
         sess.close()
         return usr_existed, usr_created
-
-
-def commit_new_entry_and_return(
-    db_object: Any, session: sessionmaker, **kwargs: Any
-) -> Any:
-    """
-    Führt eine EIntrag in einer bestimmten Datenbanktable aus.
-    :param db_object: Die zu verwendende Datenbanktabelle
-    :param session: Die Datenbank-Session
-    :param kwargs: Die Attribute des Eintrags
-    :return: Das neu erstellte Eintrag"""
-
-    new_entry = db_object(**kwargs)
-    session.add(new_entry)
-    session.commit()
-    return new_entry
