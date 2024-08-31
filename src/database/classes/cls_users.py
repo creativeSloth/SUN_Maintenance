@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from database.constants.c_db_classes import *
+from constants.c_db_classes import *
 from database.queries.q_role_system import init_base_role_system
 from database.utils.u_db_sess import BASE, get_db_engine
 

@@ -44,8 +44,8 @@ def update_db_user(
             date_created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
             new_usr_entry = commit_new_entry(
-                db_object=Users,
-                session=sess,
+                cls=Users,
+                sess=sess,
                 username=usr,
                 password_hashed=password_hashed,
                 hex_encoded_salt=hex_encoded_salt,  # Speichere das Salt in der Datenbank
@@ -54,12 +54,17 @@ def update_db_user(
                 is_enabled=True,
                 date_last_login=None,
             )
+
             usr_existed = False
             usr_created = True
 
             count = sess.query(Users).filter(is_enabled=True).count()
             if count == 1:
                 new_usr_entry
+                #!
+                #! CONTINUE HERE
+                #!
+                #!
 
     except SQLAlchemyError as e:
         if sess:

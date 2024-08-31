@@ -2,7 +2,7 @@ from sqlalchemy import Engine, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from database.constants.c_directories import DB, DIRS
+from constants.c_directories import DB, DIRS
 
 
 def get_db_engine():

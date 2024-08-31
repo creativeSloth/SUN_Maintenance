@@ -1,7 +1,8 @@
 from sqlalchemy.exc import SQLAlchemyError
 
-from database.constants.c_role_system import *
+from constants.c_role_system import *
 from database.utils.u_db_sess import create_session
+from database.utils.u_queries import ensure_exists
 
 
 def init_base_role_system() -> None:
@@ -14,24 +15,19 @@ def init_base_role_system() -> None:
 
     try:
         # Check if roles already exist and create them if they don't
-        roles_dict = {}
-        for role_name in DFLT_ROLES:
-            role = sess.query(Roles).filter_by(role_name=role_name).first()
-            if not role:
-                role = Roles(role_name=role_name)
-                sess.add(role)
-            roles_dict[role_name] = role
+        roles_dict = ensure_exists(
+            sess=sess, cls=Roles, cls_attr="role_name", attr_list=DFLT_ROLE_NAMES
+        )
 
         sess.commit()
 
         # Check if permissions already exist and create them if they don't
-        permissions_dict = {}
-        for perm_name in DFLT_PERMISSION_NAMES:
-            perm = sess.query(Permissions).filter_by(permission_name=perm_name).first()
-            if not perm:
-                perm = Permissions(permission_name=perm_name)
-                sess.add(perm)
-            permissions_dict[perm_name] = perm
+        permissions_dict = ensure_exists(
+            sess=sess,
+            cls=Permissions,
+            cls_attr="permission_name",
+            attr_list=DFLT_PERMISSION_NAMES,
+        )
 
         sess.commit()
 

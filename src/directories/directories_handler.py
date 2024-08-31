@@ -2,7 +2,7 @@ import inspect
 import os
 import sys
 
-from database.constants.c_directories import *
+from constants.c_directories import *
 
 
 def get_main_dir() -> str:
