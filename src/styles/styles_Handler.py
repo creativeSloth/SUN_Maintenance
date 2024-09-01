@@ -1,4 +1,4 @@
-from constants.c_directories import DIRS
+from directories.constants.c_directories import DIRS
 
 
 def initialize_ui_style(self) -> None:

@@ -2,7 +2,7 @@ import inspect
 import os
 import sys
 
-from constants.c_directories import *
+from directories.constants.c_directories import *
 
 
 def get_main_dir() -> str:

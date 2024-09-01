@@ -1,4 +1,5 @@
 DB_TABLENAME_USERS = "users"
+DB_TABLENAME_USER_PROFILES = "user_profile"
 DB_TABLENAME_USER_POLICIES = "user_policies"
 DB_TABLENAME_USER_ROLES = "user_roles"
 DB_TABLENAME_ROLES = "roles"
