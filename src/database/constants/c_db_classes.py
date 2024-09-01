@@ -6,3 +6,5 @@ DB_TABLENAME_ROLES = "roles"
 DB_TABLENAME_ROLE_PERMISSIONS = "role_permissions"
 DB_TABLENAME_LOGIN_DATES = "login_dates"
 DB_TABLENAME_PERMISSIONS = "permissions"
+
+RSHIP_TYPES = ["1:1", "1:n", "n:m"]
