@@ -1,6 +1,6 @@
-from typing import Any, Dict, List, Tuple, Type
+from typing import Any, Dict, List, Optional, Tuple, Type
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import RelationshipProperty, Session, class_mapper
 
 from database.constants.c_db_classes import RSHIP_TYPES
 from database.utils.u_db_sess import BASE
@@ -65,118 +65,166 @@ def create_rshp(
     m2_attrs: Dict[str, Any],
 ) -> Tuple[BASE, BASE]:  # type: ignore
     """
-    Creates a relationship between two SQLAlchemy models and sets the provided attributes.
+    Creates and establishes a relationship between two SQLAlchemy model instances based on their classes and attributes.
 
-    Automatically determines the type of relationship between the two models.
+    This function performs the following steps:
+    1. Retrieves or creates instances of the specified SQLAlchemy models (`m1` and `m2`) using the provided attributes (`m1_attrs` and `m2_attrs`).
+    2. Automatically identifies the relationship names between the two instances by inspecting their SQLAlchemy mappings.
+    3. Determines the type of relationship (e.g., one-to-one, one-to-many, many-to-many) between the two instances.
+    4. Sets up the relationship between the instances based on the determined relationship type.
+    5. Commits the changes to the database to persist the relationship.
 
-    :param session: SQLAlchemy session object.
-    :type session: Session
-    :param m1: First SQLAlchemy model class.
+    **Relationship Types Handled:**
+    - **One-to-One (`RSHIP_TYPES[0]`):** Both instances reference each other as single objects.
+    - **One-to-Many (`RSHIP_TYPES[1]`):** One instance holds a collection (e.g., list) of the other instance.
+    - **Many-to-Many (`RSHIP_TYPES[2]`):** Both instances hold collections of each other.
+
+
+    :param sess: The SQLAlchemy session used for database operations.
+    :type sess: Session
+    :param m1: The class of the first SQLAlchemy model.
     :type m1: Type[BASE]
-    :param m1_attrs: Dictionary of attributes for the first model.
+    :param m1_attrs: A dictionary of attributes to filter the query or to use for creating the first instance.
     :type m1_attrs: Dict[str, Any]
-    :param m2: Second SQLAlchemy model class.
+    :param m2: The class of the second SQLAlchemy model.
     :type m2: Type[BASE]
-    :param m2_attrs: Dictionary of attributes for the second model.
+    :param m2_attrs: A dictionary of attributes to filter the query or to use for creating the second instance.
     :type m2_attrs: Dict[str, Any]
-    :return: The two instantiated and linked objects.
+    :return: A tuple containing the two instances that have been linked.
     :rtype: Tuple[BASE, BASE]
     :raises ValueError: If no relationship is found between the models or if the relationship type cannot be determined.
     """
     # 1. Check for or create an instance of the first model
-    instance1 = get_or_create_instance(sess, m1, m1_attrs)
+    m1_instance = get_or_create_instance(sess, m1, m1_attrs)
 
     # 2. Check for or create an instance of the second model
-    instance2 = get_or_create_instance(sess, m2, m2_attrs)
+    m2_instance = get_or_create_instance(sess, m2, m2_attrs)
 
     # 3. Automatically determine the relationship names and type
-    m1_rship_name = get_rship_name(instance1, instance2)
-    m2_rship_name = get_rship_name(instance2, instance1)
+    m1_rship_name = get_rship_name(m1, m2)
+    m2_rship_name = get_rship_name(m2, m1)
 
     if not m1_rship_name or not m2_rship_name:
         raise ValueError("No relationship found between the models.")
 
     rship_type = determine_rship_type(
-        instance1, m1_rship_name, instance2, m2_rship_name
+        m1_instance, m1_rship_name, m2_instance, m2_rship_name
     )
 
     # 4. Set the relationship based on the relationship type
     if rship_type == RSHIP_TYPES[0]:
-        setattr(instance1, m1_rship_name, instance2)
-        setattr(instance2, m2_rship_name, instance1)
+        setattr(m1_instance, m1_rship_name, m2_instance)
+        setattr(m2_instance, m2_rship_name, m1_instance)
 
     elif rship_type == RSHIP_TYPES[1]:
-        if isinstance(getattr(instance1, m1_rship_name), list):
-            getattr(instance1, m1_rship_name).append(instance2)
+        if isinstance(getattr(m1_instance, m1_rship_name), list):
+            getattr(m1_instance, m1_rship_name).append(m2_instance)
         else:
-            setattr(instance2, m2_rship_name, instance1)
+            setattr(m2_instance, m2_rship_name, m1_instance)
 
     elif rship_type == RSHIP_TYPES[2]:
-        if isinstance(getattr(instance1, m1_rship_name), list):
-            getattr(instance1, m1_rship_name).append(instance2)
-        if isinstance(getattr(instance2, m2_rship_name), list):
-            getattr(instance2, m2_rship_name).append(instance1)
+        if isinstance(getattr(m1_instance, m1_rship_name), list):
+            getattr(m1_instance, m1_rship_name).append(m2_instance)
+        # if isinstance(getattr(m2_instance, m2_rship_name), list):
+        #     getattr(m2_instance, m2_rship_name).append(m1_instance)
     else:
         raise ValueError(f"Unsupported relationship type: {rship_type}")
 
     # 5. Save objects to the database
-    sess.commit()
-
-    return instance1, instance2
+    return m1_instance, m2_instance
 
 
-def get_or_create_instance(sess, model, model_attrs):
-    instance = sess.query(model).filter_by(**model_attrs).first()
+def get_or_create_instance(sess, m: Type[BASE], m_attrs: Dict[str, Any]) -> BASE:  # type: ignore
+    """
+    Retrieves an instance of a SQLAlchemy model from the database that matches the provided attributes,
+    or creates a new instance if no matching record is found.
+
+    This function first queries the database to find an existing record that matches the provided attributes.
+    If a matching instance is found, it is returned. If no matching instance exists, a new instance is created
+    using the provided attributes, added to the current session, and returned. The instance is not committed to
+    the database within this function, leaving that responsibility to the caller.
+
+    :param sess: The SQLAlchemy session used for querying the database.
+    :type sess: Session
+    :param m: The SQLAlchemy model class to query or instantiate.
+    :type m: Type[BASE]
+    :param m_attrs: A dictionary of attributes to filter the query or to use for creating a new instance.
+    :type m_attrs: Dict[str, Any]
+    :return: The retrieved or newly created instance of the model.
+    :rtype: BASE
+    """
+    instance = sess.query(m).filter_by(**m_attrs).first()
     if not instance:
-        instance = model(**model_attrs)
+        instance = m(**m_attrs)
         sess.add(instance)
     return instance
 
 
-def get_rship_name(instance: BASE, related_instance: BASE) -> str:  # type: ignore
+def get_rship_name(m1: Type[BASE], m2: Type[BASE]) -> Optional[str]:  # type: ignore
     """
-    Retrieves the name of the relationship attribute in the instance that points to the related instance.
+    Determines the name of the relationship between two SQLAlchemy model class, if such a relationship exists.
 
-    :param instance: The SQLAlchemy instance (the "one" or "many" side).
-    :type instance: BASE
-    :param related_instance: The related SQLAlchemy instance (the "many" or "one" side).
-    :type related_instance: BASE
-    :return: The name of the relationship attribute.
-    :rtype: str
-    :raises ValueError: If no relationship is found between the instances.
+    This function inspects the attributes of the first model class to identify a relationship with the second
+    model class. It utilizes SQLAlchemy's class mapping to iterate over all properties of the first class,
+    checking each property to see if it represents a relationship. If a relationship is found that links the
+    two classes, the function returns the name of that relationship. If no relationship is found, it returns `None`.
+
+    :param m1: The first SQLAlchemy model class.
+    :type m1: Type[BASE]
+    :param m2: The second SQLAlchemy model clas.
+    :type m2: Type[BASE]
+    :return: The name of the relationship attribute as a string, or `None` if no relationship is found.
+    :rtype: Optional[str]
     """
-    for rship in instance.__mapper__.relationships:
-        if rship.mapper.class_ == related_instance.__class__:
-            return rship.key
-    raise ValueError("No relationship found between the instances.")
+    # Get the mapper for the first class
+    mapper = class_mapper(m1)
+
+    # Iterate over all relationship properties
+    for prop in mapper.iterate_properties:
+        if isinstance(prop, RelationshipProperty):
+            # Check if the second class is linked by this relationship
+            if prop.mapper.class_ == m2:
+                return prop.key  # Return the name of the relationship
+
+    return None
 
 
 def determine_rship_type(
-    instance1: BASE, rship_name1: str, instance2: BASE, rship_name2: str  # type: ignore
+    instance1: BASE, m1_rship_name: str, instance2: BASE, m2_rship_name: str  # type: ignore
 ) -> str:
     """
-    Determines the type of relationship between two instances based on the relationship attributes.
+    Determines the type of relationship between two SQLAlchemy model instances.
 
-    :param instance1: The first SQLAlchemy instance.
+    This function evaluates the relationship type between two SQLAlchemy model instances based on the
+    attributes of the instances. It checks if the attributes corresponding to the relationship names
+    are lists (indicating a one-to-many or many-to-many relationship) or single objects
+    (indicating a one-to-one relationship). The function returns a string indicating the relationship type.
+
+    The possible relationship types returned are:
+    - `RSHIP_TYPES[0]`: One-to-one relationship.
+    - `RSHIP_TYPES[1]`: One-to-many or many-to-one relationship.
+    - `RSHIP_TYPES[2]`: Many-to-many relationship.
+
+    :param instance1: The first SQLAlchemy model instance.
     :type instance1: BASE
-    :param rship_name1: The name of the relationship attribute in the first instance.
-    :type rship_name1: str
-    :param instance2: The second SQLAlchemy instance.
+    :param m1_rship_name: The name of the relationship attribute in the first model instance.
+    :type m1_rship_name: str
+    :param instance2: The second SQLAlchemy model instance.
     :type instance2: BASE
-    :param rship_name2: The name of the relationship attribute in the second instance.
-    :type rship_name2: str
-    :return: The type of relationship ('1:1', '1:n', 'n:m').
+    :param m2_rship_name: The name of the relationship attribute in the second model instance.
+    :type m2_rship_name: str
+    :return: The type of the relationship between the two instances.
     :rtype: str
     :raises ValueError: If the relationship type cannot be determined.
     """
-    attr1 = getattr(instance1, rship_name1)
-    attr2 = getattr(instance2, rship_name2)
-
-    if isinstance(attr1, list) and isinstance(attr2, list):
-        return RSHIP_TYPES[2]
-    elif isinstance(attr1, list) and not isinstance(attr2, list):
+    if hasattr(instance1, m1_rship_name) and hasattr(instance2, m2_rship_name):
+        if isinstance(getattr(instance1, m1_rship_name), list) or isinstance(
+            getattr(instance2, m2_rship_name), list
+        ):
+            return RSHIP_TYPES[2]
+        else:
+            return RSHIP_TYPES[0]
+    elif hasattr(instance1, m1_rship_name) or hasattr(instance2, m2_rship_name):
         return RSHIP_TYPES[1]
-    elif not isinstance(attr1, list) and not isinstance(attr2, list):
-        return RSHIP_TYPES[0]
     else:
-        raise ValueError("Cannot determine relationship type.")
+        raise ValueError("Could not determine relationship type.")

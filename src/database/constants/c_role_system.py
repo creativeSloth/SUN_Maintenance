@@ -1,6 +1,12 @@
-DFLT_ROLE_NAMES = ["admin", "user"]
+from typing import List
 
-DFLT_PERMISSION_NAMES = ["can_give_permissions", "can_read", "can_write_everything"]
+DFLT_ROLE_NAMES: List[str] = ["admin", "user"]
+
+DFLT_PERMISSION_NAMES: List[str] = [
+    "can_give_permissions",
+    "can_read",
+    "can_write_everything",
+]
 
 DFLT_ROLE_PERMISSIONS = {
     DFLT_ROLE_NAMES[0]: {  # "admin"

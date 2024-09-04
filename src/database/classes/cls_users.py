@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from database.constants.c_db_classes import *
@@ -48,10 +48,18 @@ class Users(BASE):
     is_active = Column(Boolean, default=False)
     is_enabled = Column(Boolean, default=True)
 
-    # Define one-to-many relationships
-    user_roles = relationship("UserRoles", back_populates="user")
-    login_dates = relationship("LoginDates", back_populates="user")
+    # Define the one-to-one relationship
     user_profile = relationship("UserProfile", back_populates="user", uselist=False)
+
+    # Define one-to-many relationships
+    login_dates = relationship("LoginDates", back_populates="user")
+
+    # Define many-to-many relationships
+    roles = relationship(
+        "Roles",
+        secondary=DB_TABLENAME_USER_ROLES,
+        back_populates=DB_TABLENAME_USERS,
+    )
 
 
 class UserProfile(BASE):
@@ -70,10 +78,13 @@ class UserProfile(BASE):
     __tablename__ = DB_TABLENAME_USER_PROFILES
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
-    bio = Column(String)
+    name = Column(String, nullable=True)
+    family_name = Column(String, nullable=True)
 
     # Define the one-to-one relationship
-    user = relationship("Users", back_populates="user_profile", uselist=False)
+    user = relationship(
+        "Users", back_populates=DB_TABLENAME_USER_PROFILES, uselist=False
+    )
 
 
 class UserRoles(BASE):
@@ -91,13 +102,8 @@ class UserRoles(BASE):
     """
 
     __tablename__ = DB_TABLENAME_USER_ROLES
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
-    role_id = Column(Integer, ForeignKey(DB_TABLENAME_ROLES + ".id"))
-
-    # Define the relationships
-    user = relationship("Users", back_populates="user_roles")
-    role = relationship("Roles", back_populates="role_users")
+    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), primary_key=True)
+    role_id = Column(Integer, ForeignKey(DB_TABLENAME_ROLES + ".id"), primary_key=True)
 
 
 class Roles(BASE):
@@ -117,9 +123,15 @@ class Roles(BASE):
     id = Column(Integer, primary_key=True)
     role_name = Column(String, nullable=False)
 
-    # Define the many-to-many relationship
-    role_users = relationship("UserRoles", back_populates="role")
-    role_permissions = relationship("RolePermissions", back_populates="role")
+    # Define many-to-many relationships
+    users = relationship(
+        "Users", secondary=DB_TABLENAME_USER_ROLES, back_populates=DB_TABLENAME_ROLES
+    )
+    permissions = relationship(
+        "Permissions",
+        secondary=DB_TABLENAME_ROLE_PERMISSIONS,
+        back_populates=DB_TABLENAME_ROLES,
+    )
 
 
 class RolePermissions(BASE):
@@ -138,14 +150,11 @@ class RolePermissions(BASE):
     """
 
     __tablename__ = DB_TABLENAME_ROLE_PERMISSIONS
-    id = Column(Integer, primary_key=True)
-    role_id = Column(Integer, ForeignKey(DB_TABLENAME_ROLES + ".id"))
-    permission_id = Column(Integer, ForeignKey(DB_TABLENAME_PERMISSIONS + ".id"))
+    role_id = Column(Integer, ForeignKey(DB_TABLENAME_ROLES + ".id"), primary_key=True)
+    permission_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_PERMISSIONS + ".id"), primary_key=True
+    )
     is_allowed = Column(Boolean, nullable=False)
-
-    # Define the relationships
-    role = relationship("Roles", back_populates="role_permissions")
-    permission = relationship("Permissions", back_populates="permission_roles")
 
 
 class Permissions(BASE):
@@ -165,7 +174,11 @@ class Permissions(BASE):
     permission_name = Column(String, nullable=False)
 
     # Define the many-to-many relationship
-    permission_roles = relationship("RolePermissions", back_populates="permission")
+    roles = relationship(
+        "Roles",
+        secondary=DB_TABLENAME_ROLE_PERMISSIONS,
+        back_populates=DB_TABLENAME_PERMISSIONS,
+    )
 
 
 class LoginDates(BASE):
@@ -187,4 +200,4 @@ class LoginDates(BASE):
     login_date = Column(String, nullable=False)
 
     # Define the relationship to Users
-    user = relationship("Users", back_populates="login_dates")
+    user = relationship("Users", back_populates=DB_TABLENAME_LOGIN_DATES)

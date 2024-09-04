@@ -61,18 +61,22 @@ class RegisterForm(QDialog):
         self.ui.assign_btn.clicked.connect(self.on_assign_btn_click)
 
     def on_assign_btn_click(self) -> None:
+        name: str = self.ui.register_name_txt.toPlainText()
+        family_name: str = self.ui.register_family_name_txt.toPlainText()
         usr: str = self.ui.register_usr_txt.toPlainText()
-        pw: str = self.ui.register_pw_txt.toPlainText()
+        pwd: str = self.ui.register_pw_txt.toPlainText()
         rpw: str = self.ui.register_rpw_txt.toPlainText()
 
         is_valid = check_form_inputs(
-            obj=self.ui.assign_feedback_lbl, usr=usr, pw=pw, rpw=rpw
+            obj=self.ui.assign_feedback_lbl, usr=usr, pw=pwd, rpw=rpw
         )
 
         if is_valid == False:
             return
 
-        usr_existed, usr_created = update_db_user(usr, pw)
+        usr_existed, usr_created = update_db_user(
+            usr=usr, pwd=pwd, name=name, family_name=family_name
+        )
 
         if usr_existed:
             self.ui.assign_feedback_lbl.setText("Der Benutzer existiert bereits.")

@@ -23,7 +23,7 @@ class Ui_RegisterForm(object):
     def setupUi(self, RegisterForm):
         if not RegisterForm.objectName():
             RegisterForm.setObjectName(u"RegisterForm")
-        RegisterForm.resize(500, 300)
+        RegisterForm.resize(500, 383)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -43,6 +43,70 @@ class Ui_RegisterForm(object):
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.frame_4)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.frame_8 = QFrame(self.frame_4)
+        self.frame_8.setObjectName(u"frame_8")
+        sizePolicy.setHeightForWidth(self.frame_8.sizePolicy().hasHeightForWidth())
+        self.frame_8.setSizePolicy(sizePolicy)
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_4 = QHBoxLayout(self.frame_8)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(-1, 0, -1, 0)
+        self.register_name_lbl = QLabel(self.frame_8)
+        self.register_name_lbl.setObjectName(u"register_name_lbl")
+        self.register_name_lbl.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.register_name_lbl.sizePolicy().hasHeightForWidth())
+        self.register_name_lbl.setSizePolicy(sizePolicy)
+        self.register_name_lbl.setMinimumSize(QSize(0, 30))
+        self.register_name_lbl.setMaximumSize(QSize(16777215, 30))
+
+        self.horizontalLayout_4.addWidget(self.register_name_lbl)
+
+        self.register_name_txt = QPlainTextEdit(self.frame_8)
+        self.register_name_txt.setObjectName(u"register_name_txt")
+        self.register_name_txt.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.register_name_txt.sizePolicy().hasHeightForWidth())
+        self.register_name_txt.setSizePolicy(sizePolicy)
+        self.register_name_txt.setMinimumSize(QSize(0, 30))
+        self.register_name_txt.setMaximumSize(QSize(16777215, 30))
+
+        self.horizontalLayout_4.addWidget(self.register_name_txt)
+
+
+        self.verticalLayout_3.addWidget(self.frame_8)
+
+        self.frame_9 = QFrame(self.frame_4)
+        self.frame_9.setObjectName(u"frame_9")
+        sizePolicy.setHeightForWidth(self.frame_9.sizePolicy().hasHeightForWidth())
+        self.frame_9.setSizePolicy(sizePolicy)
+        self.frame_9.setFrameShape(QFrame.StyledPanel)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_6 = QHBoxLayout(self.frame_9)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(-1, 0, -1, 0)
+        self.register_family_name_lbl = QLabel(self.frame_9)
+        self.register_family_name_lbl.setObjectName(u"register_family_name_lbl")
+        self.register_family_name_lbl.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.register_family_name_lbl.sizePolicy().hasHeightForWidth())
+        self.register_family_name_lbl.setSizePolicy(sizePolicy)
+        self.register_family_name_lbl.setMinimumSize(QSize(0, 30))
+        self.register_family_name_lbl.setMaximumSize(QSize(16777215, 30))
+
+        self.horizontalLayout_6.addWidget(self.register_family_name_lbl)
+
+        self.register_family_name_txt = QPlainTextEdit(self.frame_9)
+        self.register_family_name_txt.setObjectName(u"register_family_name_txt")
+        self.register_family_name_txt.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.register_family_name_txt.sizePolicy().hasHeightForWidth())
+        self.register_family_name_txt.setSizePolicy(sizePolicy)
+        self.register_family_name_txt.setMinimumSize(QSize(0, 30))
+        self.register_family_name_txt.setMaximumSize(QSize(16777215, 30))
+
+        self.horizontalLayout_6.addWidget(self.register_family_name_txt)
+
+
+        self.verticalLayout_3.addWidget(self.frame_9)
+
         self.frame_3 = QFrame(self.frame_4)
         self.frame_3.setObjectName(u"frame_3")
         sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
@@ -73,7 +137,7 @@ class Ui_RegisterForm(object):
         self.horizontalLayout_2.addWidget(self.register_usr_txt)
 
 
-        self.verticalLayout_3.addWidget(self.frame_3, 0, Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.frame_3)
 
         self.frame = QFrame(self.frame_4)
         self.frame.setObjectName(u"frame")
@@ -105,7 +169,7 @@ class Ui_RegisterForm(object):
         self.horizontalLayout.addWidget(self.register_pw_txt)
 
 
-        self.verticalLayout_3.addWidget(self.frame, 0, Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.frame)
 
         self.frame_6 = QFrame(self.frame_4)
         self.frame_6.setObjectName(u"frame_6")
@@ -137,7 +201,7 @@ class Ui_RegisterForm(object):
         self.horizontalLayout_3.addWidget(self.register_rpw_txt)
 
 
-        self.verticalLayout_3.addWidget(self.frame_6, 0, Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.frame_6)
 
 
         self.verticalLayout_2.addWidget(self.frame_4)
@@ -206,6 +270,8 @@ class Ui_RegisterForm(object):
 
     def retranslateUi(self, RegisterForm):
         RegisterForm.setWindowTitle(QCoreApplication.translate("RegisterForm", u"Dialog", None))
+        self.register_name_lbl.setText(QCoreApplication.translate("RegisterForm", u"Vorname", None))
+        self.register_family_name_lbl.setText(QCoreApplication.translate("RegisterForm", u"Nachname", None))
         self.register_usr_lbl.setText(QCoreApplication.translate("RegisterForm", u"Benutzer", None))
         self.register_pw_lbl.setText(QCoreApplication.translate("RegisterForm", u"Passwort", None))
         self.register_rpw_lbl.setText(QCoreApplication.translate("RegisterForm", u"Passwort wiederholen", None))
