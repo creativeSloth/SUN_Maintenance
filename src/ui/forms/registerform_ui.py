@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
-    QLabel, QPlainTextEdit, QPushButton, QSizePolicy,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
     QVBoxLayout, QWidget)
 
 class Ui_RegisterForm(object):
@@ -62,13 +62,8 @@ class Ui_RegisterForm(object):
 
         self.horizontalLayout_4.addWidget(self.register_name_lbl)
 
-        self.register_name_txt = QPlainTextEdit(self.frame_8)
+        self.register_name_txt = QLineEdit(self.frame_8)
         self.register_name_txt.setObjectName(u"register_name_txt")
-        self.register_name_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.register_name_txt.sizePolicy().hasHeightForWidth())
-        self.register_name_txt.setSizePolicy(sizePolicy)
-        self.register_name_txt.setMinimumSize(QSize(0, 30))
-        self.register_name_txt.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout_4.addWidget(self.register_name_txt)
 
@@ -94,13 +89,8 @@ class Ui_RegisterForm(object):
 
         self.horizontalLayout_6.addWidget(self.register_family_name_lbl)
 
-        self.register_family_name_txt = QPlainTextEdit(self.frame_9)
+        self.register_family_name_txt = QLineEdit(self.frame_9)
         self.register_family_name_txt.setObjectName(u"register_family_name_txt")
-        self.register_family_name_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.register_family_name_txt.sizePolicy().hasHeightForWidth())
-        self.register_family_name_txt.setSizePolicy(sizePolicy)
-        self.register_family_name_txt.setMinimumSize(QSize(0, 30))
-        self.register_family_name_txt.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout_6.addWidget(self.register_family_name_txt)
 
@@ -126,13 +116,8 @@ class Ui_RegisterForm(object):
 
         self.horizontalLayout_2.addWidget(self.register_usr_lbl)
 
-        self.register_usr_txt = QPlainTextEdit(self.frame_3)
+        self.register_usr_txt = QLineEdit(self.frame_3)
         self.register_usr_txt.setObjectName(u"register_usr_txt")
-        self.register_usr_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.register_usr_txt.sizePolicy().hasHeightForWidth())
-        self.register_usr_txt.setSizePolicy(sizePolicy)
-        self.register_usr_txt.setMinimumSize(QSize(0, 30))
-        self.register_usr_txt.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout_2.addWidget(self.register_usr_txt)
 
@@ -158,13 +143,9 @@ class Ui_RegisterForm(object):
 
         self.horizontalLayout.addWidget(self.register_pw_lbl, 0, Qt.AlignTop)
 
-        self.register_pw_txt = QPlainTextEdit(self.frame)
+        self.register_pw_txt = QLineEdit(self.frame)
         self.register_pw_txt.setObjectName(u"register_pw_txt")
-        self.register_pw_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.register_pw_txt.sizePolicy().hasHeightForWidth())
-        self.register_pw_txt.setSizePolicy(sizePolicy)
-        self.register_pw_txt.setMinimumSize(QSize(0, 30))
-        self.register_pw_txt.setMaximumSize(QSize(16777215, 30))
+        self.register_pw_txt.setEchoMode(QLineEdit.Normal)
 
         self.horizontalLayout.addWidget(self.register_pw_txt)
 
@@ -190,13 +171,9 @@ class Ui_RegisterForm(object):
 
         self.horizontalLayout_3.addWidget(self.register_rpw_lbl, 0, Qt.AlignTop)
 
-        self.register_rpw_txt = QPlainTextEdit(self.frame_6)
+        self.register_rpw_txt = QLineEdit(self.frame_6)
         self.register_rpw_txt.setObjectName(u"register_rpw_txt")
-        self.register_rpw_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.register_rpw_txt.sizePolicy().hasHeightForWidth())
-        self.register_rpw_txt.setSizePolicy(sizePolicy)
-        self.register_rpw_txt.setMinimumSize(QSize(0, 30))
-        self.register_rpw_txt.setMaximumSize(QSize(16777215, 30))
+        self.register_rpw_txt.setEchoMode(QLineEdit.Normal)
 
         self.horizontalLayout_3.addWidget(self.register_rpw_txt)
 

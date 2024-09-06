@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QMainWindow, QMenuBar, QPlainTextEdit, QPushButton,
+    QLineEdit, QMainWindow, QMenuBar, QPushButton,
     QSizePolicy, QStatusBar, QVBoxLayout, QWidget)
 
 class Ui_LoginForm(object):
@@ -56,16 +56,13 @@ class Ui_LoginForm(object):
         self.login_usr_lbl.setEnabled(True)
         sizePolicy.setHeightForWidth(self.login_usr_lbl.sizePolicy().hasHeightForWidth())
         self.login_usr_lbl.setSizePolicy(sizePolicy)
-        self.login_usr_lbl.setMaximumSize(QSize(16777215, 50))
+        self.login_usr_lbl.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout_2.addWidget(self.login_usr_lbl)
 
-        self.login_usr_txt = QPlainTextEdit(self.frame_3)
+        self.login_usr_txt = QLineEdit(self.frame_3)
         self.login_usr_txt.setObjectName(u"login_usr_txt")
-        self.login_usr_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.login_usr_txt.sizePolicy().hasHeightForWidth())
-        self.login_usr_txt.setSizePolicy(sizePolicy)
-        self.login_usr_txt.setMaximumSize(QSize(16777215, 50))
+        self.login_usr_txt.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout_2.addWidget(self.login_usr_txt)
 
@@ -85,16 +82,13 @@ class Ui_LoginForm(object):
         self.login_pw_lbl.setEnabled(True)
         sizePolicy.setHeightForWidth(self.login_pw_lbl.sizePolicy().hasHeightForWidth())
         self.login_pw_lbl.setSizePolicy(sizePolicy)
-        self.login_pw_lbl.setMaximumSize(QSize(16777215, 50))
+        self.login_pw_lbl.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout.addWidget(self.login_pw_lbl)
 
-        self.login_pw_txt = QPlainTextEdit(self.frame)
+        self.login_pw_txt = QLineEdit(self.frame)
         self.login_pw_txt.setObjectName(u"login_pw_txt")
-        self.login_pw_txt.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.login_pw_txt.sizePolicy().hasHeightForWidth())
-        self.login_pw_txt.setSizePolicy(sizePolicy)
-        self.login_pw_txt.setMaximumSize(QSize(16777215, 50))
+        self.login_pw_txt.setMaximumSize(QSize(16777215, 30))
 
         self.horizontalLayout.addWidget(self.login_pw_txt)
 

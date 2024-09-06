@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from database.classes.cls_users import Roles, UserProfile, Users
 from database.constants.c_role_system import DFLT_ROLE_NAMES
 from database.utils.u_db_sess import create_session
-from database.utils.u_pwd import hash_pwd
+from database.utils.u_pwd import hash_pwd, verify_password
 from database.utils.u_queries import create_rshp
 
 
@@ -110,3 +110,46 @@ def update_db_user(
         sess.close()
 
     return usr_existed, usr_created
+
+
+def login_user(
+    usr: Optional[str] = None, pwd: Optional[str] = None
+) -> Tuple[bool, bool, Users]:
+    r"""
+    Validates the provided username and password against the database.
+    :param usr: The username to be validated.
+    :type usr: Optional[str]
+    :param pwd: The password to be validated.
+    :type pwd: Optional[str]
+    :return: A tuple with two boolean values. The first value user_existed indicates whether
+             the user already exists in the database. The second value pwd_verified indicates
+             whether the provided password is correct for the user.
+    :rtype: Tuple[bool, bool]
+    """
+    user_existed = False
+    pwd_verified = False
+    sess = None
+    try:
+        sess: sessionmaker = create_session()
+        # Check if the user already exists
+        exstg_usr: Users = sess.query(Users).filter(Users.username == usr).first()
+
+        if exstg_usr:
+            user_existed = True
+
+            stored_salt = exstg_usr.hex_encoded_salt
+            stored_pwd = exstg_usr.password_hashed
+
+            # Verify the password
+            pwd_verified = verify_password(
+                stored_pwd=stored_pwd, stored_salt=stored_salt, provided_pwd=pwd
+            )
+
+    except SQLAlchemyError as e:
+        if sess:
+            sess.rollback()
+        raise e
+    finally:
+        sess.close()
+
+    return user_existed, pwd_verified, exstg_usr

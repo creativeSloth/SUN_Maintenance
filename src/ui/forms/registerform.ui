@@ -88,29 +88,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="register_name_txt">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QLineEdit" name="register_name_txt"/>
             </item>
            </layout>
           </widget>
@@ -165,29 +143,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="register_family_name_txt">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QLineEdit" name="register_family_name_txt"/>
             </item>
            </layout>
           </widget>
@@ -242,29 +198,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="register_usr_txt">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QLineEdit" name="register_usr_txt"/>
             </item>
            </layout>
           </widget>
@@ -319,27 +253,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="register_pw_txt">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
+             <widget class="QLineEdit" name="register_pw_txt">
+              <property name="echoMode">
+               <enum>QLineEdit::Normal</enum>
               </property>
              </widget>
             </item>
@@ -396,27 +312,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="register_rpw_txt">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
+             <widget class="QLineEdit" name="register_rpw_txt">
+              <property name="echoMode">
+               <enum>QLineEdit::Normal</enum>
               </property>
              </widget>
             </item>

@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from database.constants.c_db_classes import *
@@ -20,7 +20,7 @@ def init_local_db() -> None:
 
 
 class Users(BASE):
-    """
+    r"""
     Represents a user in the system.
 
     Attributes:
@@ -63,7 +63,7 @@ class Users(BASE):
 
 
 class UserProfile(BASE):
-    """
+    r"""
     Represents a user's profile, including additional information about the user.
 
     Attributes:
@@ -88,7 +88,7 @@ class UserProfile(BASE):
 
 
 class UserRoles(BASE):
-    """
+    r"""
     Represents a user's role in the system, linking users to roles.
 
     Attributes:
@@ -107,7 +107,7 @@ class UserRoles(BASE):
 
 
 class Roles(BASE):
-    """
+    r"""
     Represents a role in the system.
 
     Attributes:
@@ -135,7 +135,7 @@ class Roles(BASE):
 
 
 class RolePermissions(BASE):
-    """
+    r"""
     Represents the permissions associated with a role.
 
     Attributes:
@@ -158,7 +158,7 @@ class RolePermissions(BASE):
 
 
 class Permissions(BASE):
-    """
+    r"""
     Represents a permission in the system.
 
     Attributes:
@@ -182,7 +182,7 @@ class Permissions(BASE):
 
 
 class LoginDates(BASE):
-    """
+    r"""
     Represents a user's login dates.
 
     Attributes:

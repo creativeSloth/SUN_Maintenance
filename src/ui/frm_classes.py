@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QDialog, QMainWindow
+from PyQt5.QtWidgets import QDialog, QLineEdit, QMainWindow
 
-from database.queries.q_users import update_db_user
+from database.classes.cls_users import Users
+from database.queries.q_users import login_user, update_db_user
 from styles.styles_Handler import initialize_ui_style
 from ui.forms.loginform import Ui_LoginForm
 from ui.forms.registerform import Ui_RegisterForm
@@ -18,6 +19,7 @@ class LoginForm(QMainWindow):
         self.register_form = None
         self.USER: str = ""
         self.PW: str = ""
+        self.ui.login_pw_txt.setEchoMode(QLineEdit.Password)
 
         self.initialize()
         initialize_ui_style(self)
@@ -36,8 +38,25 @@ class LoginForm(QMainWindow):
         self.register_form.show()
 
     def on_login_btn_click(self) -> None:
-        usr: str = self.ui.login_usr_txt.toPlainText()
-        pw: str = self.ui.login_pw_txt.toPlainText()
+        usr: str = self.ui.login_usr_txt.text()
+        pwd: str = self.ui.login_pw_txt.text()
+
+        # Prüfen ob Benutzername und Passwort gültig sind und bei Erfolg einloggen
+        user_existed, pwd_verified, exstg_usr = login_user(usr=usr, pwd=pwd)
+        if user_existed and pwd_verified:
+            self.close()
+            if getattr(self, "register_form", None):
+                self.register_form.close()
+
+            exstg_usr.is_active = True
+
+        if not user_existed:
+            self.ui.login_fdb_txt.setText("Benutzer existiert nicht")
+            self.ui.login_usr_txt.setText("")
+            self.ui.login_pw_txt.setText("")
+        if user_existed and not pwd_verified:
+            self.ui.login_fdb_txt.setText("Passwort ist falsch")
+            self.ui.login_pw_txt.setText("")
 
 
 class RegisterForm(QDialog):
@@ -48,6 +67,8 @@ class RegisterForm(QDialog):
         self.ui = Ui_RegisterForm()
         self.ui.setupUi(self)
         self.setWindowTitle("Registrieren")
+        self.ui.register_pw_txt.setEchoMode(QLineEdit.Password)
+        self.ui.register_rpw_txt.setEchoMode(QLineEdit.Password)
 
         self.initialize()
         initialize_ui_style(self)
@@ -61,11 +82,11 @@ class RegisterForm(QDialog):
         self.ui.assign_btn.clicked.connect(self.on_assign_btn_click)
 
     def on_assign_btn_click(self) -> None:
-        name: str = self.ui.register_name_txt.toPlainText()
-        family_name: str = self.ui.register_family_name_txt.toPlainText()
-        usr: str = self.ui.register_usr_txt.toPlainText()
-        pwd: str = self.ui.register_pw_txt.toPlainText()
-        rpw: str = self.ui.register_rpw_txt.toPlainText()
+        name: str = self.ui.register_name_txt.text()
+        family_name: str = self.ui.register_family_name_txt.text()
+        usr: str = self.ui.register_usr_txt.text()
+        pwd: str = self.ui.register_pw_txt.text()
+        rpw: str = self.ui.register_rpw_txt.text()
 
         is_valid = check_form_inputs(
             obj=self.ui.assign_feedback_lbl, usr=usr, pw=pwd, rpw=rpw
