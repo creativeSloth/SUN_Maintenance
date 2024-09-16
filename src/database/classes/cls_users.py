@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -44,7 +46,11 @@ class Users(BASE):
     username = Column(String, nullable=True)
     password_hashed = Column(String, nullable=True)
     hex_encoded_salt = Column(String, nullable=False)
-    date_created = Column(String, nullable=True)
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
     is_active = Column(Boolean, default=False)
     is_enabled = Column(Boolean, default=True)
 
@@ -197,7 +203,11 @@ class LoginDates(BASE):
     __tablename__ = DB_TABLENAME_LOGIN_DATES
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
-    login_date = Column(String, nullable=False)
+    login_date = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
 
     # Define the relationship to Users
     user = relationship("Users", back_populates=DB_TABLENAME_LOGIN_DATES)

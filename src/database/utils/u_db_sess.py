@@ -7,7 +7,7 @@ from directories.constants.c_directories import DB, DIRS
 
 def get_db_engine():
     db_path: str = DIRS.paths[DB]
-    engine: Engine = create_engine(f"sqlite:///{db_path}", echo=False)
+    engine: Engine = create_engine(f"sqlite:///{db_path}", echo=True)
     return engine
 
 

@@ -1,10 +1,10 @@
-from datetime import datetime
-from typing import Optional, Tuple
+from ast import Dict
+from typing import List, Optional, Tuple
 
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import joinedload, sessionmaker
 
-from database.classes.cls_users import Roles, UserProfile, Users
+from database.classes.cls_users import LoginDates, Roles, UserProfile, Users
 from database.constants.c_role_system import DFLT_ROLE_NAMES
 from database.utils.u_db_sess import create_session
 from database.utils.u_pwd import hash_pwd, verify_password
@@ -58,7 +58,6 @@ def update_db_user(
         else:
             # Create a new user
             password_hashed, hex_encoded_salt = hash_pwd(pwd)
-            date_created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
             # Determine if the new user should get "admin" or "user" role
             if not sess.query(Users).count():  # Check if this is the first user
@@ -74,7 +73,6 @@ def update_db_user(
                 "username": usr,
                 "password_hashed": password_hashed,
                 "hex_encoded_salt": hex_encoded_salt,
-                "date_created": date_created,
                 "is_active": False,
                 "is_enabled": True,
             }
@@ -145,6 +143,11 @@ def login_user(
                 stored_pwd=stored_pwd, stored_salt=stored_salt, provided_pwd=pwd
             )
 
+            login_date = LoginDates(user_id=exstg_usr.id)
+            sess.add(login_date)
+
+        sess.commit()
+
     except SQLAlchemyError as e:
         if sess:
             sess.rollback()
@@ -153,3 +156,71 @@ def login_user(
         sess.close()
 
     return user_existed, pwd_verified, exstg_usr
+
+
+def get_all_usrs_infos() -> List[Users]:
+    sess: sessionmaker = create_session()
+    try:
+        usrs_infos: List[Users] = (
+            sess.query(Users)
+            .options(
+                joinedload(Users.user_profile),
+                joinedload(Users.login_dates),
+                joinedload(Users.roles),
+            )
+            .all()
+        )
+        return usrs_infos
+    finally:
+        sess.close()
+
+
+def get_mapped_usr_infos() -> List[Dict]:
+    usrs_infs: List[Users] = get_all_usrs_infos()
+
+    ############################### KNOPF ################################
+
+    # checkbox = QCheckBox()
+    # checkbox.setChecked(True)
+    # checkbox.setObjectName(f"CheckBox_{table.objectName()}_{tw_row}_0")
+
+    # layout = QHBoxLayout()
+    # layout.setObjectName(f"Layout_{table.objectName()}_{tw_row}_0")
+    # layout.setContentsMargins(5, 0, 5, 0)
+    # layout.setSpacing(2)
+
+    # cell_widget = QWidget()
+    # cell_widget.setLayout(layout)
+    # create_and_set_obj_property(
+    #     obj=cell_widget,
+    #     property_type="cell_widget",
+    #     property_value="contains_checkbox",
+    # )
+
+    # layout.addWidget(checkbox)
+
+    # # Spalte 1 mit der CheckBox
+    # table.setCellWidget(tw_row, 0, cell_widget)
+
+    unpacked_usrs_inf = []
+    for usr_inf in usrs_infs:
+        unpacked_user_info = {
+            "Profil bearbeiten": "KNOPF",
+            "Username": usr_inf.username,
+            "Vorname": usr_inf.user_profile.name,
+            "Familienname": usr_inf.user_profile.family_name,
+            "Rollen": (
+                ", ".join(role.role_name for role in usr_inf.roles)
+                if usr_inf.roles
+                else "N/A"
+            ),
+            "Erstelldatum": usr_inf.date_created,
+            "Letzter Login": sorted(
+                [itm.login_date for itm in usr_inf.login_dates][-1]
+                if usr_inf.login_dates
+                else "N/A"
+            ),
+        }
+
+        unpacked_usrs_inf.append(unpacked_user_info)
+    return unpacked_usrs_inf

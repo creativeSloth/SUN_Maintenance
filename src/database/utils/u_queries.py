@@ -1,6 +1,6 @@
-from typing import Any, Dict, List, Optional, Tuple, Type
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type
 
-from sqlalchemy.orm import RelationshipProperty, Session, class_mapper
+from sqlalchemy.orm import RelationshipProperty, Session, class_mapper, joinedload
 
 from database.constants.c_db_classes import RSHIP_TYPES
 from database.utils.u_db_sess import BASE
@@ -61,8 +61,8 @@ def create_rshp(
     sess: Session,
     m1: Type[BASE],  # type: ignore
     m1_attrs: Dict[str, Any],
-    m2: Type[BASE],  # type: ignore
-    m2_attrs: Dict[str, Any],
+    m2: Type[BASE] = None,  # type: ignore
+    m2_attrs: Dict[str, Any] = None,
 ) -> Tuple[BASE, BASE]:  # type: ignore
     """
     Creates and establishes a relationship between two SQLAlchemy model instances based on their classes and attributes.
@@ -228,3 +228,47 @@ def determine_rship_type(
         return RSHIP_TYPES[1]
     else:
         raise ValueError("Could not determine relationship type.")
+
+
+def query_rship(
+    sess: Session,
+    m1: Type[BASE],  # type: ignore
+    m2: Type[BASE],  # type: ignore
+    f1: Optional[Callable[[Any], Any]] = None,
+    f2: Optional[Callable[[Any], Any]] = None,
+) -> List[Tuple[Any, Any]]:
+    """
+    Performs a query between two SQLAlchemy model classes, applying optional filters to both tables.
+    This function uses SQLAlchemy's ORM to perform a join operation between the two provided model classes.
+    It also applies optional filters to both tables using the provided filter functions (if provided).
+
+    :param sess: The SQLAlchemy session used for querying the database.
+    :type sess: Session
+    :param m1: The first SQLAlchemy model class.
+    :type m1: Type[BASE]
+    :param m2: The second SQLAlchemy model class.
+    :type m2: Type[BASE]
+    :param f1: An optional filter function for the first model class.
+    :type f1: Optional[Callable[[Any], Any]]
+    :param f2: An optional filter function for the second model class.
+    :type f2: Optional[Callable[[Any], Any]]
+    :return: A list of tuples containing the joined instances of the two models.
+    :rtype: List[Tuple[Any, Any]]
+
+    """
+
+    try:
+        query = sess.query(m1).join(m2).options(joinedload(m2))
+    except Exception as e:
+        print(f"Error querying relationship: {e}")
+        return []
+
+    # Optionaler Filter für die Haupttabelle
+    if f1:
+        query = query.filter(f1)
+
+    # Optionaler Filter für die verknüpfte Tabelle
+    if f2:
+        query = query.filter(f2)
+
+    return query.all()
