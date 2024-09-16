@@ -53,23 +53,12 @@ class MainWindow(QMainWindow):
 
     def on_menu_usr_overview_btn_click(self) -> None:
 
-        # Get index of needed widget in stacked widget
-        index: int = get_widget_index(self.ui.stackedWidget, "usr_overview_page")
         table = self.ui.usr_overview_tbl
-
         content: List = get_mapped_usr_infos()
-
         fill_table(table=table, content=content)
 
-        # # Get the page from the StackedWidget
-        # usr_overview_page: QWidget = self.ui.stackedWidget.widget(index)
-        # If there is an existing layout, remove it
-        # remove_existing_layouts(widget=usr_overview_page)
-        # create_list_into_base_widget(
-        #     base_widget=usr_overview_page, DB_objs=usrs, layout_type=QVBoxLayout
-        # )
-
-        # Show the page in the StackedWidget
+        # Get index of needed widget in stacked widget
+        index: int = get_widget_index(self.ui.stackedWidget, "usr_overview_page")
         self.ui.stackedWidget.setCurrentIndex(index)
 
     ################################################################

@@ -10,6 +10,13 @@ from PyQt5.QtWidgets import (
 
 
 def fill_table(table: QTableWidget, content: List[Dict]) -> None:
+    """
+    Fill a QTableWidget with data from a list of dictionaries.
+
+    :param table: The QTableWidget instance.
+    :param content: A list of dictionaries containing the data to be displayed in the table.
+    :return: None
+    """
 
     table.setRowCount(0)
     header = [key for key, _ in content[0].items()]
@@ -43,6 +50,13 @@ def import_from_df_row(
     table: QTableWidget,
     data_row: Tuple,
 ) -> None:
+    """
+    Import data from a tuple (representing a row) into a QTableWidget.
+
+    :param table: The QTableWidget instance.
+    :param data_row: A tuple representing a row of data.
+    :return: None
+    """
 
     column_count: int = len(data_row)
     tw_row = table.rowCount()
