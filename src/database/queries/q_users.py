@@ -1,4 +1,3 @@
-from ast import Dict
 from typing import List, Optional, Tuple
 
 from sqlalchemy.exc import SQLAlchemyError
@@ -17,7 +16,7 @@ def update_db_user(
     name: Optional[str] = None,
     family_name: Optional[str] = None,
 ) -> Tuple[bool, bool]:
-    """
+    r"""
     Creates or updates a user in the database with the given username, password,
     first name, and family name. If the user already exists, the password is updated.
     If the user does not exist, a new entry is created with the provided details and
@@ -173,54 +172,3 @@ def get_all_usrs_infos() -> List[Users]:
         return usrs_infos
     finally:
         sess.close()
-
-
-def get_mapped_usr_infos() -> List[Dict]:
-    usrs_infs: List[Users] = get_all_usrs_infos()
-
-    ############################### KNOPF ################################
-
-    # checkbox = QCheckBox()
-    # checkbox.setChecked(True)
-    # checkbox.setObjectName(f"CheckBox_{table.objectName()}_{tw_row}_0")
-
-    # layout = QHBoxLayout()
-    # layout.setObjectName(f"Layout_{table.objectName()}_{tw_row}_0")
-    # layout.setContentsMargins(5, 0, 5, 0)
-    # layout.setSpacing(2)
-
-    # cell_widget = QWidget()
-    # cell_widget.setLayout(layout)
-    # create_and_set_obj_property(
-    #     obj=cell_widget,
-    #     property_type="cell_widget",
-    #     property_value="contains_checkbox",
-    # )
-
-    # layout.addWidget(checkbox)
-
-    # # Spalte 1 mit der CheckBox
-    # table.setCellWidget(tw_row, 0, cell_widget)
-
-    unpacked_usrs_inf = []
-    for usr_inf in usrs_infs:
-        unpacked_user_info = {
-            "Profil bearbeiten": "KNOPF",
-            "Username": usr_inf.username,
-            "Vorname": usr_inf.user_profile.name,
-            "Familienname": usr_inf.user_profile.family_name,
-            "Rollen": (
-                ", ".join(role.role_name for role in usr_inf.roles)
-                if usr_inf.roles
-                else "N/A"
-            ),
-            "Erstelldatum": usr_inf.date_created,
-            "Letzter Login": sorted(
-                [itm.login_date for itm in usr_inf.login_dates][-1]
-                if usr_inf.login_dates
-                else "N/A"
-            ),
-        }
-
-        unpacked_usrs_inf.append(unpacked_user_info)
-    return unpacked_usrs_inf

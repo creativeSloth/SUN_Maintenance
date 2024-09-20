@@ -45,7 +45,7 @@ class LoginForm(QMainWindow):
         user_existed, pwd_verified, exstg_usr = login_user(usr=usr, pwd=pwd)
         if user_existed and pwd_verified:
             self.main_window: QMainWindow = MainWindow(USER=self.USER)
-            self.main_window.showNormal()
+            self.main_window.showMaximized()
             self.close()
             if getattr(self, "register_form", None):
                 self.register_form.close()

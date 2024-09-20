@@ -2,12 +2,10 @@ from typing import List
 
 from PyQt5.QtWidgets import QMainWindow
 
-from database.queries.q_users import get_mapped_usr_infos
 from styles.styles_Handler import initialize_ui_style
-from ui.constants.c_tables import USR_OVERVIEW_TABL_HEADERS
 from ui.forms.mainwindow import Ui_MainWindow
+from ui.tables.cell_filler import fill_table, get_mapped_usr_infos
 from ui.utils.u_forms import get_widget_index
-from ui.utils.u_table_handling import fill_table
 
 # from ui.utils.u_DB_content import create_list_into_base_widget, remove_existing_layouts
 
@@ -54,7 +52,7 @@ class MainWindow(QMainWindow):
     def on_menu_usr_overview_btn_click(self) -> None:
 
         table = self.ui.usr_overview_tbl
-        content: List = get_mapped_usr_infos()
+        content: List = get_mapped_usr_infos(self)
         fill_table(table=table, content=content)
 
         # Get index of needed widget in stacked widget
