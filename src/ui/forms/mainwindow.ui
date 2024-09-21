@@ -18,14 +18,34 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1920</width>
-    <height>1080</height>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>AirbusMCDUb</family>
+    <pointsize>10</pointsize>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QFrame" name="header_frame">
@@ -53,20 +73,8 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item alignment="Qt::AlignLeft|Qt::AlignTop">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
         <widget class="QFrame" name="frame_2">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -91,7 +99,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="dashboard_btn">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -112,13 +120,109 @@
          </layout>
         </widget>
        </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="curr_usr_info_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>PROFIL</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="exit_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>EXIT</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
     <item>
      <widget class="QFrame" name="frame">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -224,14 +328,14 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>140</width>
-                    <height>0</height>
+                    <width>150</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
+                    <width>150</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="text">
@@ -239,7 +343,7 @@
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <item alignment="Qt::AlignLeft|Qt::AlignTop">
                  <widget class="QFrame" name="service_dropdown">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -255,7 +359,7 @@
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_5">
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="topMargin">
                     <number>6</number>
@@ -271,13 +375,13 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
@@ -290,13 +394,13 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
@@ -353,14 +457,14 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>140</width>
-                    <height>0</height>
+                    <width>150</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
+                    <width>150</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="text">
@@ -368,7 +472,7 @@
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <item alignment="Qt::AlignLeft|Qt::AlignTop">
                  <widget class="QFrame" name="ref_dat_dropdown">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -384,7 +488,7 @@
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_6">
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="topMargin">
                     <number>6</number>
@@ -400,17 +504,17 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
-                      <string>Modulbibliothek</string>
+                      <string>Module</string>
                      </property>
                     </widget>
                    </item>
@@ -419,17 +523,17 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
-                      <string>PV-Anlagen</string>
+                      <string>Anlagen</string>
                      </property>
                     </widget>
                    </item>
@@ -482,14 +586,14 @@
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>140</width>
-                    <height>0</height>
+                    <width>150</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
+                    <width>150</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="text">
@@ -497,7 +601,7 @@
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+                <item alignment="Qt::AlignLeft|Qt::AlignTop">
                  <widget class="QFrame" name="usr_dropdown">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -516,7 +620,7 @@
                     <number>6</number>
                    </property>
                    <property name="leftMargin">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="topMargin">
                     <number>6</number>
@@ -532,13 +636,13 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
@@ -551,13 +655,13 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
@@ -570,13 +674,13 @@
                      <property name="minimumSize">
                       <size>
                        <width>120</width>
-                       <height>0</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
                        <width>120</width>
-                       <height>16777215</height>
+                       <height>30</height>
                       </size>
                      </property>
                      <property name="text">
@@ -684,9 +788,15 @@
                 <layout class="QVBoxLayout" name="verticalLayout_13">
                  <item>
                   <widget class="QTableWidget" name="usr_overview_tbl">
+                   <property name="editTriggers">
+                    <set>QAbstractItemView::NoEditTriggers</set>
+                   </property>
                    <property name="sortingEnabled">
                     <bool>true</bool>
                    </property>
+                   <attribute name="verticalHeaderVisible">
+                    <bool>false</bool>
+                   </attribute>
                   </widget>
                  </item>
                 </layout>

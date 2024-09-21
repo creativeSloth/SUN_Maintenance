@@ -1,10 +1,10 @@
-from ast import Dict
 from typing import Dict, List, Tuple
 
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QWidget
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QHBoxLayout, QTableWidget, QTableWidgetItem, QWidget
 
 from database.classes.cls_users import Users
-from database.queries.q_users import get_all_usrs_infos
+from database.queries.q_users import get_usrs_infos
 from ui.buttons.create import create_pb
 from ui.tables.decorators import customize_table_row
 
@@ -59,11 +59,11 @@ def import_from_df_row(
     """
 
     column_count: int = len(data_row)
-    tw_row = table.rowCount()
-    table.insertRow(tw_row)
+    row = table.rowCount()
+    table.insertRow(row)
 
-    for i in range(column_count):
-        value = data_row[i]
+    for col in range(column_count):
+        value = data_row[col]
 
         if not isinstance(data_row, tuple) and value is None:
             return
@@ -71,20 +71,33 @@ def import_from_df_row(
         if isinstance(
             value, QWidget
         ):  # Check if the value is a QWidget (e.g. QPushButton)
-            # If it's a widget, set it directly as the cell widget
-            table.setCellWidget(tw_row, i, value)
+            # Create a container widget with a layout to center the widget
+            container_widget = QWidget()
+            layout = QHBoxLayout()
+            layout.addWidget(value)
+            layout.setAlignment(Qt.AlignCenter)  # Center the widget
+            container_widget.setLayout(layout)
+
+            # Set the container widget as the cell widget
+            table.setCellWidget(row, col, container_widget)
+
         else:
             # Otherwise, treat it as a string and set it as an item
             item_col = QTableWidgetItem(str(value))
-            table.setItem(tw_row, i, item_col)
+            table.setItem(row, col, item_col)
 
 
-def get_mapped_usr_infos(self) -> List[Dict]:
-    usrs_infs: List[Users] = get_all_usrs_infos()
+def get_usr_infos(self) -> List[Dict]:
+    usrs_infs: List[Users] = get_usrs_infos()
 
     unpacked_usrs_inf = []
     for usr_inf in usrs_infs:
-        pb = create_pb(self, btn_type="user_attrs", source_obj=usr_inf)
+        pb = create_pb(
+            self,
+            on_btn_pressed=lambda _, u=usr_inf: self.on_usr_attr_btn_click(usr_inf=u),
+            btn_type="user_attrs",
+            source_obj=usr_inf,
+        )
         unpacked_user_info = {
             "Profil bearbeiten": pb,
             "Username": usr_inf.username,

@@ -11,12 +11,12 @@ def create_pb(
     self, btn_type: str = "", on_btn_pressed: Any = None, source_obj: type(BASE) = None  # type: ignore
 ) -> QPushButton:
 
-    pb: QPushButton = set_pushbutton_for_cell(btn_type, on_btn_pressed, source_obj)
+    pb: QPushButton = set_dflt_settings(btn_type, on_btn_pressed, source_obj)
     customize_dynamic_pb(self, pb)
     return pb
 
 
-def set_pushbutton_for_cell(
+def set_dflt_settings(
     button_type: str, on_btn_pressed: Any, source_obj: type(BASE)  # type: ignore
 ):
 
@@ -27,7 +27,7 @@ def set_pushbutton_for_cell(
     create_and_set_obj_property(
         obj=pb, property_type="button_type", property_value=button_type
     )
-    pb.setFixedSize(25, 25)
+    pb.setFixedSize(60, 35)
     if on_btn_pressed:
-        pb.clicked.connect(lambda _, btn=pb: on_btn_pressed(btn))
+        pb.clicked.connect(on_btn_pressed)
     return pb

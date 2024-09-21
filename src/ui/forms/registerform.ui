@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>383</height>
+    <width>499</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -20,8 +20,14 @@
    <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+   <item alignment="Qt::AlignHCenter">
     <widget class="QFrame" name="frame_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -31,6 +37,12 @@
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QFrame" name="frame_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -41,7 +53,7 @@
          <item>
           <widget class="QFrame" name="frame_8">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -53,13 +65,16 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>10</number>
+            </property>
             <property name="topMargin">
              <number>0</number>
             </property>
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
+            <item alignment="Qt::AlignVCenter">
              <widget class="QLabel" name="register_name_lbl">
               <property name="enabled">
                <bool>true</bool>
@@ -72,13 +87,13 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
@@ -87,8 +102,21 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QLineEdit" name="register_name_txt"/>
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+             <widget class="QLineEdit" name="register_name_txt">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -108,13 +136,16 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <property name="spacing">
+             <number>10</number>
+            </property>
             <property name="topMargin">
              <number>0</number>
             </property>
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
+            <item alignment="Qt::AlignVCenter">
              <widget class="QLabel" name="register_family_name_lbl">
               <property name="enabled">
                <bool>true</bool>
@@ -127,13 +158,13 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
@@ -142,8 +173,21 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QLineEdit" name="register_family_name_txt"/>
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+             <widget class="QLineEdit" name="register_family_name_txt">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -151,7 +195,7 @@
          <item>
           <widget class="QFrame" name="frame_3">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -169,7 +213,7 @@
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
+            <item alignment="Qt::AlignVCenter">
              <widget class="QLabel" name="register_usr_lbl">
               <property name="enabled">
                <bool>true</bool>
@@ -182,13 +226,13 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
@@ -197,8 +241,21 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QLineEdit" name="register_usr_txt"/>
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
+             <widget class="QLineEdit" name="register_usr_txt">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -206,7 +263,7 @@
          <item>
           <widget class="QFrame" name="frame">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -224,7 +281,7 @@
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item alignment="Qt::AlignTop">
+            <item alignment="Qt::AlignVCenter">
              <widget class="QLabel" name="register_pw_lbl">
               <property name="enabled">
                <bool>true</bool>
@@ -237,13 +294,13 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
@@ -252,8 +309,20 @@
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignRight">
              <widget class="QLineEdit" name="register_pw_txt">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="echoMode">
                <enum>QLineEdit::Normal</enum>
               </property>
@@ -265,7 +334,7 @@
          <item>
           <widget class="QFrame" name="frame_6">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -277,13 +346,16 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="spacing">
+             <number>10</number>
+            </property>
             <property name="topMargin">
              <number>0</number>
             </property>
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item alignment="Qt::AlignTop">
+            <item alignment="Qt::AlignVCenter">
              <widget class="QLabel" name="register_rpw_lbl">
               <property name="enabled">
                <bool>true</bool>
@@ -296,13 +368,13 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>120</width>
                 <height>30</height>
                </size>
               </property>
@@ -311,8 +383,20 @@
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignRight|Qt::AlignVCenter">
              <widget class="QLineEdit" name="register_rpw_txt">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="echoMode">
                <enum>QLineEdit::Normal</enum>
               </property>
@@ -346,7 +430,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <property name="spacing">
-          <number>0</number>
+          <number>5</number>
          </property>
          <property name="leftMargin">
           <number>0</number>
@@ -454,6 +538,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>register_name_txt</tabstop>
+  <tabstop>register_family_name_txt</tabstop>
+  <tabstop>register_usr_txt</tabstop>
+  <tabstop>register_pw_txt</tabstop>
+  <tabstop>register_rpw_txt</tabstop>
+  <tabstop>assign_btn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

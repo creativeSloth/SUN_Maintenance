@@ -33,5 +33,5 @@ def create_button_type_map():
             get_color_combo("red"),
         ),
         "drive_folder": (get_paths_of_icons("drive_folder"), get_color_combo("blue")),
-        "user_attrs": (get_paths_of_icons("user_attrs"), get_color_combo("blue")),
+        "user_attrs": (get_paths_of_icons("user_attrs"), get_color_combo("orange")),
     }

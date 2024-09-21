@@ -11,3 +11,5 @@ def resize_columns_to_contents(table: QTableWidget):
     QApplication.processEvents()
     for i in range(columns):
         header.setSectionResizeMode(i, QHeaderView.Interactive)
+
+    table.resizeRowsToContents()

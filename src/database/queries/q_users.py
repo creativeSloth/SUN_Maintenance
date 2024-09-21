@@ -5,7 +5,7 @@ from sqlalchemy.orm import joinedload, sessionmaker
 
 from database.classes.cls_users import LoginDates, Roles, UserProfile, Users
 from database.constants.c_role_system import DFLT_ROLE_NAMES
-from database.utils.u_db_sess import create_session
+from database.utils.u_db_sess import BASE, create_session
 from database.utils.u_pwd import hash_pwd, verify_password
 from database.utils.u_queries import create_rshp
 
@@ -157,18 +157,52 @@ def login_user(
     return user_existed, pwd_verified, exstg_usr
 
 
-def get_all_usrs_infos() -> List[Users]:
+def get_usrs_infos(usr_id: Optional[int] = None) -> List[Users]:
+    r"""
+    Retrieves user information from the database based on the given user ID.
+
+    :param usr_id: The ID of the user whose information should be retrieved.
+    :type usr_id: Optional[int]
+    :return: A list of Users objects containing the requested user information.
+    :rtype: List[Users]
+    """
+
     sess: sessionmaker = create_session()
     try:
-        usrs_infos: List[Users] = (
-            sess.query(Users)
-            .options(
-                joinedload(Users.user_profile),
-                joinedload(Users.login_dates),
-                joinedload(Users.roles),
-            )
-            .all()
+        query = sess.query(Users).options(
+            joinedload(Users.user_profile),
+            joinedload(Users.login_dates),
+            joinedload(Users.roles),
         )
+
+        if usr_id is not None:
+            query = query.filter(Users.id == usr_id)
+
+        usrs_infos: List[Users] = query.all()
         return usrs_infos
     finally:
+        sess.close()
+
+
+def refresh_usr_inf(window, usr_inf):
+    usr_inf_old: type(BASE) = get_usrs_infos(usr_inf.id)[0]  # type: ignore
+    sess: sessionmaker = create_session()
+
+    try:
+        usr_inf = sess.merge(usr_inf_old)
+        usr_inf.is_enabled = bool(window.ui.is_enabled_cbox.checkState())
+        usr_inf.username = window.ui.usrname_txt.text()
+        usr_inf.user_profile.name = window.ui.name_txt.text()
+        usr_inf.user_profile.family_name = window.ui.family_name_txt.text()
+
+        sess.commit()
+
+        window.mainwindow.on_menu_usr_overview_btn_click()
+
+    except Exception as e:
+        sess.rollback()  # Rollback bei einem Fehler
+        print(f"Error occurred: {e}")
+
+    finally:
+        # Sitzung schließen
         sess.close()

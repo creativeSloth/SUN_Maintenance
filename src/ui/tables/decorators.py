@@ -1,6 +1,6 @@
 from typing import Any
 
-from ui.tables.default_setter import resize_columns_to_contents
+from ui.tables.dflt_set import resize_columns_to_contents
 
 
 def customize_table_row(func: Any):

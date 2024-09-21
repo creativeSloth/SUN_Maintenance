@@ -13,8 +13,8 @@ def get_color_combo(buttoncolor=None):
         },
         "red": {
             "normal": QColor(226, 24, 57, 255),
-            "hover": QColor(226, 24, 58, 61),
-            "click": QColor(226, 24, 58, 20),
+            "hover": QColor(226, 24, 57, 61),
+            "click": QColor(226, 24, 57, 20),
         },
         "yellow": {
             "normal": QColor(255, 255, 0, 255),
@@ -45,6 +45,11 @@ def get_color_combo(buttoncolor=None):
             "normal": QColor(218, 165, 32, 255),
             "hover": QColor(218, 165, 32, 60),
             "click": QColor(218, 165, 32, 20),
+        },
+        "orange": {
+            "normal": QColor(191, 70, 26, 255),
+            "hover": QColor(191, 70, 26, 100),
+            "click": QColor(191, 70, 26, 80),
         },
     }
     if buttoncolor is not None and buttoncolor in combos:
