@@ -99,7 +99,6 @@ def get_usr_infos(self) -> List[Dict]:
             source_obj=usr_inf,
         )
         unpacked_user_info = {
-            "Aktiviert": ("Ja" if usr_inf.is_enabled else "Nein"),
             "Profil bearbeiten": pb,
             "Username": usr_inf.username,
             "Vorname": usr_inf.user_profile.name,
@@ -115,6 +114,7 @@ def get_usr_infos(self) -> List[Dict]:
                 if usr_inf.login_dates
                 else "N/A"
             ),
+            "Aktiviert": ("Ja" if usr_inf.is_enabled else "Nein"),
         }
 
         unpacked_usrs_inf.append(unpacked_user_info)

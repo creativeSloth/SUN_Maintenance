@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
-from database.classes.cls_users import init_local_db
+from database.classes._initializer import init_local_db
 from directories.directories_handler import set_static_directories
 from ui.classes.login_form import LoginForm
 
