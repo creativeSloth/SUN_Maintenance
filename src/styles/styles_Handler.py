@@ -11,7 +11,7 @@ def initialize_ui_style(self) -> None:
         stylesheet = qss_file.read()
 
     # Platzhalter im Stylesheet durch die entsprechenden Farben ersetzen
-    for placeholder, color in STYLE_MAP_5.items():
+    for placeholder, color in STYLE_MAP_6.items():
         stylesheet = stylesheet.replace(placeholder, color)
 
     # Stylesheet auf das Hauptfenster anwenden

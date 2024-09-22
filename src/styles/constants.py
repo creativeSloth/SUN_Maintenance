@@ -96,3 +96,23 @@ STYLE_MAP_5 = {
     "{table_row_background_selected}": "#8C503A",  # Warmes Braun
     "{table_row_background_alternate_selected}": "#400404",  # Dunkles Rot
 }
+
+STYLE_MAP_6 = {
+    "{font_family}": "AirbusDisp",
+    "{primary_background}": "#590322",  # Dunkles Rot
+    "{primary_color}": "#4F592A",  # Erdiges Grün
+    "{primary_color_hover}": "rgba(79, 89, 41, 0.8)",  # Helleres Grün (Hover)
+    "{primary_color_pressed}": "rgba(79, 89, 41, 0.6)",  # Gedämpftes Grün (Pressed)
+    "{primary_btn_color}": "#F2CF63",  # Helles Gelb
+    "{primary_btn_hover_color}": "rgba(242, 206, 99, 0.8)",  # Weiches Gelb (Hover)
+    "{primary_btn_pressed_color}": "rgba(242, 206, 99, 0.6)",  # Gedämpftes Gelb (Pressed)
+    "{search_btn_color}": "#F2B66D",  # Warmer Orange-Ton
+    "{search_btn_hover_color}": "rgba(242, 182, 109, 0.8)",  # Heller Orange-Ton (Hover)
+    "{search_btn_pressed_color}": "rgba(242, 182, 109, 0.6)",  # Gedämpftes Orange (Pressed)
+    "{transparent_background}": "transparent",
+    "{table_background}": "#8C4820",  # Dunkles Braun
+    "{table_row_background}": "#F2CF63",  # Helles Gelb
+    "{table_row_background_alternate}": "#F2B66D",  # Warmer Orange-Ton
+    "{table_row_background_selected}": "#4F592A",  # Erdiges Grün
+    "{table_row_background_alternate_selected}": "#590322",  # Dunkles Rot
+}
