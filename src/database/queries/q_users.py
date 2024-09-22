@@ -194,6 +194,12 @@ def refresh_usr_inf(window, usr_inf):
         usr_inf.username = window.ui.usrname_txt.text()
         usr_inf.user_profile.name = window.ui.name_txt.text()
         usr_inf.user_profile.family_name = window.ui.family_name_txt.text()
+        new_role = (
+            sess.query(Roles)
+            .filter(Roles.role_name == window.ui.roles_comboBox.currentText())
+            .first()
+        )
+        usr_inf.roles[0] = new_role
 
         sess.commit()
 

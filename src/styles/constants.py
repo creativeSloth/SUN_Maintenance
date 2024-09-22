@@ -115,4 +115,5 @@ STYLE_MAP_6 = {
     "{table_row_background_alternate}": "#F2B66D",  # Warmer Orange-Ton
     "{table_row_background_selected}": "#4F592A",  # Erdiges Grün
     "{table_row_background_alternate_selected}": "#590322",  # Dunkles Rot
+    "{check_box_checked}": "#ee7205",
 }

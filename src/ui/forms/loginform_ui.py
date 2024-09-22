@@ -23,7 +23,7 @@ class Ui_LoginForm(object):
     def setupUi(self, LoginForm):
         if not LoginForm.objectName():
             LoginForm.setObjectName(u"LoginForm")
-        LoginForm.resize(425, 397)
+        LoginForm.resize(378, 354)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -58,28 +58,29 @@ class Ui_LoginForm(object):
         self.frame_3.setFrameShape(QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_3)
+        self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.login_usr_lbl = QLabel(self.frame_3)
         self.login_usr_lbl.setObjectName(u"login_usr_lbl")
         self.login_usr_lbl.setEnabled(True)
         sizePolicy.setHeightForWidth(self.login_usr_lbl.sizePolicy().hasHeightForWidth())
         self.login_usr_lbl.setSizePolicy(sizePolicy)
-        self.login_usr_lbl.setMinimumSize(QSize(0, 30))
-        self.login_usr_lbl.setMaximumSize(QSize(16777215, 30))
+        self.login_usr_lbl.setMinimumSize(QSize(100, 30))
+        self.login_usr_lbl.setMaximumSize(QSize(100, 30))
 
-        self.horizontalLayout_2.addWidget(self.login_usr_lbl)
+        self.horizontalLayout_2.addWidget(self.login_usr_lbl, 0, Qt.AlignLeft)
 
         self.login_usr_txt = QLineEdit(self.frame_3)
         self.login_usr_txt.setObjectName(u"login_usr_txt")
         sizePolicy.setHeightForWidth(self.login_usr_txt.sizePolicy().hasHeightForWidth())
         self.login_usr_txt.setSizePolicy(sizePolicy)
-        self.login_usr_txt.setMinimumSize(QSize(0, 30))
-        self.login_usr_txt.setMaximumSize(QSize(16777215, 30))
+        self.login_usr_txt.setMinimumSize(QSize(200, 30))
+        self.login_usr_txt.setMaximumSize(QSize(200, 30))
 
-        self.horizontalLayout_2.addWidget(self.login_usr_txt)
+        self.horizontalLayout_2.addWidget(self.login_usr_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout_3.addWidget(self.frame_3)
+        self.verticalLayout_3.addWidget(self.frame_3, 0, Qt.AlignLeft)
 
         self.frame = QFrame(self.frame_4)
         self.frame.setObjectName(u"frame")
@@ -88,28 +89,29 @@ class Ui_LoginForm(object):
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.frame)
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.login_pw_lbl = QLabel(self.frame)
         self.login_pw_lbl.setObjectName(u"login_pw_lbl")
         self.login_pw_lbl.setEnabled(True)
         sizePolicy.setHeightForWidth(self.login_pw_lbl.sizePolicy().hasHeightForWidth())
         self.login_pw_lbl.setSizePolicy(sizePolicy)
-        self.login_pw_lbl.setMinimumSize(QSize(0, 30))
-        self.login_pw_lbl.setMaximumSize(QSize(16777215, 30))
+        self.login_pw_lbl.setMinimumSize(QSize(100, 30))
+        self.login_pw_lbl.setMaximumSize(QSize(100, 30))
 
-        self.horizontalLayout.addWidget(self.login_pw_lbl)
+        self.horizontalLayout.addWidget(self.login_pw_lbl, 0, Qt.AlignLeft)
 
         self.login_pw_txt = QLineEdit(self.frame)
         self.login_pw_txt.setObjectName(u"login_pw_txt")
         sizePolicy.setHeightForWidth(self.login_pw_txt.sizePolicy().hasHeightForWidth())
         self.login_pw_txt.setSizePolicy(sizePolicy)
-        self.login_pw_txt.setMinimumSize(QSize(0, 30))
-        self.login_pw_txt.setMaximumSize(QSize(16777215, 30))
+        self.login_pw_txt.setMinimumSize(QSize(200, 30))
+        self.login_pw_txt.setMaximumSize(QSize(200, 30))
 
-        self.horizontalLayout.addWidget(self.login_pw_txt)
+        self.horizontalLayout.addWidget(self.login_pw_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout_3.addWidget(self.frame)
+        self.verticalLayout_3.addWidget(self.frame, 0, Qt.AlignLeft)
 
 
         self.verticalLayout_2.addWidget(self.frame_4)

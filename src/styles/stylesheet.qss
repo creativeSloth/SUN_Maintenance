@@ -19,13 +19,15 @@ QLabel {
 	padding-left: 5px;
 	color: {primary_btn_color}; /* Textfarbe */
 	border: 1px solid {primary_btn_color};
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 QLabel#assign_feedback_lbl,
 QLabel#login_fdb_txt{
 	padding-left: 5px;
 	border: 1px solid transparent;
-
+	border-radius: 5px;
 }
 
 /* QTextEdit, QPlainTextEdit, QLineEdit */
@@ -34,7 +36,8 @@ QTextEdit,
 QPlainTextEdit,
 QLineEdit {
 	color: {primary_color}; /* Textfarbe */
-	border-radius: 5px; /* Abgerundete Ecken */
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 	background-color: rgba(255, 255, 255, 255); /* Hintergrundfarbe */
 	font: 12pt "{font_family}"; /* Schriftart */
 	text-align: left;
@@ -181,7 +184,7 @@ QDialog {
 	color: {primary_color};
 	background-color: {primary_background}; /* Hintergrundfarbe */
 	border: 1px solid {primary_color}; /* Randstil */
-	border-radius: 5px; /* Abgerundete Ecken */
+	border-radius: 10px; /* Abgerundete Ecken */
 	padding: 10px;
 }
 
@@ -199,7 +202,6 @@ QComboBox {
 	color: {primary_color};
 	background-color: #fff; /* Hintergrundfarbe */
 	border: 2px solid #ccc; /* Randstil */
-	border-radius: 5px; /* Abgerundete Ecken */
 }
 
 QComboBox QAbstractItemView {
@@ -207,4 +209,32 @@ QComboBox QAbstractItemView {
 	background-color: #fff; /* Hintergrundfarbe */
 	border: 2px solid #ccc; /* Randstil */
 	border-radius: 5px; /* Abgerundete Ecken */
+}
+
+QCheckBox {
+    spacing: 10px; /* Abstand zwischen Checkbox und Text */
+    color: {primary_btn_color}; /* Textfarbe */
+    font-size: 14px;
+    padding: 10px;
+	border: 1px solid {primary_btn_color}; /* Rahmen des Kästchens */
+    border-radius: 10px; /* Abgerundete Ecken des Kästchens */
+}
+
+/* QCheckBox */
+/* -------------------------------------- */
+
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+    border: 1px solid {primary_btn_color}; /* Rahmen des Kästchens */
+    border-radius: 5px; /* Abgerundete Ecken des Kästchens */
+}
+QCheckBox::indicator:checked {
+    background-color: {check_box_checked}; /* Hintergrundfarbe, wenn markiert */
+    border: 1px solid {primary_btn_color}; /* Rahmenfarbe, wenn markiert */
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: white; /* Hintergrundfarbe, wenn nicht markiert */
+    border: 1px solid {primary_btn_color}; /* Rahmenfarbe, wenn nicht markiert */
 }

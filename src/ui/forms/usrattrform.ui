@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>418</height>
+    <height>474</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,14 +19,29 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
     <widget class="QFrame" name="frame">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>400</height>
+      </size>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -35,7 +50,13 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item alignment="Qt::AlignTop">
        <widget class="QFrame" name="frame_5">
         <property name="minimumSize">
          <size>
@@ -56,7 +77,22 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item alignment="Qt::AlignVCenter">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
           <widget class="QCheckBox" name="is_enabled_cbox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -84,7 +120,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft|Qt::AlignTop">
        <widget class="QFrame" name="frame_2">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -126,7 +162,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLabel" name="usrname_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -136,7 +172,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>100</width>
              <height>35</height>
             </size>
            </property>
@@ -151,7 +187,7 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLineEdit" name="usrname_txt">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -161,13 +197,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
@@ -176,7 +212,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft|Qt::AlignTop">
        <widget class="QFrame" name="frame_3">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -218,7 +254,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLabel" name="name_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -228,7 +264,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>100</width>
              <height>35</height>
             </size>
            </property>
@@ -243,7 +279,7 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLineEdit" name="name_txt">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -253,13 +289,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
@@ -268,7 +304,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft|Qt::AlignTop">
        <widget class="QFrame" name="frame_4">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -310,7 +346,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLabel" name="family_name_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -320,7 +356,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>100</width>
              <height>35</height>
             </size>
            </property>
@@ -335,7 +371,7 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLineEdit" name="family_name_txt">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -345,13 +381,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
@@ -360,7 +396,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft|Qt::AlignTop">
        <widget class="QFrame" name="roles_txt">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -402,7 +438,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLabel" name="roles_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -412,7 +448,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>100</width>
              <height>35</height>
             </size>
            </property>
@@ -427,8 +463,8 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QComboBox" name="comboBox">
+         <item alignment="Qt::AlignLeft">
+          <widget class="QComboBox" name="roles_comboBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -437,13 +473,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
@@ -478,7 +514,7 @@
   <tabstop>usrname_txt</tabstop>
   <tabstop>name_txt</tabstop>
   <tabstop>family_name_txt</tabstop>
-  <tabstop>comboBox</tabstop>
+  <tabstop>roles_comboBox</tabstop>
  </tabstops>
  <resources/>
  <connections>
