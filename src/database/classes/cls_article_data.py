@@ -27,7 +27,7 @@ class Manufacturers(BASE):
 
     __tablename__ = DB_TABLENAME_MANUFACTURERS
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
+    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), nullable=False)
 
     mf_name = Column(String, nullable=False)
 
@@ -65,7 +65,9 @@ class SpecializedFields(BASE):
 
     __tablename__ = DB_TABLENAME_SPECIALIZED_FIELDS
     id = Column(Integer, primary_key=True)
-    manfac_id = Column(Integer, ForeignKey(DB_TABLENAME_MANUFACTURERS + ".id"))
+    manfac_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_MANUFACTURERS + ".id"), nullable=False
+    )
 
     produces_modules = Column(Boolean, nullable=False)
     produces_inverters = Column(Boolean, nullable=False)
@@ -101,8 +103,10 @@ class Articles(BASE):
 
     __tablename__ = DB_TABLENAME_ARTICLES
     id = Column(Integer, primary_key=True)
-    manfac_id = Column(Integer, ForeignKey(DB_TABLENAME_MANUFACTURERS + ".id"))
-    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
+    manfac_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_MANUFACTURERS + ".id"), nullable=False
+    )
+    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), nullable=False)
 
     article_name = Column(String, nullable=False)
     article_no = Column(String, nullable=False, unique=True)
@@ -122,6 +126,9 @@ class Articles(BASE):
     inverter_details = relationship(
         "InvertersDetails", back_populates="article", uselist=False
     )
+    system_inverters = relationship("SystemInverters", back_populates="inverter")
+    PV_generators = relationship("PVGenerators", back_populates="module")
+
     user = relationship("Users", back_populates="articles")
     manufacturer = relationship("Manufacturers", back_populates="articles")
 
@@ -146,7 +153,9 @@ class ArticleTypes(BASE):
 
     __tablename__ = DB_TABLENAME_ARTICLE_TYPES
     id = Column(Integer, primary_key=True)
-    article_id = Column(Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"))
+    article_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"), nullable=False
+    )
 
     description = Column(String, nullable=True)
 
@@ -194,7 +203,9 @@ class ModuleDetails(BASE):
 
     __tablename__ = DB_TABLENAME_MODULE_DETAILS
     id = Column(Integer, primary_key=True)
-    article_id = Column(Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"))
+    article_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"), nullable=False
+    )
 
     description = Column(String, nullable=True)
     cell_material = Column(Enum(CellMatEnum), nullable=True)  # mono, poly, amorph
@@ -269,7 +280,9 @@ class InvertersDetails(BASE):
 
     __tablename__ = DB_TABLENAME_INVERTERS_DETAILS
     id = Column(Integer, primary_key=True)
-    article_id = Column(Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"))
+    article_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"), nullable=False
+    )
 
     description = Column(String, nullable=True)
 
@@ -325,4 +338,4 @@ class MPPTracker(BASE):
     string_count = Column(Integer, nullable=True)  # string count
     I_dc_max = Column(Float, nullable=True)  # Max. DC input current [A]
 
-    inverters_detail = relationship("InvertersDetails", back_populates="MPP_trackers")
+    inverter_details = relationship("InvertersDetails", back_populates="MPP_trackers")

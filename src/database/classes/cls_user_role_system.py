@@ -3,7 +3,8 @@ from datetime import datetime
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from database.classes.cls_master_data import Manufacturers
+from database.classes.cls_article_data import Manufacturers
+from database.classes.cls_project_data import Projects
 from database.constants.c_db_classes import *
 from database.utils.u_db_sess import BASE
 
@@ -48,6 +49,7 @@ class Users(BASE):
     login_dates = relationship("LoginDates", back_populates="user")
     manufacturers = relationship("Manufacturers", back_populates="user")
     articles = relationship("Articles", back_populates="user")
+    projects = relationship("Projects", back_populates="user")
 
     # Define many-to-many relationships
     roles = relationship(
@@ -72,7 +74,7 @@ class UserProfile(BASE):
 
     __tablename__ = DB_TABLENAME_USER_PROFILES
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
+    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), nullable=False)
     name = Column(String, nullable=True)
     family_name = Column(String, nullable=True)
 
@@ -97,8 +99,18 @@ class UserRoles(BASE):
     """
 
     __tablename__ = DB_TABLENAME_USER_ROLES
-    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), primary_key=True)
-    role_id = Column(Integer, ForeignKey(DB_TABLENAME_ROLES + ".id"), primary_key=True)
+    user_id = Column(
+        Integer,
+        ForeignKey(DB_TABLENAME_USERS + ".id"),
+        primary_key=True,
+        nullable=False,
+    )
+    role_id = Column(
+        Integer,
+        ForeignKey(DB_TABLENAME_ROLES + ".id"),
+        primary_key=True,
+        nullable=False,
+    )
 
 
 class Roles(BASE):
@@ -145,9 +157,17 @@ class RolePermissions(BASE):
     """
 
     __tablename__ = DB_TABLENAME_ROLE_PERMISSIONS
-    role_id = Column(Integer, ForeignKey(DB_TABLENAME_ROLES + ".id"), primary_key=True)
+    role_id = Column(
+        Integer,
+        ForeignKey(DB_TABLENAME_ROLES + ".id"),
+        primary_key=True,
+        nullable=False,
+    )
     permission_id = Column(
-        Integer, ForeignKey(DB_TABLENAME_PERMISSIONS + ".id"), primary_key=True
+        Integer,
+        ForeignKey(DB_TABLENAME_PERMISSIONS + ".id"),
+        primary_key=True,
+        nullable=False,
     )
     is_allowed = Column(Boolean, nullable=False)
 
@@ -191,7 +211,7 @@ class LoginDates(BASE):
 
     __tablename__ = DB_TABLENAME_LOGIN_DATES
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"))
+    user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), nullable=False)
     login_date = Column(
         String,
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
