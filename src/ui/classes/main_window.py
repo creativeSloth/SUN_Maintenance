@@ -6,7 +6,7 @@ from database.utils.u_db_sess import BASE
 from styles.styles_Handler import initialize_ui_style
 from ui.classes.dialog_forms import UserAttrDialog
 from ui.forms.mainwindow import Ui_MainWindow
-from ui.tables.cell_filler import fill_table, get_usr_infos
+from ui.tables.cell_filler import fill_table, get_table_content
 from ui.utils.u_forms import get_widget_index
 
 # from ui.utils.u_DB_content import create_list_into_base_widget, remove_existing_layouts
@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
     def on_menu_usr_overview_btn_click(self) -> None:
 
         table = self.ui.usr_overview_tbl
-        content: List = get_usr_infos(self)
+        content: List = get_table_content(self)
         fill_table(table=table, content=content)
 
         # Get index of needed widget in stacked widget

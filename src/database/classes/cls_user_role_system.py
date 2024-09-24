@@ -3,6 +3,7 @@ from datetime import datetime
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
+from database.classes.cls_master_data import Manufacturers
 from database.constants.c_db_classes import *
 from database.utils.u_db_sess import BASE
 
@@ -46,6 +47,7 @@ class Users(BASE):
     # Define one-to-many relationships
     login_dates = relationship("LoginDates", back_populates="user")
     manufacturers = relationship("Manufacturers", back_populates="user")
+    articles = relationship("Articles", back_populates="user")
 
     # Define many-to-many relationships
     roles = relationship(

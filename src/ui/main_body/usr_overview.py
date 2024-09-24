@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QPushButton, QWidget
 
-from database.classes.cls_users import Users
+from database.classes.cls_user_role_system import Users
 
 
 class UserPageItem(QWidget):

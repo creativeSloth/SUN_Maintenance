@@ -9,7 +9,11 @@ def init_base_role_system() -> None:
     """
     Initializes the base role system. Creates the default role system within the first launch to make default roles available.
     """
-    from database.classes.cls_users import Permissions, RolePermissions, Roles
+    from database.classes.cls_user_role_system import (
+        Permissions,
+        RolePermissions,
+        Roles,
+    )
 
     sess = create_session()
 

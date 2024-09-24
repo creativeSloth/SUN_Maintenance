@@ -3,7 +3,7 @@ from typing import List, Optional, Tuple
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import joinedload, sessionmaker
 
-from database.classes.cls_users import LoginDates, Roles, UserProfile, Users
+from database.classes.cls_user_role_system import LoginDates, Roles, UserProfile, Users
 from database.constants.c_role_system import DFLT_ROLE_NAMES
 from database.utils.u_db_sess import BASE, create_session
 from database.utils.u_pwd import hash_pwd, verify_password

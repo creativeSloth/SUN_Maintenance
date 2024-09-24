@@ -3,7 +3,7 @@ from typing import Dict, List, Tuple
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QTableWidget, QTableWidgetItem, QWidget
 
-from database.classes.cls_users import Users
+from database.classes.cls_user_role_system import Users
 from database.queries.q_users import get_usrs_infos
 from ui.buttons.create import create_pb
 from ui.tables.decorators import customize_table_row
@@ -11,12 +11,15 @@ from ui.tables.decorators import customize_table_row
 
 @customize_table_row
 def fill_table(table: QTableWidget, content: List[Dict]) -> None:
-    """
+    r"""
     Fill a QTableWidget with data from a list of dictionaries.
 
     :param table: The QTableWidget instance.
+    :type table: QTableWidget
     :param content: A list of dictionaries containing the data to be displayed in the table.
+    :type content: List of dictionaries
     :return: None
+    :rtype: None
     """
 
     table.setRowCount(0)
@@ -30,12 +33,12 @@ def fill_table(table: QTableWidget, content: List[Dict]) -> None:
 
 
 def get_table_headers(table_widget: QTableWidget) -> List[str]:
-    """
+    r"""
     Get the horizontal header labels from a QTableWidget instance.
 
     :param table_widget: The QTableWidget instance.
-    :return: A dictionary containing the column names as keys and their respective indices as values.
-    Note: The order of the column names in the returned dictionary matches the order of the columns in the table.
+    :return: A list containing the column names as strings.
+    :rtype: List[str]
     """
     # Get the horizontal header labels
     horizontal_header_labels = [
@@ -50,12 +53,16 @@ def import_from_df_row(
     table: QTableWidget,
     data_row: Tuple,
 ) -> None:
-    """
+    r"""
     Import data from a tuple (representing a row) into a QTableWidget.
 
     :param table: The QTableWidget instance.
+    :type table: QTableWidget
     :param data_row: A tuple representing a row of data.
+    :type data_row: Tuple[Any,...]
     :return: None
+    :rtype: None
+
     """
 
     column_count: int = len(data_row)
@@ -87,7 +94,15 @@ def import_from_df_row(
             table.setItem(row, col, item_col)
 
 
-def get_usr_infos(self) -> List[Dict]:
+def get_table_content(self) -> List[Dict]:
+    r"""
+    Get the content from the QTableWidget.
+
+    :param self: Main window
+    :type self: MainWindow
+    :return: A list of dictionaries containing the data from the table.
+    :rtype: List[Dict]
+    """
     usrs_infs: List[Users] = get_usrs_infos()
 
     unpacked_usrs_inf = []

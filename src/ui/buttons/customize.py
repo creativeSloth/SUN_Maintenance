@@ -5,6 +5,12 @@ from ui.buttons.misc import create_button_type_map
 
 
 def get_color_combo(buttoncolor=None):
+    r"""
+    Returns a dictionary with different color combos for different button types.
+    :param buttoncolor: The color of the button (default: None).
+    :type buttoncolor: string
+    :return: A dictionary with different color combos for different button types.
+    :rtype: dictionary"""
     combos = {
         "blue": {
             "normal": QColor(19, 33, 59, 255),
@@ -57,6 +63,15 @@ def get_color_combo(buttoncolor=None):
 
 
 def change_color_of_pixmap(pixmap, new_color):
+    r"""
+    Change the color of a pixmap to a new color based on the new color value.
+    :param pixmap: The QPixmap object to be changed.
+    :type pixmap: QPixmap
+    :param new_color: The new color to be used for the pixmap.
+    :type new_color: QColor
+    :return: The QPixmap object with the new color applied.
+    :rtype: QPixmap
+    """
     # Erstellen eines neuen Pixmap in der gleichen Größe wie das Original
     colored_pixmap = QPixmap(pixmap.size())
     colored_pixmap.fill(Qt.transparent)
@@ -73,6 +88,12 @@ def change_color_of_pixmap(pixmap, new_color):
 
 
 def customize_dynamic_pb(self, pb):
+    r"""
+    Customizes the appearance of a push button based on its button type.
+    :param pb: The QPushButton object to be customized.
+    :type pb: QPushButton
+    """
+
     BUTTON_TYPE_MAP = create_button_type_map()
     button_type = getattr(pb, "button_type", None)
     if button_type in BUTTON_TYPE_MAP:
@@ -82,6 +103,16 @@ def customize_dynamic_pb(self, pb):
 
 
 def create_icon_variaties(icon_path: str, color_combo):
+    r"""
+    Creates the different icon varieties for a push button based on the given icon path and color combos.
+    :param icon_path: The path to the icon file.
+    :type icon_path: str
+    :param color_combo: The color combos for the different icon varieties.
+    :type color_combo: dictionary
+    :return: The normal, hover, and click icon varieties as QIcon objects.
+    :rtype: tuple(QIcon, QIcon, QIcon)
+    """
+
     original_pixmap = QPixmap(icon_path)
     normal_icon = change_color_of_pixmap(original_pixmap, color_combo["normal"])
     hover_icon = change_color_of_pixmap(original_pixmap, color_combo["hover"])
@@ -91,6 +122,13 @@ def create_icon_variaties(icon_path: str, color_combo):
 
 
 def set_icon_event_behavior(self, pb, icon_varieties):
+    r"""
+    Sets up the event behavior for the push button, including changing the icon based on the button state.
+    :param pb: The QPushButton object to be customized.
+    :type pb: QPushButton
+    :param icon_varieties: The normal, hover, and click icon varieties as QIcon objects.
+    :type icon_varieties: tuple(QIcon, QIcon, QIcon)
+    """
     normal_icon_path, hover_icon_path, click_icon_path = icon_varieties
     pb.setIcon(QIcon(normal_icon_path))
     pb.setIconSize(pb.size())
