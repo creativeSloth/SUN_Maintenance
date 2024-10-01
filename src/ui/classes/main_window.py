@@ -36,16 +36,24 @@ class MainWindow(QMainWindow):
         self.ui.usr_dropdown.hide()
         self.ui.ref_dat_dropdown.hide()
         self.ui.service_dropdown.hide()
+        self.ui.articles_dropdown.hide()
 
     def map_btns(self):
+        # USER #
         self.ui.menu_usr_btn.clicked.connect(self.on_menu_usr_btn_click)
+
         self.ui.menu_usr_overview_btn.clicked.connect(
             self.on_menu_usr_overview_btn_click
         )
-
+        # REF DATA #
         self.ui.menu_ref_dat_btn.clicked.connect(self.on_menu_ref_dat_btn_click)
+
+        self.ui.menu_articles_btn.clicked.connect(self.on_menu_articles_btn_click)
+
+        # SERVICE #
         self.ui.menu_service_btn.clicked.connect(self.on_menu_service_btn_click)
 
+        # MISC #
         self.ui.exit_btn.clicked.connect(self.on_exit_btn_click)
 
     ########################## USER MENU ###########################
@@ -65,19 +73,6 @@ class MainWindow(QMainWindow):
         index: int = get_widget_index(self.ui.stackedWidget, "usr_overview_page")
         self.ui.stackedWidget.setCurrentIndex(index)
 
-    ################################################################
-    def on_menu_ref_dat_btn_click(self) -> None:
-        if self.ui.ref_dat_dropdown.isHidden():
-            self.ui.ref_dat_dropdown.show()
-        else:
-            self.ui.ref_dat_dropdown.hide()
-
-    def on_menu_service_btn_click(self) -> None:
-        if self.ui.service_dropdown.isHidden():
-            self.ui.service_dropdown.show()
-        else:
-            self.ui.service_dropdown.hide()
-
     def on_usr_attr_btn_click(self, usr_inf: type(BASE)):  # type: ignore
         try:
             usr_attr_dlg: QDialog = UserAttrDialog(usr_inf=usr_inf, parent=self)
@@ -85,6 +80,26 @@ class MainWindow(QMainWindow):
             self.dialog.exec_()  # Öffnet den Dialog modal
         except Exception as e:
             print(f"Fehler beim Öffnen des Benutzerdialogs: {e}")
+
+    ########################## REF DATA ############################
+    def on_menu_ref_dat_btn_click(self) -> None:
+        if self.ui.ref_dat_dropdown.isHidden():
+            self.ui.ref_dat_dropdown.show()
+        else:
+            self.ui.ref_dat_dropdown.hide()
+
+    def on_menu_articles_btn_click(self) -> None:
+        if self.ui.articles_dropdown.isHidden():
+            self.ui.articles_dropdown.show()
+        else:
+            self.ui.articles_dropdown.hide()
+
+    ########################## SERVICE ############################
+    def on_menu_service_btn_click(self) -> None:
+        if self.ui.service_dropdown.isHidden():
+            self.ui.service_dropdown.show()
+        else:
+            self.ui.service_dropdown.hide()
 
     def on_exit_btn_click(self):
         self.close()

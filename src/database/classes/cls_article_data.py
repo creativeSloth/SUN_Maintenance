@@ -4,7 +4,12 @@ from enum import Enum
 from sqlalchemy import Boolean, Column, Enum, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from database.classes.cls_enums import CellMatEnum, PhasesEnum
+from database.classes.cls_enums import (
+    CellMatEnum,
+    CommInterfaceEnum,
+    InvClassesEnum,
+    PhasesEnum,
+)
 from database.constants.c_db_classes import *
 from database.utils.u_db_sess import BASE
 
@@ -120,14 +125,12 @@ class Articles(BASE):
     article_types = relationship(
         "ArticleTypes", back_populates="article", uselist=False
     )
-    module_details = relationship(
-        "ModuleDetails", back_populates="article", uselist=False
+    module_types = relationship("ModuleTypes", back_populates="article", uselist=False)
+    inverter_types = relationship(
+        "InverterTypes", back_populates="article", uselist=False
     )
-    inverter_details = relationship(
-        "InvertersDetails", back_populates="article", uselist=False
-    )
-    system_inverters = relationship("SystemInverters", back_populates="inverter")
-    PV_generators = relationship("PVGenerators", back_populates="module")
+    sys_inverters = relationship("SystemInverters", back_populates="inverter_type")
+    PV_generators = relationship("PVGenerators", back_populates="module_type")
 
     user = relationship("Users", back_populates="articles")
     manufacturer = relationship("Manufacturers", back_populates="articles")
@@ -171,37 +174,36 @@ class ArticleTypes(BASE):
     article = relationship("Articles", back_populates="article_types", uselist=False)
 
 
-class ModuleDetails(BASE):
+class ModuleTypes(BASE):
     r"""
     Represents the details of a module.
 
     Attributes:
-        id (int): Primary key for the module details.
+        id (int): Primary key for the module type.
         article_id (int): Foreign key referencing the article.
         description (str): Description of the module.
         cell_material (str): Material of the module's cells.
-        lenght (int): Length of the module.
+        length (int): Length of the module.
         width (int): Width of the module.
         height (int): Height of the module.
         weight (int): Weight of the module.
-        frame (bool): Indicates if the module has a frame.
+        has_frame (bool): Indicates if the module has a frame.
         P_MPP (float): Maximum power point power.
         U_MPP (float): Maximum power point voltage.
         I_MPP (float): Maximum power point current.
-        U_oc (float): Open-circuit voltage.
-        I_sc (float): Short-circuit current.
+        U_oc (float): Open circuit voltage.
+        I_sc (float): Short circuit current.
         μ (float): Wirkungsgrad.
         alpha (float): Temperaturkoeffizient für I_sc.
         beta (float): Temperaturkoeffizient für U_oc.
         gamma (float): Temperaturkoeffizient für P_MPP.
-
+        cell_mat (CellMatEnum): Material of the module's cells.
         Relationships:
         article (relationship): Many-to-one relationship with Articles.
-        module_details (relationship): Many-to-one relationship with ModuleDetails.
-
+        module_type (relationship): Many-to-one relationship with ModuleTypes.
     """
 
-    __tablename__ = DB_TABLENAME_MODULE_DETAILS
+    __tablename__ = DB_TABLENAME_MODULE_TYPES
     id = Column(Integer, primary_key=True)
     article_id = Column(
         Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"), nullable=False
@@ -226,65 +228,131 @@ class ModuleDetails(BASE):
     beta = Column(Float, nullable=True)  # Temperaturkoeffizient für U_oc
     gamma = Column(Float, nullable=True)  # temperaturkoeffizient für P_MPP
 
-    article = relationship("Articles", back_populates="module_details")
+    article = relationship("Articles", back_populates="module_types")
 
 
-class InvertersDetails(BASE):
+class InverterTypes(BASE):
     r"""
     Represents detailed specifications for an inverter.
 
-    Attributes:
-        id (int): Primary key for the inverter details.
-        article_id (int): Foreign key referencing the associated article.
-        description (str): Description of the inverter model.
+    Attributes
+    ----------
+    :param int id:
+        Primary key for the inverter type.
+    :param int article_id:
+        Foreign key referencing the article.
+    :param str description:
+        Description of the inverter.
+    :param InvClassesEnum InvClass:
+        Class of the inverter, categorizing its usage or design.
 
-        # Physical dimensions
-        depth (int): Depth of the inverter in millimeters.
-        width (int): Width of the inverter in millimeters.
-        height (int): Height of the inverter in millimeters.
-        weight (int): Weight of the inverter in kilograms.
+    Physical Dimensions
+    -------------------
+    :param int depth:
+        Depth of the inverter in millimeters.
+    :param int width:
+        Width of the inverter in millimeters.
+    :param int height:
+        Height of the inverter in millimeters.
+    :param int weight:
+        Weight of the inverter in kilograms.
 
-        # Ambient parameters
-        T_ambient (float): Ambient temperature in degrees Celsius.
+    Ambient Conditions
+    ------------------
+    :param float T_ambient_min:
+        Minimum ambient temperature the inverter can operate in (°C).
+    :param float T_ambient_max:
+        Maximum ambient temperature the inverter can operate in (°C).
 
-        # DC input data
-        P_dc_max (int): Maximum DC power input in watts.
-        U_dc_max (int): Maximum DC voltage in volts.
-        U_mpp_min (int): Minimum voltage in the MPP (Maximum Power Point) range.
-        U_mpp_max (int): Maximum voltage in the MPP range.
-        U_dc_nom (int): Nominal DC voltage.
-        U_dc_min (int): Minimum DC voltage.
-        U_start (int): Start voltage for the inverter.
-        I_dc_max (float): Maximum DC input current in amperes.
-        mpp_trackers (int): Number of MPP trackers available.
-        strings_per_tracker (int): Number of strings per MPP tracker.
+    DC Input Data
+    -------------
+    :param int P_dc_max:
+        Maximum DC power in watts.
+    :param int U_dc_min:
+        Minimum DC voltage in volts.
+    :param int U_dc_max:
+        Maximum DC voltage in volts.
+    :param int U_mpp_min:
+        Minimum voltage of the maximum power point tracking (MPP) range in volts.
+    :param int U_mpp_max:
+        Maximum voltage of the maximum power point tracking (MPP) range in volts.
+    :param int U_dc_nom:
+        Nominal DC voltage in volts.
+    :param int U_start:
+        Start voltage in volts.
+    :param float I_sc_max:
+        Maximum short-circuit current for battery inverters in amperes.
+    :param int mpp_trackers:
+        Number of MPP trackers.
+    :param int strings_per_tracker:
+        Number of strings per MPP tracker.
 
-        # AC output data
-        P_ac_nom (int): Nominal AC power output in watts.
-        S_ac_max (int): Maximum AC apparent power in volt-amperes (VA).
-        U_ac_nom (str): Nominal AC voltage.
-        U_ac_min (int): Minimum AC voltage.
-        U_ac_max (int): Maximum AC voltage.
-        f_ac_nom (float): Nominal AC grid frequency in Hertz.
-        I_ac_max (float): Maximum AC output current in amperes.
-        cos_phi (float): Power factor (cos φ) of the inverter.
-        feed_phases (Enum): The number of feed phases (single-phase, three-phase, etc.).
+    AC Output Data
+    --------------
+    :param int P_ac_nom:
+        Nominal AC power in watts.
+    :param int S_ac_max:
+        Maximum AC apparent power in volt-amperes.
+    :param str U_ac_nom:
+        Nominal AC voltage in volts.
+    :param int U_ac_min:
+        Minimum AC voltage range in volts.
+    :param int U_ac_max:
+        Maximum AC voltage range in volts.
+    :param float f_ac_nom:
+        Nominal AC grid frequency in hertz.
+    :param float I_ac_max:
+        Maximum AC output current in amperes.
+    :param float cos_phi:
+        Power factor (cos ϕ) of the inverter.
+    :param PhasesEnum feed_phases:
+        Number of phases used for feeding power into the grid.
+    :param float mü:
+        Efficiency of the inverter as a decimal.
+    :param float self_consumption:
+        Self-consumption of energy by the inverter in watts.
+    :param bool has_trafo:
+        Indicates whether the inverter includes a transformer.
 
-        # Efficiency and consumption
-        mü (float): Efficiency of the inverter (Wirkungsgrad).
-        self_consumption (float): Self-consumption of energy in watts.
-        has_trafo (bool): Whether the inverter has an integrated transformer.
+    Battery Inverter Attributes
+    ---------------------------
+    :param int P_discharge_max:
+        Maximum discharge power from the battery in watts.
+    :param int P_charge_max:
+        Maximum charge power to the battery in watts.
+    :param int U_bat_min:
+        Minimum voltage for charging and discharging the battery in volts.
+    :param int U_bat_max:
+        Maximum voltage for charging and discharging the battery in volts.
+    :param int I_bat_discharge:
+        Maximum discharge current from the battery in amperes.
+    :param int I_bat_charge:
+        Maximum charge current to the battery in amperes.
+    :param str bat_type:
+        Type of battery compatible with the inverter.
+    :param int bat_count:
+        Maximum number of batteries that can be connected.
+    :param int I_backup:
+        Maximum current that can be supplied to each of the three backup circuits in amperes.
 
-        article (relationship): Relationship to the Articles table for accessing associated article data.
+    Relationships
+    -------------
+    :param Articles article:
+        The article associated with the inverter type.
+    :param MPPTracker MPP_trackers:
+        Relationship to MPP tracker configurations for the inverter.
+
     """
 
-    __tablename__ = DB_TABLENAME_INVERTERS_DETAILS
+    __tablename__ = DB_TABLENAME_INVERTER_TYPES
     id = Column(Integer, primary_key=True)
     article_id = Column(
         Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"), nullable=False
     )
 
     description = Column(String, nullable=True)
+
+    InvClass = Column(Enum(InvClassesEnum), nullable=False)  # Class of Inverter
 
     # Physical dimensions
     depth = Column(Integer, nullable=True)  # [mm]
@@ -304,9 +372,7 @@ class InvertersDetails(BASE):
     U_mpp_max = Column(Integer, nullable=True)  # MPP voltage range (max) [V]
     U_dc_nom = Column(Integer, nullable=True)  # Nominal DC voltage [V]
     U_start = Column(Integer, nullable=True)  # Start voltage [V]
-    I_sc_max = Column(
-        Float, nullable=True
-    )  # Max. Short circuit corrent (Bat-inverters)
+
     mpp_trackers = Column(Integer, nullable=True)  # Number of MPP trackers
     strings_per_tracker = Column(Integer, nullable=True)  # Strings per MPP tracker
 
@@ -324,18 +390,63 @@ class InvertersDetails(BASE):
     self_consumption = Column(Float, nullable=True)  # Energy self-consumption
     has_trafo = Column(Boolean, default=False)  # Has transformator
 
-    article = relationship("Articles", back_populates="inverter_details")
-    MPP_trackers = relationship("MPPTracker", back_populates="inverter_details")
+    # Battery Inverter attributes
+
+    P_discharge_max = Column(Integer, nullable=True)  # Max. Discharge power [W]
+    P_charge_max = Column(Integer, nullable=True)  # Max. Charge power [W]
+    U_bat_min = Column(
+        Integer, nullable=True
+    )  # Minimum voltage for charging and discharging battery [V]
+    U_bat_max = Column(
+        Integer, nullable=True
+    )  # Maximum voltage for charging and discharging battery [V]
+    I_bat_discharge = Column(
+        Integer, nullable=True
+    )  # Maximum current for discharging battery [A]
+    I_bat_charge = Column(
+        Integer, nullable=True
+    )  # Maximum current for charging battery [A]
+    bat_type = Column(String, nullable=True)  # Type of battery
+    bat_count = Column(
+        Integer, nullable=True
+    )  # Number of batteries that can be connected
+    I_backup = Column(
+        Integer, nullable=True
+    )  # Current that can be used in each of 3 curcuits in backup
+
+    # Communication parameters
+    com_interface = Column(
+        Enum(CommInterfaceEnum), nullable=True
+    )  # Communication Interface
+
+    article = relationship("Articles", back_populates="inverter_types")
+    MPP_trackers = relationship("MPPTracker", back_populates="inverter_type")
 
 
 class MPPTracker(BASE):
+    """
+    A class to represent MPP tracker configurations for inverter types.
+
+    Attributes
+    :param int id:
+    :param int inv_types_id:
+    :param str tracker_name:
+    :param int string_count:
+    :param float I_dc_max:
+    :param float I_sc_max:
+    Relationships
+    :param InverterTypes inverter_type:
+        The inverter type associated with the MPP tracker configuration.
+    """
+
     __tablename__ = DB_TABLENAME_MPP_TRACKERS
     id = Column(Integer, primary_key=True)
-    inv_det_id = Column(
-        Integer, ForeignKey(DB_TABLENAME_INVERTERS_DETAILS + ".id"), nullable=False
+    inv_types_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_INVERTER_TYPES + ".id"), nullable=False
     )
     tracker_name = Column(String, nullable=True)  # tracker name
     string_count = Column(Integer, nullable=True)  # string count
     I_dc_max = Column(Float, nullable=True)  # Max. DC input current [A]
+    I_sc_max = Column(Float, nullable=True)  # Max. short curcuit current
 
-    inverter_details = relationship("InvertersDetails", back_populates="MPP_trackers")
+    inverter_type = relationship("InverterTypes", back_populates="MPP_trackers")
