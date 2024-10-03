@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QDialog, QLineEdit, QMainWindow
 
+from database.classes.cls_user_role_system import Users
 from database.queries.q_users import login_user
 from styles.styles_Handler import initialize_ui_style
 from ui.classes.main_window import MainWindow
@@ -17,7 +18,6 @@ class LoginForm(QMainWindow):
         self.setWindowTitle("Willkommen")
         self.main_window = None
         self.register_form = None
-        self.USER: str = ""
         self.PW: str = ""
         self.ui.login_pw_txt.setEchoMode(QLineEdit.Password)
 
@@ -42,15 +42,14 @@ class LoginForm(QMainWindow):
         pwd: str = self.ui.login_pw_txt.text()
 
         # Prüfen ob Benutzername und Passwort gültig sind und bei Erfolg einloggen
-        user_existed, pwd_verified, exstg_usr = login_user(usr=usr, pwd=pwd)
+        user_existed, pwd_verified, usr_id = login_user(usr=usr, pwd=pwd)
         if user_existed and pwd_verified:
-            self.main_window: QMainWindow = MainWindow(USER=self.USER)
+
+            self.main_window: QMainWindow = MainWindow(session_user_id=usr_id)
             self.main_window.showMaximized()
             self.close()
             if getattr(self, "register_form", None):
                 self.register_form.close()
-
-            exstg_usr.is_active = True
 
         if not user_existed:
             self.ui.login_fdb_txt.setText("Benutzer existiert nicht")

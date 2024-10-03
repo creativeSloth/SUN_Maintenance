@@ -100,6 +100,8 @@ class Addresses(BASE):
         City of the address.
     :param str state:
         State of the address.
+    :param str country:
+        Country of the address.
     :param str postal_code:
         Postal code of the address.
 
@@ -117,6 +119,7 @@ class Addresses(BASE):
     address_line2 = Column(String, nullable=True)
     city = Column(String, nullable=False)
     state = Column(String, nullable=False)
+    country = Column(String, nullable=False)
     postal_code = Column(String, nullable=False)
 
     projects_loc_address = relationship(
@@ -129,6 +132,7 @@ class Addresses(BASE):
         back_populates="customer_address",
         foreign_keys=[Projects.customer_address_id],
     )
+    manufacturers_address = relationship("Manufacturers", back_populates="address")
 
 
 class SubSystem(BASE):

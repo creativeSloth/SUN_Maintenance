@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_UsrAttrDialog(object):
     def setupUi(self, UsrAttrDialog):
         UsrAttrDialog.setObjectName("UsrAttrDialog")
-        UsrAttrDialog.resize(500, 474)
+        UsrAttrDialog.resize(500, 475)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

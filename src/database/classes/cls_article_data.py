@@ -22,6 +22,7 @@ class Manufacturers(BASE):
         id (int): Primary key for the manufacturer.
         mf_name (str): Name of the manufacturer.
         user_id (int): Foreign key referencing the user.
+        address_id (int): Foreign key referencing the address.
         is_enabled (bool): Indicates if the manufacturer is enabled.
         date_created (str): Date when the manufacturer was created.
         specialized_fields (relationship): Many-to-one relationship with SpecializedFields.
@@ -33,6 +34,8 @@ class Manufacturers(BASE):
     __tablename__ = DB_TABLENAME_MANUFACTURERS
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), nullable=False)
+
+    address_id = Column(Integer, ForeignKey(DB_TABLENAME_ADDRESSES + ".id"))
 
     mf_name = Column(String, nullable=False)
 
@@ -47,6 +50,11 @@ class Manufacturers(BASE):
         "SpecializedFields", back_populates="manufacturer", uselist=False
     )
     user = relationship("Users", back_populates="manufacturers")
+    address = relationship(
+        "Addresses",
+        foreign_keys=[address_id],
+        back_populates="manufacturers_address",
+    )
     articles = relationship("Articles", back_populates="manufacturer")
 
 

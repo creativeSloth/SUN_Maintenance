@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(960, 744)
+        MainWindow.resize(960, 895)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -173,7 +173,7 @@ class Ui_MainWindow(object):
         self.menu_service_btn.setMinimumSize(QSize(150, 35))
         self.menu_service_btn.setMaximumSize(QSize(150, 35))
 
-        self.verticalLayout_12.addWidget(self.menu_service_btn, 0, Qt.AlignHCenter|Qt.AlignTop)
+        self.verticalLayout_12.addWidget(self.menu_service_btn, 0, Qt.AlignLeft|Qt.AlignTop)
 
         self.service_dropdown = QFrame(self.frame_8)
         self.service_dropdown.setObjectName(u"service_dropdown")
@@ -191,18 +191,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.menu_service_maint_btn, 0, Qt.AlignHCenter|Qt.AlignTop)
 
-        self.menu_service_analysis_btn = QPushButton(self.service_dropdown)
-        self.menu_service_analysis_btn.setObjectName(u"menu_service_analysis_btn")
-        self.menu_service_analysis_btn.setMinimumSize(QSize(120, 30))
-        self.menu_service_analysis_btn.setMaximumSize(QSize(120, 30))
-
-        self.verticalLayout_5.addWidget(self.menu_service_analysis_btn, 0, Qt.AlignHCenter|Qt.AlignTop)
-
 
         self.verticalLayout_12.addWidget(self.service_dropdown, 0, Qt.AlignLeft|Qt.AlignTop)
 
 
-        self.verticalLayout_3.addWidget(self.frame_8, 0, Qt.AlignHCenter|Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.frame_8, 0, Qt.AlignLeft|Qt.AlignTop)
 
         self.frame_5 = QFrame(self.menu_frame_2)
         self.frame_5.setObjectName(u"frame_5")
@@ -225,7 +218,7 @@ class Ui_MainWindow(object):
         self.menu_ref_dat_btn.setMinimumSize(QSize(150, 35))
         self.menu_ref_dat_btn.setMaximumSize(QSize(150, 35))
 
-        self.verticalLayout_10.addWidget(self.menu_ref_dat_btn, 0, Qt.AlignHCenter)
+        self.verticalLayout_10.addWidget(self.menu_ref_dat_btn, 0, Qt.AlignLeft)
 
         self.ref_dat_dropdown = QFrame(self.frame_5)
         self.ref_dat_dropdown.setObjectName(u"ref_dat_dropdown")
@@ -235,26 +228,91 @@ class Ui_MainWindow(object):
         self.ref_dat_dropdown.setFrameShadow(QFrame.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.ref_dat_dropdown)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(5, 6, 0, 6)
-        self.menu_ref_dat_mod_lib_btn = QPushButton(self.ref_dat_dropdown)
-        self.menu_ref_dat_mod_lib_btn.setObjectName(u"menu_ref_dat_mod_lib_btn")
-        self.menu_ref_dat_mod_lib_btn.setMinimumSize(QSize(120, 30))
-        self.menu_ref_dat_mod_lib_btn.setMaximumSize(QSize(120, 30))
+        self.frame_10 = QFrame(self.ref_dat_dropdown)
+        self.frame_10.setObjectName(u"frame_10")
+        self.frame_10.setFrameShape(QFrame.StyledPanel)
+        self.frame_10.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_16 = QVBoxLayout(self.frame_10)
+        self.verticalLayout_16.setSpacing(0)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.menu_projects_btn = QPushButton(self.frame_10)
+        self.menu_projects_btn.setObjectName(u"menu_projects_btn")
+        self.menu_projects_btn.setMinimumSize(QSize(120, 30))
+        self.menu_projects_btn.setMaximumSize(QSize(120, 30))
 
-        self.verticalLayout_6.addWidget(self.menu_ref_dat_mod_lib_btn, 0, Qt.AlignHCenter)
+        self.verticalLayout_16.addWidget(self.menu_projects_btn)
 
-        self.menu_ref_dat_pv_facs_btn = QPushButton(self.ref_dat_dropdown)
-        self.menu_ref_dat_pv_facs_btn.setObjectName(u"menu_ref_dat_pv_facs_btn")
-        self.menu_ref_dat_pv_facs_btn.setMinimumSize(QSize(120, 30))
-        self.menu_ref_dat_pv_facs_btn.setMaximumSize(QSize(120, 30))
 
-        self.verticalLayout_6.addWidget(self.menu_ref_dat_pv_facs_btn, 0, Qt.AlignHCenter)
+        self.verticalLayout_6.addWidget(self.frame_10)
+
+        self.frame_9 = QFrame(self.ref_dat_dropdown)
+        self.frame_9.setObjectName(u"frame_9")
+        self.frame_9.setFrameShape(QFrame.StyledPanel)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_14 = QVBoxLayout(self.frame_9)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.menu_articles_btn = QPushButton(self.frame_9)
+        self.menu_articles_btn.setObjectName(u"menu_articles_btn")
+        self.menu_articles_btn.setMinimumSize(QSize(120, 30))
+        self.menu_articles_btn.setMaximumSize(QSize(120, 30))
+
+        self.verticalLayout_14.addWidget(self.menu_articles_btn)
+
+        self.articles_dropdown = QFrame(self.frame_9)
+        self.articles_dropdown.setObjectName(u"articles_dropdown")
+        self.articles_dropdown.setEnabled(True)
+        sizePolicy5.setHeightForWidth(self.articles_dropdown.sizePolicy().hasHeightForWidth())
+        self.articles_dropdown.setSizePolicy(sizePolicy5)
+        self.articles_dropdown.setFrameShape(QFrame.StyledPanel)
+        self.articles_dropdown.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_15 = QVBoxLayout(self.articles_dropdown)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(-1, 0, -1, 0)
+        self.menu_inverters_btn = QPushButton(self.articles_dropdown)
+        self.menu_inverters_btn.setObjectName(u"menu_inverters_btn")
+        self.menu_inverters_btn.setMinimumSize(QSize(120, 30))
+        self.menu_inverters_btn.setMaximumSize(QSize(120, 30))
+
+        self.verticalLayout_15.addWidget(self.menu_inverters_btn)
+
+        self.menu_modules_btn = QPushButton(self.articles_dropdown)
+        self.menu_modules_btn.setObjectName(u"menu_modules_btn")
+        self.menu_modules_btn.setMinimumSize(QSize(120, 30))
+        self.menu_modules_btn.setMaximumSize(QSize(120, 30))
+
+        self.verticalLayout_15.addWidget(self.menu_modules_btn)
+
+
+        self.verticalLayout_14.addWidget(self.articles_dropdown, 0, Qt.AlignLeft)
+
+
+        self.verticalLayout_6.addWidget(self.frame_9)
+
+        self.frame_11 = QFrame(self.ref_dat_dropdown)
+        self.frame_11.setObjectName(u"frame_11")
+        self.frame_11.setFrameShape(QFrame.StyledPanel)
+        self.frame_11.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_17 = QVBoxLayout(self.frame_11)
+        self.verticalLayout_17.setSpacing(0)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.verticalLayout_17.setContentsMargins(0, 0, 0, 0)
+        self.menu_manufacturers_btn = QPushButton(self.frame_11)
+        self.menu_manufacturers_btn.setObjectName(u"menu_manufacturers_btn")
+        self.menu_manufacturers_btn.setMinimumSize(QSize(120, 30))
+        self.menu_manufacturers_btn.setMaximumSize(QSize(120, 30))
+
+        self.verticalLayout_17.addWidget(self.menu_manufacturers_btn)
+
+
+        self.verticalLayout_6.addWidget(self.frame_11)
 
 
         self.verticalLayout_10.addWidget(self.ref_dat_dropdown, 0, Qt.AlignLeft|Qt.AlignTop)
 
 
-        self.verticalLayout_3.addWidget(self.frame_5, 0, Qt.AlignHCenter|Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.frame_5, 0, Qt.AlignLeft|Qt.AlignTop)
 
         self.frame_3 = QFrame(self.menu_frame_2)
         self.frame_3.setObjectName(u"frame_3")
@@ -274,7 +332,7 @@ class Ui_MainWindow(object):
         self.menu_usr_btn.setMinimumSize(QSize(150, 35))
         self.menu_usr_btn.setMaximumSize(QSize(150, 35))
 
-        self.verticalLayout_8.addWidget(self.menu_usr_btn, 0, Qt.AlignHCenter|Qt.AlignTop)
+        self.verticalLayout_8.addWidget(self.menu_usr_btn, 0, Qt.AlignLeft|Qt.AlignTop)
 
         self.usr_dropdown = QFrame(self.frame_3)
         self.usr_dropdown.setObjectName(u"usr_dropdown")
@@ -311,7 +369,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.addWidget(self.usr_dropdown, 0, Qt.AlignLeft|Qt.AlignTop)
 
 
-        self.verticalLayout_3.addWidget(self.frame_3, 0, Qt.AlignHCenter|Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.frame_3, 0, Qt.AlignLeft|Qt.AlignTop)
 
         self.side_menu_frame = QFrame(self.menu_frame_2)
         self.side_menu_frame.setObjectName(u"side_menu_frame")
@@ -377,12 +435,117 @@ class Ui_MainWindow(object):
         self.usr_permissions_page = QWidget()
         self.usr_permissions_page.setObjectName(u"usr_permissions_page")
         self.stackedWidget.addWidget(self.usr_permissions_page)
-        self.ref_dat_mod_lib_page = QWidget()
-        self.ref_dat_mod_lib_page.setObjectName(u"ref_dat_mod_lib_page")
-        self.stackedWidget.addWidget(self.ref_dat_mod_lib_page)
-        self.ref_dat_pv_facs_page = QWidget()
-        self.ref_dat_pv_facs_page.setObjectName(u"ref_dat_pv_facs_page")
-        self.stackedWidget.addWidget(self.ref_dat_pv_facs_page)
+        self.projects_page = QWidget()
+        self.projects_page.setObjectName(u"projects_page")
+        self.stackedWidget.addWidget(self.projects_page)
+        self.articles_page = QWidget()
+        self.articles_page.setObjectName(u"articles_page")
+        self.verticalLayout_21 = QVBoxLayout(self.articles_page)
+        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
+        self.frame_14 = QFrame(self.articles_page)
+        self.frame_14.setObjectName(u"frame_14")
+        sizePolicy.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
+        self.frame_14.setSizePolicy(sizePolicy)
+        self.frame_14.setFrameShape(QFrame.StyledPanel)
+        self.frame_14.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_20 = QVBoxLayout(self.frame_14)
+        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
+        self.frame_15 = QFrame(self.frame_14)
+        self.frame_15.setObjectName(u"frame_15")
+        self.frame_15.setFrameShape(QFrame.StyledPanel)
+        self.frame_15.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_6 = QHBoxLayout(self.frame_15)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.new_article_btn = QPushButton(self.frame_15)
+        self.new_article_btn.setObjectName(u"new_article_btn")
+        self.new_article_btn.setMinimumSize(QSize(120, 30))
+        self.new_article_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_6.addWidget(self.new_article_btn)
+
+        self.horizontalSpacer_3 = QSpacerItem(392, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_6.addItem(self.horizontalSpacer_3)
+
+        self.import_articles_list_btn = QPushButton(self.frame_15)
+        self.import_articles_list_btn.setObjectName(u"import_articles_list_btn")
+        self.import_articles_list_btn.setMinimumSize(QSize(120, 30))
+        self.import_articles_list_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_6.addWidget(self.import_articles_list_btn)
+
+
+        self.verticalLayout_20.addWidget(self.frame_15)
+
+        self.articles_overview_tbl = QTableWidget(self.frame_14)
+        self.articles_overview_tbl.setObjectName(u"articles_overview_tbl")
+        self.articles_overview_tbl.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.articles_overview_tbl.setSortingEnabled(True)
+        self.articles_overview_tbl.verticalHeader().setVisible(False)
+
+        self.verticalLayout_20.addWidget(self.articles_overview_tbl)
+
+
+        self.verticalLayout_21.addWidget(self.frame_14)
+
+        self.stackedWidget.addWidget(self.articles_page)
+        self.inverters_page = QWidget()
+        self.inverters_page.setObjectName(u"inverters_page")
+        self.stackedWidget.addWidget(self.inverters_page)
+        self.manufacturers_page = QWidget()
+        self.manufacturers_page.setObjectName(u"manufacturers_page")
+        self.verticalLayout_19 = QVBoxLayout(self.manufacturers_page)
+        self.verticalLayout_19.setObjectName(u"verticalLayout_19")
+        self.frame_12 = QFrame(self.manufacturers_page)
+        self.frame_12.setObjectName(u"frame_12")
+        sizePolicy.setHeightForWidth(self.frame_12.sizePolicy().hasHeightForWidth())
+        self.frame_12.setSizePolicy(sizePolicy)
+        self.frame_12.setFrameShape(QFrame.StyledPanel)
+        self.frame_12.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_18 = QVBoxLayout(self.frame_12)
+        self.verticalLayout_18.setObjectName(u"verticalLayout_18")
+        self.frame_13 = QFrame(self.frame_12)
+        self.frame_13.setObjectName(u"frame_13")
+        self.frame_13.setFrameShape(QFrame.StyledPanel)
+        self.frame_13.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_5 = QHBoxLayout(self.frame_13)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.new_manufacturer_btn = QPushButton(self.frame_13)
+        self.new_manufacturer_btn.setObjectName(u"new_manufacturer_btn")
+        self.new_manufacturer_btn.setMinimumSize(QSize(120, 30))
+        self.new_manufacturer_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_5.addWidget(self.new_manufacturer_btn)
+
+        self.horizontalSpacer_2 = QSpacerItem(392, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_2)
+
+        self.import_manufacturer_btn = QPushButton(self.frame_13)
+        self.import_manufacturer_btn.setObjectName(u"import_manufacturer_btn")
+        self.import_manufacturer_btn.setMinimumSize(QSize(120, 30))
+        self.import_manufacturer_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_5.addWidget(self.import_manufacturer_btn)
+
+
+        self.verticalLayout_18.addWidget(self.frame_13)
+
+        self.manufacturers_overview_tbl = QTableWidget(self.frame_12)
+        self.manufacturers_overview_tbl.setObjectName(u"manufacturers_overview_tbl")
+        self.manufacturers_overview_tbl.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.manufacturers_overview_tbl.setSortingEnabled(True)
+        self.manufacturers_overview_tbl.verticalHeader().setVisible(False)
+
+        self.verticalLayout_18.addWidget(self.manufacturers_overview_tbl)
+
+
+        self.verticalLayout_19.addWidget(self.frame_12)
+
+        self.stackedWidget.addWidget(self.manufacturers_page)
+        self.modules_page = QWidget()
+        self.modules_page.setObjectName(u"modules_page")
+        self.stackedWidget.addWidget(self.modules_page)
         self.service_maint_page = QWidget()
         self.service_maint_page.setObjectName(u"service_maint_page")
         self.stackedWidget.addWidget(self.service_maint_page)
@@ -402,7 +565,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(7)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -415,13 +578,19 @@ class Ui_MainWindow(object):
         self.exit_btn.setText(QCoreApplication.translate("MainWindow", u"EXIT", None))
         self.menu_service_btn.setText(QCoreApplication.translate("MainWindow", u"Service", None))
         self.menu_service_maint_btn.setText(QCoreApplication.translate("MainWindow", u"Wartungen", None))
-        self.menu_service_analysis_btn.setText(QCoreApplication.translate("MainWindow", u"Analyse", None))
         self.menu_ref_dat_btn.setText(QCoreApplication.translate("MainWindow", u"Stammdaten", None))
-        self.menu_ref_dat_mod_lib_btn.setText(QCoreApplication.translate("MainWindow", u"Module", None))
-        self.menu_ref_dat_pv_facs_btn.setText(QCoreApplication.translate("MainWindow", u"Anlagen", None))
+        self.menu_projects_btn.setText(QCoreApplication.translate("MainWindow", u"Projekte", None))
+        self.menu_articles_btn.setText(QCoreApplication.translate("MainWindow", u"Artikel", None))
+        self.menu_inverters_btn.setText(QCoreApplication.translate("MainWindow", u"Wechselrichter", None))
+        self.menu_modules_btn.setText(QCoreApplication.translate("MainWindow", u"Module", None))
+        self.menu_manufacturers_btn.setText(QCoreApplication.translate("MainWindow", u"Hersteller", None))
         self.menu_usr_btn.setText(QCoreApplication.translate("MainWindow", u"Benutzer", None))
         self.menu_usr_overview_btn.setText(QCoreApplication.translate("MainWindow", u"\u00dcbersicht", None))
         self.menu_usr_roles_btn.setText(QCoreApplication.translate("MainWindow", u"Rollen", None))
         self.menu_usr_permissions_btn.setText(QCoreApplication.translate("MainWindow", u"Rechte", None))
+        self.new_article_btn.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
+        self.import_articles_list_btn.setText(QCoreApplication.translate("MainWindow", u"Import", None))
+        self.new_manufacturer_btn.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
+        self.import_manufacturer_btn.setText(QCoreApplication.translate("MainWindow", u"Import", None))
     # retranslateUi
 

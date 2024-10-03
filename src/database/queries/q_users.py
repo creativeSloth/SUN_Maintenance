@@ -8,6 +8,7 @@ from database.constants.c_role_system import DFLT_ROLE_NAMES
 from database.utils.u_db_sess import BASE, create_session
 from database.utils.u_pwd import hash_pwd, verify_password
 from database.utils.u_queries import create_rshp
+from ui.classes.dialog_forms import UserAttrDialog
 
 
 def update_db_user(
@@ -144,7 +145,8 @@ def login_user(
 
             login_date = LoginDates(user_id=exstg_usr.id)
             sess.add(login_date)
-
+            exstg_usr_id = exstg_usr.id
+            exstg_usr.is_active = True
         sess.commit()
 
     except SQLAlchemyError as e:
@@ -154,7 +156,7 @@ def login_user(
     finally:
         sess.close()
 
-    return user_existed, pwd_verified, exstg_usr
+    return user_existed, pwd_verified, exstg_usr_id
 
 
 def get_usrs_infos(usr_id: Optional[int] = None) -> List[Users]:
@@ -184,7 +186,7 @@ def get_usrs_infos(usr_id: Optional[int] = None) -> List[Users]:
         sess.close()
 
 
-def refresh_usr_inf(window, usr_inf):
+def refresh_usr_inf(window: UserAttrDialog, usr_inf: Users):
     usr_inf_old: type(BASE) = get_usrs_infos(usr_inf.id)[0]  # type: ignore
     sess: sessionmaker = create_session()
 
