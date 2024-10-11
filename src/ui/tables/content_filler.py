@@ -3,9 +3,9 @@ from typing import Dict, List, Tuple
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QTableWidget, QTableWidgetItem, QWidget
 
-from database.classes.cls_article_data import Manufacturers
+from database.classes.cls_article_data import Articles, Manufacturers
 from database.classes.cls_user_role_system import Users
-from database.queries.q_manufacturers import get_manufacturers_infos
+from database.queries.q_ref_data import get_articles_infos, get_manufacturers_infos
 from database.queries.q_users import get_usrs_infos
 from ui.buttons.create import create_pb
 from ui.tables.decorators import customize_table_row
@@ -174,14 +174,14 @@ def get_manufacturer_table_content(self) -> List[Dict]:
     mf_infs: List[Manufacturers] = get_manufacturers_infos()
 
     headers = [
-        "Hersteller bearbeiten",
-        "Firmenname",
-        "Batteriehersteller.",
-        "Modulhersteller",
-        "Wechselrichterhersteller",
-        "Ladestationshersteller",
-        "Komm-Tech-Hersteller",
-        "Hersteller sonstiger Produkte",
+        "Herst. bearbeiten",
+        "Name",
+        "Batterien",
+        "Module",
+        "Wechselrichter",
+        "Ladestationen",
+        "Komm-Technik",
+        "sonstige Produkte",
     ]
     unpacked_mf_infos = []
 
@@ -192,19 +192,80 @@ def get_manufacturer_table_content(self) -> List[Dict]:
             btn_type="user_attrs",
             source_obj=mf_inf,
         )
-
         values = [
             pb,
             mf_inf.mf_name,
-            "Ja" if mf_inf.specialized_fields.produces_batteries else "Nein",
-            "Ja" if mf_inf.specialized_fields.produces_modules else "Nein",
-            "Ja" if mf_inf.specialized_fields.produces_inverters else "Nein",
-            "Ja" if mf_inf.specialized_fields.produces_chg_points else "Nein",
-            "Ja" if mf_inf.specialized_fields.produces_com_products else "Nein",
-            "Ja" if mf_inf.specialized_fields.produces_misc else "Nein",
+            (
+                "Ja"
+                if getattr(mf_inf.specialized_fields, "produces_batteries", False)
+                else "Nein"
+            ),
+            (
+                "Ja"
+                if getattr(mf_inf.specialized_fields, "produces_modules", False)
+                else "Nein"
+            ),
+            (
+                "Ja"
+                if getattr(mf_inf.specialized_fields, "produces_inverters", False)
+                else "Nein"
+            ),
+            (
+                "Ja"
+                if getattr(mf_inf.specialized_fields, "produces_chg_points", False)
+                else "Nein"
+            ),
+            (
+                "Ja"
+                if getattr(mf_inf.specialized_fields, "produces_com_products", False)
+                else "Nein"
+            ),
+            (
+                "Ja"
+                if getattr(mf_inf.specialized_fields, "produces_misc", False)
+                else "Nein"
+            ),
         ]
+
         unpacked_mf_info = dict(zip(headers, values))
 
         unpacked_mf_infos.append(unpacked_mf_info)
 
     return unpacked_mf_infos, headers
+
+
+def get_articles_table_content(self) -> List[Dict]:
+    r"""
+    Get the content for the QTableWidget.
+
+    :param self: Main window
+    :type self: MainWindow
+    :return: A list of dictionaries containing the data for the table.
+    :rtype: List[Dict]
+    """
+    articles_infs: List[Articles] = get_articles_infos()
+
+    headers = ["Artikel bearbeiten", "Artikelnummer", "Artikelname", "Hersteller"]
+    unpacked_articles_infos = []
+
+    for article_infs in articles_infs:
+        pb = create_pb(
+            self,
+            on_btn_pressed=lambda _, article=article_infs: self.on_article_attr_btn_click(
+                article_infs=article
+            ),
+            btn_type="user_attrs",
+            source_obj=article_infs,
+        )
+
+        values = [
+            pb,
+            article_infs.article_no,
+            article_infs.article_name,
+            article_infs.manufacturer.mf_name,
+        ]
+        unpacked_mf_info = dict(zip(headers, values))
+
+        unpacked_articles_infos.append(unpacked_mf_info)
+
+    return unpacked_articles_infos, headers

@@ -29,5 +29,6 @@ DB_TABLENAME_ADDRESSES: str = "addresses"
 DB_TABLENAME_SUB_SYSTEMS: str = "sub_systems"
 DB_TABLENAME_PV_GENERATORS: str = "PV_generators"
 DB_TABLENAME_SYSTEM_INVERTERS: str = "system_inverters"
+DB_TABLENAME_DC_DISC_SWITCH_BOX: str = "DC_disc_switch_boxes"
 
 RSHIP_TYPES: List[str] = ["1:1", "1:n", "n:m"]

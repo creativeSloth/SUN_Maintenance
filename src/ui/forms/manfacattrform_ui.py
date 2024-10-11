@@ -24,7 +24,7 @@ class Ui_ManFacAttrDialog(object):
     def setupUi(self, ManFacAttrDialog):
         if not ManFacAttrDialog.objectName():
             ManFacAttrDialog.setObjectName(u"ManFacAttrDialog")
-        ManFacAttrDialog.resize(555, 475)
+        ManFacAttrDialog.resize(555, 549)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -37,7 +37,7 @@ class Ui_ManFacAttrDialog(object):
         sizePolicy.setHeightForWidth(self.ManfacDialog.sizePolicy().hasHeightForWidth())
         self.ManfacDialog.setSizePolicy(sizePolicy)
         self.ManfacDialog.setMinimumSize(QSize(0, 400))
-        self.ManfacDialog.setMaximumSize(QSize(16777215, 400))
+        self.ManfacDialog.setMaximumSize(QSize(16777215, 16777215))
         self.ManfacDialog.setFrameShape(QFrame.StyledPanel)
         self.ManfacDialog.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.ManfacDialog)
@@ -83,10 +83,10 @@ class Ui_ManFacAttrDialog(object):
         self.manufacturer_name_lbl.setObjectName(u"manufacturer_name_lbl")
         sizePolicy.setHeightForWidth(self.manufacturer_name_lbl.sizePolicy().hasHeightForWidth())
         self.manufacturer_name_lbl.setSizePolicy(sizePolicy)
-        self.manufacturer_name_lbl.setMinimumSize(QSize(100, 35))
-        self.manufacturer_name_lbl.setMaximumSize(QSize(100, 35))
+        self.manufacturer_name_lbl.setMinimumSize(QSize(150, 35))
+        self.manufacturer_name_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout.addWidget(self.manufacturer_name_lbl, 0, Qt.AlignLeft)
+        self.horizontalLayout.addWidget(self.manufacturer_name_lbl, 0, Qt.AlignRight)
 
         self.manufacturer_name_txt = QLineEdit(self.frame_2)
         self.manufacturer_name_txt.setObjectName(u"manufacturer_name_txt")
@@ -98,7 +98,7 @@ class Ui_ManFacAttrDialog(object):
         self.horizontalLayout.addWidget(self.manufacturer_name_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout.addWidget(self.frame_2)
+        self.verticalLayout.addWidget(self.frame_2, 0, Qt.AlignHCenter)
 
         self.frame_4 = QFrame(self.ManfacDialog)
         self.frame_4.setObjectName(u"frame_4")
@@ -116,10 +116,10 @@ class Ui_ManFacAttrDialog(object):
         self.address_line_1_lbl.setObjectName(u"address_line_1_lbl")
         sizePolicy.setHeightForWidth(self.address_line_1_lbl.sizePolicy().hasHeightForWidth())
         self.address_line_1_lbl.setSizePolicy(sizePolicy)
-        self.address_line_1_lbl.setMinimumSize(QSize(100, 35))
-        self.address_line_1_lbl.setMaximumSize(QSize(100, 35))
+        self.address_line_1_lbl.setMinimumSize(QSize(150, 35))
+        self.address_line_1_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout_3.addWidget(self.address_line_1_lbl, 0, Qt.AlignLeft)
+        self.horizontalLayout_3.addWidget(self.address_line_1_lbl, 0, Qt.AlignRight)
 
         self.address_line_1_txt = QLineEdit(self.frame_4)
         self.address_line_1_txt.setObjectName(u"address_line_1_txt")
@@ -131,7 +131,7 @@ class Ui_ManFacAttrDialog(object):
         self.horizontalLayout_3.addWidget(self.address_line_1_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout.addWidget(self.frame_4)
+        self.verticalLayout.addWidget(self.frame_4, 0, Qt.AlignHCenter)
 
         self.frame_8 = QFrame(self.ManfacDialog)
         self.frame_8.setObjectName(u"frame_8")
@@ -149,10 +149,10 @@ class Ui_ManFacAttrDialog(object):
         self.address_line_2_lbl.setObjectName(u"address_line_2_lbl")
         sizePolicy.setHeightForWidth(self.address_line_2_lbl.sizePolicy().hasHeightForWidth())
         self.address_line_2_lbl.setSizePolicy(sizePolicy)
-        self.address_line_2_lbl.setMinimumSize(QSize(100, 35))
-        self.address_line_2_lbl.setMaximumSize(QSize(100, 35))
+        self.address_line_2_lbl.setMinimumSize(QSize(150, 35))
+        self.address_line_2_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout_7.addWidget(self.address_line_2_lbl, 0, Qt.AlignLeft)
+        self.horizontalLayout_7.addWidget(self.address_line_2_lbl, 0, Qt.AlignRight)
 
         self.address_line_2_txt = QLineEdit(self.frame_8)
         self.address_line_2_txt.setObjectName(u"address_line_2_txt")
@@ -164,7 +164,7 @@ class Ui_ManFacAttrDialog(object):
         self.horizontalLayout_7.addWidget(self.address_line_2_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout.addWidget(self.frame_8)
+        self.verticalLayout.addWidget(self.frame_8, 0, Qt.AlignHCenter)
 
         self.frame_7 = QFrame(self.ManfacDialog)
         self.frame_7.setObjectName(u"frame_7")
@@ -175,47 +175,62 @@ class Ui_ManFacAttrDialog(object):
         self.frame_7.setFrameShape(QFrame.StyledPanel)
         self.frame_7.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_4 = QHBoxLayout(self.frame_7)
-        self.horizontalLayout_4.setSpacing(5)
+        self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.city_lbl = QLabel(self.frame_7)
         self.city_lbl.setObjectName(u"city_lbl")
         sizePolicy.setHeightForWidth(self.city_lbl.sizePolicy().hasHeightForWidth())
         self.city_lbl.setSizePolicy(sizePolicy)
-        self.city_lbl.setMinimumSize(QSize(0, 35))
-        self.city_lbl.setMaximumSize(QSize(50, 35))
+        self.city_lbl.setMinimumSize(QSize(150, 35))
+        self.city_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout_4.addWidget(self.city_lbl, 0, Qt.AlignLeft)
+        self.horizontalLayout_4.addWidget(self.city_lbl, 0, Qt.AlignRight)
 
         self.city_txt = QLineEdit(self.frame_7)
         self.city_txt.setObjectName(u"city_txt")
         sizePolicy.setHeightForWidth(self.city_txt.sizePolicy().hasHeightForWidth())
         self.city_txt.setSizePolicy(sizePolicy)
-        self.city_txt.setMinimumSize(QSize(250, 35))
-        self.city_txt.setMaximumSize(QSize(250, 35))
+        self.city_txt.setMinimumSize(QSize(300, 35))
+        self.city_txt.setMaximumSize(QSize(300, 35))
 
         self.horizontalLayout_4.addWidget(self.city_txt, 0, Qt.AlignLeft)
 
-        self.postal_code_lbl = QLabel(self.frame_7)
+
+        self.verticalLayout.addWidget(self.frame_7, 0, Qt.AlignHCenter)
+
+        self.frame_10 = QFrame(self.ManfacDialog)
+        self.frame_10.setObjectName(u"frame_10")
+        sizePolicy.setHeightForWidth(self.frame_10.sizePolicy().hasHeightForWidth())
+        self.frame_10.setSizePolicy(sizePolicy)
+        self.frame_10.setMinimumSize(QSize(0, 40))
+        self.frame_10.setMaximumSize(QSize(16777215, 40))
+        self.frame_10.setFrameShape(QFrame.StyledPanel)
+        self.frame_10.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_6 = QHBoxLayout(self.frame_10)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.postal_code_lbl = QLabel(self.frame_10)
         self.postal_code_lbl.setObjectName(u"postal_code_lbl")
         sizePolicy.setHeightForWidth(self.postal_code_lbl.sizePolicy().hasHeightForWidth())
         self.postal_code_lbl.setSizePolicy(sizePolicy)
-        self.postal_code_lbl.setMinimumSize(QSize(0, 35))
-        self.postal_code_lbl.setMaximumSize(QSize(100, 35))
+        self.postal_code_lbl.setMinimumSize(QSize(150, 35))
+        self.postal_code_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout_4.addWidget(self.postal_code_lbl, 0, Qt.AlignLeft)
+        self.horizontalLayout_6.addWidget(self.postal_code_lbl, 0, Qt.AlignRight)
 
-        self.postal_code_txt = QLineEdit(self.frame_7)
+        self.postal_code_txt = QLineEdit(self.frame_10)
         self.postal_code_txt.setObjectName(u"postal_code_txt")
         sizePolicy.setHeightForWidth(self.postal_code_txt.sizePolicy().hasHeightForWidth())
         self.postal_code_txt.setSizePolicy(sizePolicy)
-        self.postal_code_txt.setMinimumSize(QSize(100, 35))
-        self.postal_code_txt.setMaximumSize(QSize(100, 35))
+        self.postal_code_txt.setMinimumSize(QSize(300, 35))
+        self.postal_code_txt.setMaximumSize(QSize(300, 35))
 
-        self.horizontalLayout_4.addWidget(self.postal_code_txt, 0, Qt.AlignLeft)
+        self.horizontalLayout_6.addWidget(self.postal_code_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout.addWidget(self.frame_7)
+        self.verticalLayout.addWidget(self.frame_10, 0, Qt.AlignHCenter)
 
         self.frame_9 = QFrame(self.ManfacDialog)
         self.frame_9.setObjectName(u"frame_9")
@@ -226,47 +241,62 @@ class Ui_ManFacAttrDialog(object):
         self.frame_9.setFrameShape(QFrame.StyledPanel)
         self.frame_9.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_8 = QHBoxLayout(self.frame_9)
-        self.horizontalLayout_8.setSpacing(5)
+        self.horizontalLayout_8.setSpacing(0)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.state_lbl = QLabel(self.frame_9)
         self.state_lbl.setObjectName(u"state_lbl")
         sizePolicy.setHeightForWidth(self.state_lbl.sizePolicy().hasHeightForWidth())
         self.state_lbl.setSizePolicy(sizePolicy)
-        self.state_lbl.setMinimumSize(QSize(75, 35))
-        self.state_lbl.setMaximumSize(QSize(100, 35))
+        self.state_lbl.setMinimumSize(QSize(150, 35))
+        self.state_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout_8.addWidget(self.state_lbl, 0, Qt.AlignLeft)
+        self.horizontalLayout_8.addWidget(self.state_lbl, 0, Qt.AlignRight)
 
         self.state_txt = QLineEdit(self.frame_9)
         self.state_txt.setObjectName(u"state_txt")
         sizePolicy.setHeightForWidth(self.state_txt.sizePolicy().hasHeightForWidth())
         self.state_txt.setSizePolicy(sizePolicy)
-        self.state_txt.setMinimumSize(QSize(150, 35))
-        self.state_txt.setMaximumSize(QSize(150, 35))
+        self.state_txt.setMinimumSize(QSize(300, 35))
+        self.state_txt.setMaximumSize(QSize(300, 35))
 
         self.horizontalLayout_8.addWidget(self.state_txt, 0, Qt.AlignLeft)
 
-        self.country_lbl = QLabel(self.frame_9)
+
+        self.verticalLayout.addWidget(self.frame_9, 0, Qt.AlignHCenter)
+
+        self.frame_11 = QFrame(self.ManfacDialog)
+        self.frame_11.setObjectName(u"frame_11")
+        sizePolicy.setHeightForWidth(self.frame_11.sizePolicy().hasHeightForWidth())
+        self.frame_11.setSizePolicy(sizePolicy)
+        self.frame_11.setMinimumSize(QSize(0, 40))
+        self.frame_11.setMaximumSize(QSize(16777215, 40))
+        self.frame_11.setFrameShape(QFrame.StyledPanel)
+        self.frame_11.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_9 = QHBoxLayout(self.frame_11)
+        self.horizontalLayout_9.setSpacing(0)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.country_lbl = QLabel(self.frame_11)
         self.country_lbl.setObjectName(u"country_lbl")
         sizePolicy.setHeightForWidth(self.country_lbl.sizePolicy().hasHeightForWidth())
         self.country_lbl.setSizePolicy(sizePolicy)
-        self.country_lbl.setMinimumSize(QSize(75, 35))
-        self.country_lbl.setMaximumSize(QSize(100, 35))
+        self.country_lbl.setMinimumSize(QSize(150, 35))
+        self.country_lbl.setMaximumSize(QSize(150, 35))
 
-        self.horizontalLayout_8.addWidget(self.country_lbl)
+        self.horizontalLayout_9.addWidget(self.country_lbl, 0, Qt.AlignRight)
 
-        self.country_txt = QLineEdit(self.frame_9)
+        self.country_txt = QLineEdit(self.frame_11)
         self.country_txt.setObjectName(u"country_txt")
         sizePolicy.setHeightForWidth(self.country_txt.sizePolicy().hasHeightForWidth())
         self.country_txt.setSizePolicy(sizePolicy)
-        self.country_txt.setMinimumSize(QSize(150, 35))
-        self.country_txt.setMaximumSize(QSize(150, 35))
+        self.country_txt.setMinimumSize(QSize(300, 35))
+        self.country_txt.setMaximumSize(QSize(300, 35))
 
-        self.horizontalLayout_8.addWidget(self.country_txt)
+        self.horizontalLayout_9.addWidget(self.country_txt, 0, Qt.AlignLeft)
 
 
-        self.verticalLayout.addWidget(self.frame_9)
+        self.verticalLayout.addWidget(self.frame_11, 0, Qt.AlignHCenter)
 
         self.frame_3 = QFrame(self.ManfacDialog)
         self.frame_3.setObjectName(u"frame_3")
@@ -276,62 +306,63 @@ class Ui_ManFacAttrDialog(object):
         self.frame_3.setMaximumSize(QSize(16777215, 16777215))
         self.frame_3.setFrameShape(QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_3)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_3 = QVBoxLayout(self.frame_3)
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.product_types_lbl = QLabel(self.frame_3)
         self.product_types_lbl.setObjectName(u"product_types_lbl")
-        sizePolicy.setHeightForWidth(self.product_types_lbl.sizePolicy().hasHeightForWidth())
-        self.product_types_lbl.setSizePolicy(sizePolicy)
-        self.product_types_lbl.setMinimumSize(QSize(100, 35))
-        self.product_types_lbl.setMaximumSize(QSize(100, 35))
-
-        self.horizontalLayout_2.addWidget(self.product_types_lbl)
-
-        self.frame = QFrame(self.frame_3)
-        self.frame.setObjectName(u"frame")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy1)
+        sizePolicy1.setHeightForWidth(self.product_types_lbl.sizePolicy().hasHeightForWidth())
+        self.product_types_lbl.setSizePolicy(sizePolicy1)
+        self.product_types_lbl.setMinimumSize(QSize(0, 35))
+        self.product_types_lbl.setMaximumSize(QSize(16777215, 35))
+        self.product_types_lbl.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_3.addWidget(self.product_types_lbl)
+
+        self.frame = QFrame(self.frame_3)
+        self.frame.setObjectName(u"frame")
+        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy)
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.produces_batteries_cbox = QCheckBox(self.frame)
-        self.produces_batteries_cbox.setObjectName(u"produces_batteries_cbox")
-
-        self.gridLayout.addWidget(self.produces_batteries_cbox, 0, 0, 1, 1)
-
-        self.produces_modules_cbox = QCheckBox(self.frame)
-        self.produces_modules_cbox.setObjectName(u"produces_modules_cbox")
-
-        self.gridLayout.addWidget(self.produces_modules_cbox, 1, 0, 1, 1)
-
-        self.produces_chg_points_cbox = QCheckBox(self.frame)
-        self.produces_chg_points_cbox.setObjectName(u"produces_chg_points_cbox")
-
-        self.gridLayout.addWidget(self.produces_chg_points_cbox, 0, 2, 1, 1)
-
         self.produces_com_cbox = QCheckBox(self.frame)
         self.produces_com_cbox.setObjectName(u"produces_com_cbox")
 
-        self.gridLayout.addWidget(self.produces_com_cbox, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.produces_com_cbox, 2, 1, 1, 1)
 
         self.produces_misc_cbox = QCheckBox(self.frame)
         self.produces_misc_cbox.setObjectName(u"produces_misc_cbox")
 
-        self.gridLayout.addWidget(self.produces_misc_cbox, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.produces_misc_cbox, 3, 1, 1, 1)
 
         self.produces_inverters_cbox = QCheckBox(self.frame)
         self.produces_inverters_cbox.setObjectName(u"produces_inverters_cbox")
 
-        self.gridLayout.addWidget(self.produces_inverters_cbox, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.produces_inverters_cbox, 3, 2, 1, 1)
+
+        self.produces_modules_cbox = QCheckBox(self.frame)
+        self.produces_modules_cbox.setObjectName(u"produces_modules_cbox")
+
+        self.gridLayout.addWidget(self.produces_modules_cbox, 3, 0, 1, 1)
+
+        self.produces_batteries_cbox = QCheckBox(self.frame)
+        self.produces_batteries_cbox.setObjectName(u"produces_batteries_cbox")
+
+        self.gridLayout.addWidget(self.produces_batteries_cbox, 2, 0, 1, 1)
+
+        self.produces_chg_points_cbox = QCheckBox(self.frame)
+        self.produces_chg_points_cbox.setObjectName(u"produces_chg_points_cbox")
+
+        self.gridLayout.addWidget(self.produces_chg_points_cbox, 2, 2, 1, 1)
 
 
-        self.horizontalLayout_2.addWidget(self.frame)
+        self.verticalLayout_3.addWidget(self.frame)
 
 
         self.verticalLayout.addWidget(self.frame_3)
@@ -344,7 +375,7 @@ class Ui_ManFacAttrDialog(object):
         self.buttonBox.setOrientation(Qt.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
 
-        self.verticalLayout_2.addWidget(self.buttonBox)
+        self.verticalLayout_2.addWidget(self.buttonBox, 0, Qt.AlignLeft)
 
 
         self.retranslateUi(ManFacAttrDialog)
@@ -365,11 +396,11 @@ class Ui_ManFacAttrDialog(object):
         self.state_lbl.setText(QCoreApplication.translate("ManFacAttrDialog", u"Bundesland", None))
         self.country_lbl.setText(QCoreApplication.translate("ManFacAttrDialog", u"Land", None))
         self.product_types_lbl.setText(QCoreApplication.translate("ManFacAttrDialog", u"Produkttypen", None))
-        self.produces_batteries_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Batterien", None))
-        self.produces_modules_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Module", None))
-        self.produces_chg_points_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Lades\u00e4ulen", None))
         self.produces_com_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Kommunikation", None))
         self.produces_misc_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Sonstige", None))
         self.produces_inverters_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Wechselrichter", None))
+        self.produces_modules_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Module", None))
+        self.produces_batteries_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Batterien", None))
+        self.produces_chg_points_cbox.setText(QCoreApplication.translate("ManFacAttrDialog", u"Lades\u00e4ulen", None))
     # retranslateUi
 

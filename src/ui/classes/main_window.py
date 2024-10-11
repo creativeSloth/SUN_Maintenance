@@ -5,10 +5,15 @@ from PyQt5.QtWidgets import QDialog, QMainWindow
 from database.classes.cls_user_role_system import Users
 from database.utils.u_db_sess import BASE
 from styles.styles_Handler import initialize_ui_style
-from ui.classes.dialog_forms import ManufacturerAttrDialog, UserAttrDialog
+from ui.classes.dialog_forms import (
+    ArticleAttrDialog,
+    ManufacturerAttrDialog,
+    UserAttrDialog,
+)
 from ui.forms.mainwindow import Ui_MainWindow
 from ui.tables.content_filler import (
     fill_table,
+    get_articles_table_content,
     get_manufacturer_table_content,
     get_usr_table_content,
 )
@@ -58,6 +63,9 @@ class MainWindow(QMainWindow):
         self.ui.menu_ref_dat_btn.clicked.connect(self.on_menu_ref_dat_btn_click)
 
         self.ui.menu_articles_btn.clicked.connect(self.on_menu_articles_btn_click)
+
+        self.ui.new_article_btn.clicked.connect(self.on_new_article_btn_click)
+
         self.ui.menu_manufacturers_btn.clicked.connect(
             self.on_menu_manufacturers_btn_click
         )
@@ -138,6 +146,40 @@ class MainWindow(QMainWindow):
             self.dialog.exec_()  # Öffnet den Dialog modal
         except Exception as e:
             print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
+
+    def on_menu_articles_btn_click(self):
+        table = self.ui.articles_overview_tbl
+        content: List[Dict[str, Any]]
+        headers: List[str]
+        content, headers = get_articles_table_content(self)
+        fill_table(table=table, content=content, headers=headers)
+
+        # Get index of needed widget in stacked widget
+        index: int = get_widget_index(self.ui.stackedWidget, "articles_page")
+        self.ui.stackedWidget.setCurrentIndex(index)
+
+    def on_new_article_btn_click(self):
+        try:
+
+            article_attr_dlg: QDialog = ArticleAttrDialog(
+                session_user_id=self.session_user_id, parent=self
+            )
+            self.dialog = article_attr_dlg
+            self.dialog.exec_()  # Öffnet den Dialog modal
+        except Exception as e:
+            print(f"Fehler beim Öffnen des Artikeldialogs: {e}")
+
+    def on_article_attr_btn_click(self, article_infs: type(BASE)):  # type: ignore
+        try:
+            art_attr_dlg: QDialog = ArticleAttrDialog(
+                session_user_id=self.session_user_id,
+                article_infs=article_infs,
+                parent=self,
+            )
+            self.dialog = art_attr_dlg
+            self.dialog.exec_()  # Öffnet den Dialog modal
+        except Exception as e:
+            print(f"Fehler beim Öffnen des Artikeldialogs: {e}")
 
     ########################## SERVICE ############################
     def on_menu_service_btn_click(self) -> None:

@@ -12,7 +12,6 @@ QWidget#centralwidget {
 	background-color: {primary_background}; /* Hintergrundfarbe */
 	border-radius: 5px; /* Abgerundete Ecken */
 }
-
 /* QLabel */
 /* -------------------------------------- */
 QLabel {
@@ -28,6 +27,13 @@ QLabel#login_fdb_txt{
 	padding-left: 5px;
 	border: 1px solid transparent;
 	border-radius: 5px;
+}
+
+QLabel#product_types_lbl{	
+	padding: 5px;
+	color: {primary_btn_color}; /* Textfarbe */
+	border: 1px solid {primary_btn_color};
+	border-radius: 10px;
 }
 
 /* QTextEdit, QPlainTextEdit, QLineEdit */
@@ -104,10 +110,10 @@ QPushButton[button_type="search"]::pressed {
 /* -------------------------------------- */
 QTabWidget,
 QTabWidget::pane {
-	background-color: rgb(170, 255, 255); /* Hintergrundfarbe */
-	border-top-right-radius: 5px; /* Abgerundete Ecken */
+	background-color: {table_row_background_alternate_selected}; /* Hintergrundfarbe */
 	border-bottom-left-radius: 5px; /* Abgerundete Ecken */
 	border-bottom-right-radius: 5px; /* Abgerundete Ecken */
+	border: 1px solid {primary_btn_color}
 }
 
 /* QTabBar */
@@ -116,32 +122,38 @@ QTabBar::tab,
 QTabBar::tab:selected,
 QTabBar:tab:!selected {
 	margin: 1px; /* Margin */
-	width: 30px; /* Breite */
-	min-height: 50px; /* Mindesthöhe */
-	max-height: 250px; /* Maximale Höhe */
+	min-width: 30px; /* Breite */
+	min-width: 150px; /* Breite */
+	min-height: 30px; /* Mindesthöhe */
+	max-height: 30px; /* Maximale Höhe */
 	padding-top: 10px; /* Padding nur oben */
 	padding-bottom: 10px; /* Padding nur unten */
-	border-top-left-radius: 5px; /* Obere linke Ecke abgerundet */
 	border-bottom-left-radius: 5px; /* Untere linke Ecke abgerundet */
+	border-bottom-right-radius: 5px; /* Untere linke Ecke abgerundet */
+	
 }
 
 /* Ausgewählte Registerkarten */
 QTabBar::tab:selected {
-	background-color: rgb(0, 170, 255); /* Hintergrundfarbe */
-	color: rgb(19, 33, 59); /* Textfarbe */
+	background-color: {primary_background_pressed}; /* Hintergrundfarbe */
+	color: {primary_btn_pressed_color}; /* Textfarbe */
+    border: 1px solid {primary_btn_pressed_color}; /* Randfarbe und Dicke */
 }
 
 /* Nicht ausgewählte Registerkarten */
 QTabBar:tab:!selected {
-	background-color: rgb(210, 255, 255); /* Hintergrundfarbe */
-	color: rgb(170, 170, 255); /* Textfarbe */
+	background-color: {primary_background}; /* Hintergrundfarbe */
+	color: {primary_btn_color}; /* Textfarbe */	
+	border: 1px solid {primary_btn_color}; /* Randfarbe und Dicke */
+
 }
 
 /* Hover-Effekt für nicht ausgewählte Registerkarten */
 QTabBar:tab:!selected::hover {
-	alignment: top;
-	background-color: rgb(0, 255, 255); /* Hintergrundfarbe */
-	color: rgba(19, 33, 59, 200);
+	alignment: left;
+    color: {primary_btn_hover_color}; /* Textfarbe */
+    background-color: {primary_background_hover}; /* Hintergrundfarbe */
+    border-color: {primary_btn_hover_color}; /* Ändere Randfarbe beim Hover */
 }
 
 /* QTableWidget */
@@ -171,10 +183,9 @@ QHeaderView::section {
 
 /* QAbstractScrollArea */
 /* -------------------------------------- */
-QAbstractScrollArea#scrollArea {
-	background-color: {table_background}; /* Hintergrundfarbe */
+QAbstractScrollArea {
+	background-color: {transparent_background}; /* Hintergrundfarbe */
 	border: 1px solid {primary_background}; /* Randstil */
-	border-radius: 5px; /* Abgerundete Ecken */	
 }
 
 

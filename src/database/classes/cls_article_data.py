@@ -5,6 +5,7 @@ from sqlalchemy import Boolean, Column, Enum, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from database.classes.cls_enums import (
+    BatTypeEnum,
     CellMatEnum,
     CommInterfaceEnum,
     InvClassesEnum,
@@ -35,7 +36,9 @@ class Manufacturers(BASE):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(DB_TABLENAME_USERS + ".id"), nullable=False)
 
-    address_id = Column(Integer, ForeignKey(DB_TABLENAME_ADDRESSES + ".id"))
+    address_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_ADDRESSES + ".id"), nullable=True
+    )
 
     mf_name = Column(String, nullable=False)
 
@@ -82,12 +85,12 @@ class SpecializedFields(BASE):
         Integer, ForeignKey(DB_TABLENAME_MANUFACTURERS + ".id"), nullable=False
     )
 
-    produces_modules = Column(Boolean, nullable=False)
-    produces_inverters = Column(Boolean, nullable=False)
-    produces_batteries = Column(Boolean, nullable=False)
-    produces_chg_points = Column(Boolean, nullable=False)
-    produces_com_products = Column(Boolean, nullable=False)
-    produces_misc = Column(Boolean, nullable=False)
+    produces_modules = Column(Boolean, default=False)
+    produces_inverters = Column(Boolean, default=False)
+    produces_batteries = Column(Boolean, default=False)
+    produces_chg_points = Column(Boolean, default=False)
+    produces_com_products = Column(Boolean, default=False)
+    produces_misc = Column(Boolean, default=False)
 
     manufacturer = relationship(
         "Manufacturers", back_populates="specialized_fields", uselist=False
@@ -104,6 +107,8 @@ class Articles(BASE):
         article_name (str): Name of the article.
         article_no (str): Unique identifier for the article.
         date_created (str): Date when the article was created.
+        link (str): Link to the article in web
+        path (str): Path to the article file
 
         Relationships:
         manufacturer (relationship): Many-to-one relationship with Manufacturers.
@@ -123,18 +128,21 @@ class Articles(BASE):
 
     article_name = Column(String, nullable=False)
     article_no = Column(String, nullable=False, unique=True)
-
+    is_enabled = Column(Boolean, default=True)
     date_created = Column(
         String,
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         nullable=False,
     )
 
+    link = Column(String, nullable=True)
+    path = Column(String, nullable=True)
+
     article_types = relationship(
         "ArticleTypes", back_populates="article", uselist=False
     )
-    module_types = relationship("ModuleTypes", back_populates="article", uselist=False)
-    inverter_types = relationship(
+    module_type = relationship("ModuleTypes", back_populates="article", uselist=False)
+    inverter_type = relationship(
         "InverterTypes", back_populates="article", uselist=False
     )
     sys_inverters = relationship("SystemInverters", back_populates="inverter_type")
@@ -171,6 +179,7 @@ class ArticleTypes(BASE):
     description = Column(String, nullable=True)
 
     is_module = Column(Boolean, default=False)
+    is_inverter = Column(Boolean, default=False)
     is_AC_inverter = Column(Boolean, default=False)
     is_bat_inverter = Column(Boolean, default=False)
     is_hyb_inverter = Column(Boolean, default=False)
@@ -231,12 +240,13 @@ class ModuleTypes(BASE):
     U_oc = Column(Float, nullable=True)
     I_sc = Column(Float, nullable=True)
 
-    mü = Column(Float, nullable=True)  # Wirkungsgrad
+    mue = Column(Float, nullable=True)  # Wirkungsgrad
     alpha = Column(Float, nullable=True)  # Temperaturkoeffizient für I_sc
     beta = Column(Float, nullable=True)  # Temperaturkoeffizient für U_oc
     gamma = Column(Float, nullable=True)  # temperaturkoeffizient für P_MPP
+    NOCT = Column(Integer, nullable=True)  # Nominal Operating Cell Temperature
 
-    article = relationship("Articles", back_populates="module_types")
+    article = relationship("Articles", back_populates="module_type")
 
 
 class InverterTypes(BASE):
@@ -363,7 +373,7 @@ class InverterTypes(BASE):
     InvClass = Column(Enum(InvClassesEnum), nullable=False)  # Class of Inverter
 
     # Physical dimensions
-    depth = Column(Integer, nullable=True)  # [mm]
+    length = Column(Integer, nullable=True)  # [mm]
     width = Column(Integer, nullable=True)  # [mm]
     height = Column(Integer, nullable=True)  # [mm]
     weight = Column(Integer, nullable=True)  # [kg]
@@ -382,19 +392,19 @@ class InverterTypes(BASE):
     U_start = Column(Integer, nullable=True)  # Start voltage [V]
 
     mpp_trackers = Column(Integer, nullable=True)  # Number of MPP trackers
-    strings_per_tracker = Column(Integer, nullable=True)  # Strings per MPP tracker
 
     # AC output data
     P_ac_nom = Column(Integer, nullable=True)  # Nominal AC power [W]
     S_ac_max = Column(Integer, nullable=True)  # Max. AC apparent power [VA]
-    U_ac_nom = Column(String, nullable=True)  # Nominal AC voltage [V]
     U_ac_min = Column(Integer, nullable=True)  # AC voltage range (min) [V]
     U_ac_max = Column(Integer, nullable=True)  # AC voltage range (max) [V]
     f_ac_nom = Column(Float, nullable=True)  # AC grid frequency [Hz]
+    U_ac_nom = Column(Integer, nullable=True)  # Nominal AC voltage [V]
+
     I_ac_max = Column(Float, nullable=True)  # Max. AC output current [A]
     cos_phi = Column(Float, nullable=True)  # Power factor (cos ϕ)
     feed_phases = Column(Enum(PhasesEnum), nullable=True)  # Feed phases
-    mü = Column(Float, nullable=True)  # efficiency
+    mue = Column(Float, nullable=True)  # efficiency
     self_consumption = Column(Float, nullable=True)  # Energy self-consumption
     has_trafo = Column(Boolean, default=False)  # Has transformator
 
@@ -414,7 +424,7 @@ class InverterTypes(BASE):
     I_bat_charge = Column(
         Integer, nullable=True
     )  # Maximum current for charging battery [A]
-    bat_type = Column(String, nullable=True)  # Type of battery
+    bat_type = Column(Enum(BatTypeEnum), nullable=True)  # Type of battery
     bat_count = Column(
         Integer, nullable=True
     )  # Number of batteries that can be connected
@@ -427,7 +437,7 @@ class InverterTypes(BASE):
         Enum(CommInterfaceEnum), nullable=True
     )  # Communication Interface
 
-    article = relationship("Articles", back_populates="inverter_types")
+    article = relationship("Articles", back_populates="inverter_type")
     MPP_trackers = relationship("MPPTracker", back_populates="inverter_type")
 
 

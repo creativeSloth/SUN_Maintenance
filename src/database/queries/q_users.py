@@ -126,6 +126,7 @@ def login_user(
     """
     user_existed = False
     pwd_verified = False
+    exstg_usr_id = None
     sess = None
     try:
         sess: sessionmaker = create_session()

@@ -259,7 +259,43 @@ class SystemInverters(BASE):
 
     sub_systems = relationship("SubSystem", back_populates="sys_inverters")
     PV_generators = relationship("PVGenerators", back_populates="sys_inverter")
+    DC_disc_switch_boxes = relationship(
+        "DCDiscSwitchBoxes", back_populates="sys_inverter"
+    )
     inverter_type = relationship("Articles", back_populates="sys_inverters")
+
+
+class DCDiscSwitchBoxes(BASE):
+    r"""
+    Represents a DC disc switch box within a system inverter.
+    Attributes:
+    id (int):
+    The primary key that uniquely identifies the DC disc switch box in the database.
+    sys_inverter_id (int):
+    Foreign key that references the associated system inverter. This indicates which system inverter this DC disc switch box is connected to.
+    DC_DSB_name (str):
+    The name of the DC disc switch box.
+    type (str):
+    The type of DC disc switch box, such as "Standard" or "High-Efficiency".
+    sys_inverter (relationship):
+    Defines a many-to-one relationship with the 'SystemInverters' class.
+    PV_generators (relationship):
+    Defines a many-to-one relationship with the 'PVGenerators' class.
+    """
+
+    __tablename__ = DB_TABLENAME_DC_DISC_SWITCH_BOX
+    id = Column(Integer, primary_key=True)
+    sys_inverter_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_SYSTEM_INVERTERS + ".id"), nullable=False
+    )
+    DC_DSB_name = Column(String, nullable=False)
+
+    type = Column(String, nullable=False)
+
+    sys_inverter = relationship(
+        "SystemInverters", back_populates="DC_disc_switch_boxes"
+    )
+    PV_generators = relationship("PVGenerators", back_populates="DC_disc_switch_box")
 
 
 class PVGenerators(BASE):
@@ -299,8 +335,12 @@ class PVGenerators(BASE):
     __tablename__ = DB_TABLENAME_PV_GENERATORS
     id = Column(Integer, primary_key=True)
     sys_inverter_id = Column(
-        Integer, ForeignKey(DB_TABLENAME_SYSTEM_INVERTERS + ".id"), nullable=False
+        Integer, ForeignKey(DB_TABLENAME_SYSTEM_INVERTERS + ".id"), nullable=True
     )
+    DC_DSB_id = Column(
+        Integer, ForeignKey(DB_TABLENAME_DC_DISC_SWITCH_BOX + ".id"), nullable=True
+    )
+    string_name = Column(String, nullable=False)
     module_id = Column(
         Integer, ForeignKey(DB_TABLENAME_ARTICLES + ".id"), nullable=False
     )
@@ -310,3 +350,6 @@ class PVGenerators(BASE):
 
     module_type = relationship("Articles", back_populates="PV_generators")
     sys_inverter = relationship("SystemInverters", back_populates="PV_generators")
+    DC_disc_switch_box = relationship(
+        "DCDiscSwitchBoxes", back_populates="PV_generators"
+    )

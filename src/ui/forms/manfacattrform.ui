@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>555</width>
-    <height>475</height>
+    <height>549</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,7 +37,7 @@
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>400</height>
+       <height>16777215</height>
       </size>
      </property>
      <property name="frameShape">
@@ -120,7 +120,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QFrame" name="frame_2">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -162,7 +162,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item alignment="Qt::AlignLeft">
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="manufacturer_name_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -172,13 +172,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -212,7 +212,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QFrame" name="frame_4">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -254,7 +254,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item alignment="Qt::AlignLeft">
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="address_line_1_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -264,13 +264,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -304,7 +304,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QFrame" name="frame_8">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -346,7 +346,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item alignment="Qt::AlignLeft">
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="address_line_2_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -356,13 +356,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -396,7 +396,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QFrame" name="frame_7">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -424,7 +424,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="spacing">
-          <number>5</number>
+          <number>0</number>
          </property>
          <property name="leftMargin">
           <number>0</number>
@@ -438,7 +438,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item alignment="Qt::AlignLeft">
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="city_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -448,13 +448,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>50</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -473,19 +473,64 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>250</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>250</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignLeft">
+        </layout>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QFrame" name="frame_10">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="postal_code_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -495,13 +540,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -520,13 +565,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
@@ -535,7 +580,7 @@
         </layout>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QFrame" name="frame_9">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -563,7 +608,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <property name="spacing">
-          <number>5</number>
+          <number>0</number>
          </property>
          <property name="leftMargin">
           <number>0</number>
@@ -577,7 +622,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item alignment="Qt::AlignLeft">
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="state_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -587,13 +632,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>75</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -612,19 +657,64 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
           </widget>
          </item>
-         <item>
+        </layout>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QFrame" name="frame_11">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item alignment="Qt::AlignRight">
           <widget class="QLabel" name="country_lbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -634,13 +724,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>75</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>150</width>
              <height>35</height>
             </size>
            </property>
@@ -649,7 +739,7 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLineEdit" name="country_txt">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -659,13 +749,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>300</width>
              <height>35</height>
             </size>
            </property>
@@ -700,7 +790,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -719,32 +809,35 @@
          <item>
           <widget class="QLabel" name="product_types_lbl">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>0</width>
              <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>16777215</width>
              <height>35</height>
             </size>
            </property>
            <property name="text">
             <string>Produkttypen</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QFrame" name="frame">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -756,45 +849,45 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="produces_batteries_cbox">
-              <property name="text">
-               <string>Batterien</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="produces_modules_cbox">
-              <property name="text">
-               <string>Module</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QCheckBox" name="produces_chg_points_cbox">
-              <property name="text">
-               <string>Ladesäulen</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
+            <item row="2" column="1">
              <widget class="QCheckBox" name="produces_com_cbox">
               <property name="text">
                <string>Kommunikation</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="3" column="1">
              <widget class="QCheckBox" name="produces_misc_cbox">
               <property name="text">
                <string>Sonstige</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
+            <item row="3" column="2">
              <widget class="QCheckBox" name="produces_inverters_cbox">
               <property name="text">
                <string>Wechselrichter</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="produces_modules_cbox">
+              <property name="text">
+               <string>Module</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="produces_batteries_cbox">
+              <property name="text">
+               <string>Batterien</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QCheckBox" name="produces_chg_points_cbox">
+              <property name="text">
+               <string>Ladesäulen</string>
               </property>
              </widget>
             </item>
@@ -807,7 +900,7 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item alignment="Qt::AlignLeft">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
