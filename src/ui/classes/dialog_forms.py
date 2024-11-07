@@ -1,13 +1,13 @@
 import enum
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QComboBox, QDialog
 
+from database.classes.cls_article_data import Manufacturers
 from database.classes.cls_enums import (
     BatTypeEnum,
     CellMatEnum,
-    CommInterfaceEnum,
     InvClassesEnum,
     PhasesEnum,
 )
@@ -143,6 +143,7 @@ class ArticleAttrDialog(QDialog):
         self.setFixedSize(1500, 850)
         self.mainwindow = parent
         self.session_user_id: int = session_user_id
+
         self.combo_boxes_content: List[tuple[QComboBox, enum.Enum]] = [
             (self.ui.cell_mat_cobox, CellMatEnum),
             (self.ui.inv_type_cobox, InvClassesEnum),

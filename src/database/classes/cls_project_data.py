@@ -59,6 +59,8 @@ class Projects(BASE):
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         nullable=False,
     )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     project_no = Column(String, nullable=False, unique=True)
     project_name = Column(String, nullable=False)
@@ -122,6 +124,14 @@ class Addresses(BASE):
     country = Column(String, nullable=False)
     postal_code = Column(String, nullable=False)
 
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
+
     projects_loc_address = relationship(
         "Projects",
         back_populates="loc_address",
@@ -184,6 +194,14 @@ class SubSystem(BASE):
     tilt = Column(Float, nullable=True)
     orientation = Column(Float, nullable=True)
     is_enabled = Column(Boolean, default=True)
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     project = relationship("Projects", back_populates="sub_systems")
     sys_inverters = relationship("SystemInverters", back_populates="sub_systems")
@@ -254,6 +272,8 @@ class SystemInverters(BASE):
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         nullable=False,
     )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     is_enabled = Column(Boolean, default=True)
 
@@ -291,6 +311,14 @@ class DCDiscSwitchBoxes(BASE):
     DC_DSB_name = Column(String, nullable=False)
 
     type = Column(String, nullable=False)
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     sys_inverter = relationship(
         "SystemInverters", back_populates="DC_disc_switch_boxes"
@@ -347,6 +375,14 @@ class PVGenerators(BASE):
     module_count = Column(Integer, nullable=False)
 
     is_enabled = Column(Boolean, default=True)
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     module_type = relationship("Articles", back_populates="PV_generators")
     sys_inverter = relationship("SystemInverters", back_populates="PV_generators")

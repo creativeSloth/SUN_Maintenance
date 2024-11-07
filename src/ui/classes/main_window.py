@@ -2,8 +2,10 @@ from typing import Any, Dict, List
 
 from PyQt5.QtWidgets import QDialog, QMainWindow
 
+from data.import_data import import_articles_from_file
 from database.classes.cls_user_role_system import Users
 from database.utils.u_db_sess import BASE
+from directories.decorators.d_directories import get_file_path
 from styles.styles_Handler import initialize_ui_style
 from ui.classes.dialog_forms import (
     ArticleAttrDialog,
@@ -65,6 +67,10 @@ class MainWindow(QMainWindow):
         self.ui.menu_articles_btn.clicked.connect(self.on_menu_articles_btn_click)
 
         self.ui.new_article_btn.clicked.connect(self.on_new_article_btn_click)
+
+        self.ui.import_articles_list_btn.clicked.connect(
+            self.on_import_articles_list_btn_click
+        )
 
         self.ui.menu_manufacturers_btn.clicked.connect(
             self.on_menu_manufacturers_btn_click
@@ -180,6 +186,10 @@ class MainWindow(QMainWindow):
             self.dialog.exec_()  # Öffnet den Dialog modal
         except Exception as e:
             print(f"Fehler beim Öffnen des Artikeldialogs: {e}")
+
+    @get_file_path
+    def on_import_articles_list_btn_click(self, file_path):
+        import_articles_from_file(self, file_path)
 
     ########################## SERVICE ############################
     def on_menu_service_btn_click(self) -> None:

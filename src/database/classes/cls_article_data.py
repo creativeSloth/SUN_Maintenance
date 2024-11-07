@@ -48,6 +48,8 @@ class Manufacturers(BASE):
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         nullable=False,
     )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     specialized_fields = relationship(
         "SpecializedFields", back_populates="manufacturer", uselist=False
@@ -92,6 +94,14 @@ class SpecializedFields(BASE):
     produces_com_products = Column(Boolean, default=False)
     produces_misc = Column(Boolean, default=False)
 
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
+
     manufacturer = relationship(
         "Manufacturers", back_populates="specialized_fields", uselist=False
     )
@@ -134,6 +144,8 @@ class Articles(BASE):
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         nullable=False,
     )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     link = Column(String, nullable=True)
     path = Column(String, nullable=True)
@@ -187,6 +199,14 @@ class ArticleTypes(BASE):
     is_chg_point = Column(Boolean, default=False)
     is_com_product = Column(Boolean, default=False)
     is_misc = Column(Boolean, default=False)
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     article = relationship("Articles", back_populates="article_types", uselist=False)
 
@@ -245,6 +265,14 @@ class ModuleTypes(BASE):
     beta = Column(Float, nullable=True)  # Temperaturkoeffizient für U_oc
     gamma = Column(Float, nullable=True)  # temperaturkoeffizient für P_MPP
     NOCT = Column(Integer, nullable=True)  # Nominal Operating Cell Temperature
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     article = relationship("Articles", back_populates="module_type")
 
@@ -437,6 +465,14 @@ class InverterTypes(BASE):
         Enum(CommInterfaceEnum), nullable=True
     )  # Communication Interface
 
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
+
     article = relationship("Articles", back_populates="inverter_type")
     MPP_trackers = relationship("MPPTracker", back_populates="inverter_type")
 
@@ -466,5 +502,13 @@ class MPPTracker(BASE):
     string_count = Column(Integer, nullable=True)  # string count
     I_dc_max = Column(Float, nullable=True)  # Max. DC input current [A]
     I_sc_max = Column(Float, nullable=True)  # Max. short curcuit current
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     inverter_type = relationship("InverterTypes", back_populates="MPP_trackers")

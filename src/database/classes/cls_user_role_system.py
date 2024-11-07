@@ -39,6 +39,8 @@ class Users(BASE):
         default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
         nullable=False,
     )
+    date_changed = Column(String)
+    date_deleted = Column(String)
     is_active = Column(Boolean, default=False)
     is_enabled = Column(Boolean, default=True)
 
@@ -78,6 +80,14 @@ class UserProfile(BASE):
     name = Column(String, nullable=True)
     family_name = Column(String, nullable=True)
 
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
+
     # Define the one-to-one relationship
     user = relationship(
         "Users", back_populates=DB_TABLENAME_USER_PROFILES, uselist=False
@@ -112,6 +122,14 @@ class UserRoles(BASE):
         nullable=False,
     )
 
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
+
 
 class Roles(BASE):
     r"""
@@ -129,6 +147,14 @@ class Roles(BASE):
     __tablename__ = DB_TABLENAME_ROLES
     id = Column(Integer, primary_key=True)
     role_name = Column(String, nullable=False)
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     # Define many-to-many relationships
     users = relationship(
@@ -171,6 +197,14 @@ class RolePermissions(BASE):
     )
     is_allowed = Column(Boolean, nullable=False)
 
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
+
 
 class Permissions(BASE):
     r"""
@@ -187,6 +221,14 @@ class Permissions(BASE):
     __tablename__ = DB_TABLENAME_PERMISSIONS
     id = Column(Integer, primary_key=True)
     permission_name = Column(String, nullable=False)
+
+    date_created = Column(
+        String,
+        default=lambda: datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        nullable=False,
+    )
+    date_changed = Column(String)
+    date_deleted = Column(String)
 
     # Define the many-to-many relationship
     roles = relationship(

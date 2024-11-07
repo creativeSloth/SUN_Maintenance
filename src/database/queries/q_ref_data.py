@@ -1,6 +1,7 @@
-from ast import Tuple
 from typing import List, Optional
 
+import pandas as pd
+from sqlalchemy import or_
 from sqlalchemy.orm import joinedload, sessionmaker
 
 from database.classes.cls_article_data import (
@@ -25,6 +26,7 @@ from ui.classes.dialog_forms import ArticleAttrDialog, ManufacturerAttrDialog
 
 def get_manufacturers_infos(
     manufacturer_id: Optional[int] = None,
+    manufacturer_search_string: str = None,
 ) -> List[Manufacturers]:
     r"""
     Retrieves manufacturer information from the database based on the given manufacturer ID.
@@ -44,6 +46,13 @@ def get_manufacturers_infos(
 
         if manufacturer_id is not None:
             query = query.filter(Manufacturers.id == manufacturer_id)
+
+        if manufacturer_search_string:
+            query = query.filter(
+                Manufacturers.mf_name.ilike(f"{manufacturer_search_string}")
+                .order_by(Manufacturers.mf_name)
+                .limit(5)
+            )
 
         manfac_infos: List[Manufacturers] = query.all()
         return manfac_infos
@@ -116,18 +125,28 @@ def refresh_mf_inf(window: ManufacturerAttrDialog, mf_inf: Manufacturers):
 
 def get_articles_infos(
     article_id: Optional[int] = None,
+    article_no: Optional[int] = None,
+    article_name: Optional[str] = None,  # Corrected to str type
 ) -> List[Articles]:
     r"""
-    Retrieves article information from the database based on the given article ID.
+    Retrieves article information from the database based on the given criteria.
+    Filters by article ID, article number, or article name, applying the filters
+    in the specified priority order: article_id > article_no > article_name.
 
     :param article_id: The ID of the article whose information should be retrieved.
     :type article_id: Optional[int]
-    :return: A list of articles objects containing the requested article information.
+    :param article_no: The article number to filter by, if provided.
+    :type article_no: Optional[int]
+    :param article_name: The article name or part of it to filter by, case insensitive.
+    :type article_name: Optional[str]
+    :return: A list of `Articles` objects containing the requested article information.
     :rtype: List[Articles]
     """
 
+    # Create a new database session
     sess: sessionmaker = create_session()
     try:
+        # Begin the query, loading related data for better performance with joinedload
         query = sess.query(Articles).options(
             joinedload(Articles.article_types),
             joinedload(Articles.module_type),
@@ -135,12 +154,25 @@ def get_articles_infos(
             joinedload(Articles.manufacturer),
         )
 
+        # Apply filters based on provided parameters
         if article_id is not None:
             query = query.filter(Articles.id == article_id)
+        else:
+            conditions: List = []
+            if article_no is not None:
+                conditions.append(Articles.article_no == article_no)
+            if article_name is not None:
+                conditions.append(Articles.article_name.ilike(f"%{article_name}%"))
+            # Apply the OR condition if there are any filters
+            if conditions:
+                query = query.filter(or_(*conditions))
 
+        # Execute the query and retrieve results
         article_infos: List[Articles] = query.all()
         return article_infos
+
     finally:
+        # Close the session to avoid resource leaks
         sess.close()
 
 
@@ -290,11 +322,88 @@ def refresh_article_inf(window: ArticleAttrDialog, articles_inf: type(BASE)):  #
 
         # Änderungen speichern
         sess.commit()
-        window.mainwindow.on_menu_articles_btn_click()  # Aktualisiere die Hauptansicht
+        window.mainwindow.on_menu_articles_btn_click()
 
     except Exception as e:
-        sess.rollback()  # Rollback bei einem Fehler
+        sess.rollback()
         print(f"Error occurred: {e}")
 
     finally:
-        sess.close()  # Sitzung schließen
+        sess.close()
+
+
+def import_articles_from_df(self, df: pd.DataFrame = None):  # type: ignore
+    """
+    Imports articles from a DataFrame and adds them to the database or updates them if they already exist.
+
+    Parameters:
+    self: The window from which the user session ID and UI information is retrieved.
+    df (pd.DataFrame): DataFrame containing articles data with columns 'Artikelnummer', 'Artikelname', and 'Hersteller'.
+    """
+
+    # Create a new database session
+    sess: sessionmaker = create_session()
+    try:
+        # Iterate over each row in the DataFrame
+        for _, row in df.iterrows():
+            article_no = row["Artikelnummer"]
+            article_name = row["Artikelname"]
+            mf_name = row["Hersteller"]
+            try:
+                # Check if the article already exists in the database
+                existing_articles: List[Articles] = get_articles_infos(
+                    article_name=article_name, article_no=article_no
+                )
+                article = (
+                    existing_articles[0] if existing_articles else Articles()
+                )  # Use first result or create a new article
+                if not existing_articles:
+                    sess.add(article)  # Add new article if not found
+
+                # Update article attributes
+                article.is_enabled = True
+                article.article_name = article_name
+                article.article_no = article_no
+
+                # Find or create manufacturer
+                manufacturers = get_manufacturers_infos()
+                manufacturer_found = False
+                for manufacturer in manufacturers:
+                    if mf_name == manufacturer.mf_name:
+                        article.manufacturer = sess.merge(manufacturer)
+                        manufacturer_found = True
+                        break
+                if not manufacturer_found:
+                    # Create a new manufacturer if it doesn't exist
+                    article.manufacturer = Manufacturers(
+                        mf_name=mf_name,
+                        user_id=self.session_user_id,
+                    )
+
+                # Optionally set article types based on checkboxes in the UI
+                # Uncomment if these types are needed
+                # if not article.article_types:
+                #     article.article_types = ArticleTypes()
+                # article.article_types.is_battery = bool(window.ui.is_battery_cbox.checkState())
+                # article.article_types.is_com_product = bool(window.ui.is_com_product_cbox.checkState())
+                # article.article_types.is_module = bool(window.ui.is_module_cbox.checkState())
+                # article.article_types.is_chg_point = bool(window.ui.is_chg_point_cbox.checkState())
+                # article.article_types.is_misc = bool(window.ui.is_misc_cbox.checkState())
+                # article.article_types.is_inverter = bool(window.ui.is_inv_cbox.checkState())
+
+                # Set user ID if it's a new article
+                if not existing_articles:
+                    article.user_id = self.session_user_id
+
+            except Exception as e:
+                sess.rollback()  # Roll back any changes if an error occurs
+                print(f"Error occurred while processing article {article_name}: {e}")
+
+        # Commit changes to database
+        sess.commit()
+        # Refresh UI after changes
+
+        self.on_menu_articles_btn_click()
+    finally:
+        # Close the session after all rows are processed
+        sess.close()
