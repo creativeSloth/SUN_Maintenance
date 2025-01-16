@@ -126,7 +126,7 @@ def refresh_mf_inf(window: ManufacturerAttrDialog, mf_inf: Manufacturers):
 def get_articles_infos(
     article_id: Optional[int] = None,
     article_no: Optional[int] = None,
-    article_name: Optional[str] = None,  # Corrected to str type
+    article_name: Optional[str] = None,
 ) -> List[Articles]:
     r"""
     Retrieves article information from the database based on the given criteria.
@@ -344,6 +344,9 @@ def import_articles_from_df(self, df: pd.DataFrame = None):  # type: ignore
     # Create a new database session
     sess: sessionmaker = create_session()
     try:
+        # Pre-fetch all manufacturers and store in a dictionary for quick access
+        mf_infos = get_manufacturers_infos()
+        manufacturers_dict = {m.mf_name: m for m in mf_infos}
         # Iterate over each row in the DataFrame
         for _, row in df.iterrows():
             article_no = row["Artikelnummer"]
@@ -357,28 +360,24 @@ def import_articles_from_df(self, df: pd.DataFrame = None):  # type: ignore
                 article = (
                     existing_articles[0] if existing_articles else Articles()
                 )  # Use first result or create a new article
-                if not existing_articles:
-                    sess.add(article)  # Add new article if not found
 
                 # Update article attributes
                 article.is_enabled = True
                 article.article_name = article_name
                 article.article_no = article_no
 
-                # Find or create manufacturer
-                manufacturers = get_manufacturers_infos()
-                manufacturer_found = False
-                for manufacturer in manufacturers:
-                    if mf_name == manufacturer.mf_name:
-                        article.manufacturer = sess.merge(manufacturer)
-                        manufacturer_found = True
-                        break
-                if not manufacturer_found:
-                    # Create a new manufacturer if it doesn't exist
-                    article.manufacturer = Manufacturers(
-                        mf_name=mf_name,
-                        user_id=self.session_user_id,
+                article = sess.merge(article)
+
+                # Assign manufacturer (use dictionary for faster lookup)
+                if mf_name not in manufacturers_dict:
+                    new_manufacturer = Manufacturers(
+                        mf_name=mf_name, user_id=self.session_user_id
                     )
+                    sess.add(new_manufacturer)
+                    article.manufacturer = new_manufacturer
+                    manufacturers_dict[mf_name] = new_manufacturer
+                else:
+                    article.manufacturer = sess.merge(manufacturers_dict[mf_name])
 
                 # Optionally set article types based on checkboxes in the UI
                 # Uncomment if these types are needed
@@ -394,15 +393,14 @@ def import_articles_from_df(self, df: pd.DataFrame = None):  # type: ignore
                 # Set user ID if it's a new article
                 if not existing_articles:
                     article.user_id = self.session_user_id
+                # Commit changes to database
+                sess.commit()
 
             except Exception as e:
                 sess.rollback()  # Roll back any changes if an error occurs
                 print(f"Error occurred while processing article {article_name}: {e}")
 
-        # Commit changes to database
-        sess.commit()
         # Refresh UI after changes
-
         self.on_menu_articles_btn_click()
     finally:
         # Close the session after all rows are processed
