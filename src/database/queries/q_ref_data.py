@@ -1,3 +1,4 @@
+from ast import Try
 from typing import List, Optional
 
 import pandas as pd
@@ -19,9 +20,12 @@ from database.classes.cls_enums import (
     PhasesEnum,
     get_enum_value,
 )
-from database.classes.cls_project_data import Addresses
+from database.classes.cls_project_data import Addresses, Projects
 from database.utils.u_db_sess import BASE, create_session
-from ui.classes.dialog_forms import ArticleAttrDialog, ManufacturerAttrDialog
+from ui.classes.dlg_address import AddressAttrDialog
+from ui.classes.dlg_article import ArticleAttrDialog
+from ui.classes.dlg_manufacturer import ManufacturerAttrDialog
+from ui.classes.dlg_project import ProjectAttrDialog
 
 
 def get_manufacturers_infos(
@@ -56,6 +60,9 @@ def get_manufacturers_infos(
 
         manfac_infos: List[Manufacturers] = query.all()
         return manfac_infos
+    except Exception as e:
+        sess.rollback()
+        print(f"Error occurred: {e}")
     finally:
         sess.close()
 
@@ -111,8 +118,6 @@ def refresh_mf_inf(window: ManufacturerAttrDialog, mf_inf: Manufacturers):
         )
 
         sess.commit()
-
-        window.mainwindow.on_menu_manufacturers_btn_click()
 
     except Exception as e:
         sess.rollback()  # Rollback bei einem Fehler
@@ -170,6 +175,9 @@ def get_articles_infos(
         # Execute the query and retrieve results
         article_infos: List[Articles] = query.all()
         return article_infos
+    except Exception as e:
+        sess.rollback()
+        print(f"Error occurred: {e}")
 
     finally:
         # Close the session to avoid resource leaks
@@ -322,7 +330,6 @@ def refresh_article_inf(window: ArticleAttrDialog, articles_inf: type(BASE)):  #
 
         # Änderungen speichern
         sess.commit()
-        window.mainwindow.on_menu_articles_btn_click()
 
     except Exception as e:
         sess.rollback()
@@ -404,4 +411,154 @@ def import_articles_from_df(self, df: pd.DataFrame = None):  # type: ignore
         self.on_menu_articles_btn_click()
     finally:
         # Close the session after all rows are processed
+        sess.close()
+
+
+def get_project_s_infos(projects_id: Optional[int] = None) -> List[Projects]:
+    """
+    Retrieves all projects from the database or a specific project by its ID.
+
+    Parameters:
+    projects_id (int): ID of the project to retrieve.
+
+    Returns:
+    List[Projects]: List of projects matching the query criteria.
+    """
+    sess: sessionmaker = create_session()
+    try:
+        query = sess.query(Projects).options(
+            joinedload(Projects.sub_systems),
+            joinedload(Projects.user),
+            joinedload(Projects.loc_address),
+            joinedload(Projects.customer_address),
+        )
+        if projects_id is not None:
+            query = query.filter(Projects.id == projects_id)
+
+        projects_infos: List[Projects] = query.all()
+        return projects_infos
+    except Exception as e:
+        sess.rollback()
+        print(f"Error occurred: {e}")
+    finally:
+        sess.close()
+
+
+def refresh_project_inf(window: ProjectAttrDialog, project_inf: Projects = None):
+    """
+    Updates the project attributes in the UI based on the provided project information.
+
+    Parameters:
+    window (ProjectAttrDialog): The window containing the UI elements.
+    project_inf (Projects): The project information to be displayed.
+
+    Returns:
+    None
+    """
+
+    sess: sessionmaker = create_session()
+    try:
+        # Load existing project or create a new one
+        if project_inf:
+            project_inf = sess.merge(project_inf)
+        else:
+            project_inf = Projects()
+            sess.add(project_inf)
+
+        project_inf.user_id = window.session_user_id
+        project_inf.project_no = window.ui.project_no_txt.text()
+        project_inf.project_name = window.ui.project_name_txt.text()
+        project_inf.sys_perf = window.ui.sys_perf_txt.text()
+        project_inf.comission_date = window.ui.comission_date_txt.text()
+        project_inf.customer_address = window.customer_address
+        project_inf.loc_address = window.loc_address
+
+        window.project_inf = project_inf
+        window.project_id = project_inf.id
+
+        sess.commit()
+
+    except Exception as e:
+        sess.rollback()
+        print(f"Error occurred: {e}")
+    finally:
+        sess.close()
+
+
+def get_address_infos(address_id: Optional[int] = None) -> List[Addresses]:
+    """
+    Retrieves all addresses from the database or a specific address by its ID.
+
+    Parameters:
+    address_id (int): ID of the address to retrieve.
+
+    Returns:
+    List[Addresses]: List of addresses matching the query criteria.
+    """
+
+    sess: sessionmaker = create_session()
+    try:
+        query = sess.query(Addresses)
+        if address_id is not None:
+            query = query.filter(Addresses.id == address_id)
+
+        addresses_infos: List[Addresses] = query.all()
+        return addresses_infos if addresses_infos else []
+    except Exception as e:
+        sess.rollback()
+        print(f"Error occurred: {e}")
+    finally:
+        sess.close()
+
+
+def refresh_address_inf(
+    window: AddressAttrDialog = None,
+    address_inf: Addresses = None,
+    mode: str = None,
+):
+    """
+    Updates the address attributes in the UI based on the provided address information.
+    Parameters:
+    window (AdressAttrDialog): The window containing the UI elements.
+    address_inf (Addresses): The address information to be displayed.
+    Returns:
+    None
+    """
+
+    sess: sessionmaker = create_session()
+    try:
+
+        # Load existing project or create a new one
+        if window.address is None:
+            address_inf = Addresses()
+            sess.add(address_inf)
+        else:
+            address_inf = sess.merge(window.address)
+
+        address_inf.address_line1 = window.ui.address_line_1_txt.text()
+        address_inf.address_line2 = window.ui.address_line_2_txt.text()
+        address_inf.city = window.ui.city_txt.text()
+        address_inf.postal_code = window.ui.postal_code_txt.text()
+        address_inf.state = window.ui.state_txt.text()
+        address_inf.country = window.ui.country_txt.text()
+        window.address = address_inf
+
+        if mode in ["customer_address", "loc_address"]:
+            project_infos = get_project_s_infos(window.parent.project_id)
+            if not project_infos:
+                raise ValueError(f"No project found with ID {window.parent.project_id}")
+            project_inf = sess.merge(project_infos[0])
+
+            if mode == "customer_address":
+                project_inf.customer_address = sess.merge(window.address)
+            elif mode == "loc_address":
+                project_inf.loc_address = sess.merge(window.address)
+            sess.add(project_inf)
+
+        sess.commit()
+
+    except Exception as e:
+        sess.rollback()
+        print(f"Error occurred: {e}")
+    finally:
         sess.close()

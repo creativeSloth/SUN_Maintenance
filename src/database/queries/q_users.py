@@ -8,7 +8,7 @@ from database.constants.c_role_system import DFLT_ROLE_NAMES
 from database.utils.u_db_sess import BASE, create_session
 from database.utils.u_pwd import hash_pwd, verify_password
 from database.utils.u_queries import create_rshp
-from ui.classes.dialog_forms import UserAttrDialog
+from ui.classes.dlg_user import UserAttrDialog
 
 
 def update_db_user(
@@ -205,8 +205,6 @@ def refresh_usr_inf(window: UserAttrDialog, usr_inf: Users):
         usr_inf.roles[0] = new_role
 
         sess.commit()
-
-        window.mainwindow.on_menu_usr_overview_btn_click()
 
     except Exception as e:
         sess.rollback()  # Rollback bei einem Fehler

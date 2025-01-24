@@ -5,10 +5,15 @@ from PyQt5.QtWidgets import QHBoxLayout, QScrollArea, QVBoxLayout, QWidget
 from database.utils.u_db_sess import BASE
 from ui.main_body.usr_overview import UserPageItem
 
-"""
-    This module contains functions for creating custom widgets from database objects and arranging them in specified layouts.
-    The custom widget class should inherit from QWidget and have a constructor that takes a database object as an argument.
-    """
+
+def conc_DB_table_contents(columns: List[str]) -> str:
+
+    string = ""
+    string += ",".join(
+        [str(col) for col in columns if col]
+    )  # Concatenate the values of the specified columns into a string, separated by newlines
+
+    return string
 
 
 def create_widget_from_DB_content(

@@ -3,20 +3,23 @@ from typing import Any, Dict, List
 from PyQt5.QtWidgets import QDialog, QMainWindow
 
 from data.import_data import import_articles_from_file
+from database.classes.cls_project_data import Addresses, Projects
 from database.classes.cls_user_role_system import Users
 from database.utils.u_db_sess import BASE
 from directories.decorators.d_directories import get_file_path
 from styles.styles_Handler import initialize_ui_style
-from ui.classes.dialog_forms import (
-    ArticleAttrDialog,
-    ManufacturerAttrDialog,
-    UserAttrDialog,
-)
+from ui.classes.dlg_address import AddressAttrDialog
+from ui.classes.dlg_article import ArticleAttrDialog
+from ui.classes.dlg_manufacturer import ManufacturerAttrDialog
+from ui.classes.dlg_project import ProjectAttrDialog
+from ui.classes.dlg_user import UserAttrDialog
 from ui.forms.mainwindow import Ui_MainWindow
 from ui.tables.content_filler import (
     fill_table,
+    get_addresses_table_content,
     get_articles_table_content,
     get_manufacturer_table_content,
+    get_projects_table_content,
     get_usr_table_content,
 )
 from ui.utils.u_forms import get_widget_index
@@ -49,6 +52,7 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(index)
 
     def hide_dropdown_menus(self) -> None:
+
         self.ui.usr_dropdown.hide()
         self.ui.ref_dat_dropdown.hide()
         self.ui.service_dropdown.hide()
@@ -63,19 +67,21 @@ class MainWindow(QMainWindow):
         )
         # REF DATA #
         self.ui.menu_ref_dat_btn.clicked.connect(self.on_menu_ref_dat_btn_click)
-
+        self.ui.menu_projects_btn.clicked.connect(self.on_menu_projects_btn_click)
         self.ui.menu_articles_btn.clicked.connect(self.on_menu_articles_btn_click)
+        self.ui.menu_manufacturers_btn.clicked.connect(
+            self.on_menu_manufacturers_btn_click
+        )
 
+        self.ui.menu_addresses_btn.clicked.connect(self.on_menu_addresses_btn_click)
+        self.ui.new_project_btn.clicked.connect(self.on_new_project_btn_click)
         self.ui.new_article_btn.clicked.connect(self.on_new_article_btn_click)
+        self.ui.new_manufacturer_btn.clicked.connect(self.on_new_manufacturer_btn_click)
+        self.ui.new_address_btn.clicked.connect(self.on_new_address_btn_click)
 
         self.ui.import_articles_list_btn.clicked.connect(
             self.on_import_articles_list_btn_click
         )
-
-        self.ui.menu_manufacturers_btn.clicked.connect(
-            self.on_menu_manufacturers_btn_click
-        )
-        self.ui.new_manufacturer_btn.clicked.connect(self.on_new_manufacturer_btn_click)
 
         # SERVICE #
         self.ui.menu_service_btn.clicked.connect(self.on_menu_service_btn_click)
@@ -118,12 +124,45 @@ class MainWindow(QMainWindow):
             self.ui.ref_dat_dropdown.hide()
 
     def on_menu_articles_btn_click(self) -> None:
+        table = self.ui.articles_overview_tbl
+        content: List[Dict[str, Any]]
+        headers: List[str]
+        content, headers = get_articles_table_content(self)
+        fill_table(table=table, content=content, headers=headers)
+
+        # Get index of needed widget in stacked widget
+        index: int = get_widget_index(self.ui.stackedWidget, "articles_page")
+        self.ui.stackedWidget.setCurrentIndex(index)
+
         if self.ui.articles_dropdown.isHidden():
             self.ui.articles_dropdown.show()
         else:
             self.ui.articles_dropdown.hide()
 
-    def on_menu_manufacturers_btn_click(self):
+    def on_menu_projects_btn_click(self) -> None:
+
+        table = self.ui.projects_overview_tbl
+        content: List[Dict[str, Any]]
+        headers: List[str]
+        content, headers = get_projects_table_content(self)
+        fill_table(table=table, content=content, headers=headers)
+
+        # Get index of needed widget in stacked widget
+        index: int = get_widget_index(self.ui.stackedWidget, "projects_page")
+        self.ui.stackedWidget.setCurrentIndex(index)
+
+    def on_menu_addresses_btn_click(self) -> None:
+        table = self.ui.addresses_overview_tbl
+        content: List[Dict[str, Any]]
+        headers: List[str]
+        content, headers = get_addresses_table_content(self)
+        fill_table(table=table, content=content, headers=headers)
+
+        # Get index of needed widget in stacked widget
+        index: int = get_widget_index(self.ui.stackedWidget, "addresses_page")
+        self.ui.stackedWidget.setCurrentIndex(index)
+
+    def on_menu_manufacturers_btn_click(self) -> None:
         table = self.ui.manufacturers_overview_tbl
         content: List[Dict[str, Any]]
         headers: List[str]
@@ -134,35 +173,15 @@ class MainWindow(QMainWindow):
         index: int = get_widget_index(self.ui.stackedWidget, "manufacturers_page")
         self.ui.stackedWidget.setCurrentIndex(index)
 
-    def on_new_manufacturer_btn_click(self):
+    def on_new_project_btn_click(self) -> None:
         try:
-
-            mf_attr_dlg: QDialog = ManufacturerAttrDialog(
+            project_attr_dlg: QDialog = ProjectAttrDialog(
                 session_user_id=self.session_user_id, parent=self
             )
-            self.dialog = mf_attr_dlg
+            self.dialog = project_attr_dlg
             self.dialog.exec_()  # Öffnet den Dialog modal
         except Exception as e:
-            print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
-
-    def on_mf_attr_btn_click(self, mf_inf: type(BASE)):  # type: ignore
-        try:
-            mf_attr_dlg: QDialog = ManufacturerAttrDialog(mf_inf=mf_inf, parent=self)
-            self.dialog = mf_attr_dlg
-            self.dialog.exec_()  # Öffnet den Dialog modal
-        except Exception as e:
-            print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
-
-    def on_menu_articles_btn_click(self):
-        table = self.ui.articles_overview_tbl
-        content: List[Dict[str, Any]]
-        headers: List[str]
-        content, headers = get_articles_table_content(self)
-        fill_table(table=table, content=content, headers=headers)
-
-        # Get index of needed widget in stacked widget
-        index: int = get_widget_index(self.ui.stackedWidget, "articles_page")
-        self.ui.stackedWidget.setCurrentIndex(index)
+            print(f"Fehler beim Öffnen des Projektdialogs: {e}")
 
     def on_new_article_btn_click(self):
         try:
@@ -175,6 +194,19 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(f"Fehler beim Öffnen des Artikeldialogs: {e}")
 
+    def on_new_manufacturer_btn_click(self):
+        try:
+
+            mf_attr_dlg: QDialog = ManufacturerAttrDialog(
+                session_user_id=self.session_user_id, parent=self
+            )
+            self.dialog = mf_attr_dlg
+            self.dialog.exec_()  # Öffnet den Dialog modal
+        except Exception as e:
+            print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
+
+    def on_new_address_btn_click(self): ...
+
     def on_article_attr_btn_click(self, article_infs: type(BASE)):  # type: ignore
         try:
             art_attr_dlg: QDialog = ArticleAttrDialog(
@@ -183,9 +215,43 @@ class MainWindow(QMainWindow):
                 parent=self,
             )
             self.dialog = art_attr_dlg
-            self.dialog.exec_()  # Öffnet den Dialog modal
+            self.dialog.exec_()
         except Exception as e:
             print(f"Fehler beim Öffnen des Artikeldialogs: {e}")
+
+    def on_project_attr_btn_click(self, project_inf: Projects):
+        try:
+            project_attr_dlg: QDialog = ProjectAttrDialog(
+                session_user_id=self.session_user_id,
+                project_inf=project_inf,
+                parent=self,
+            )
+            self.dialog = project_attr_dlg
+            self.dialog.exec_()
+        except Exception as e:
+            print(f"Fehler beim Öffnen des Projektdialogs: {e}")
+
+    def on_mf_attr_btn_click(self, mf_inf: type(BASE)):  # type: ignore
+        try:
+            mf_attr_dlg: QDialog = ManufacturerAttrDialog(
+                session_user_id=self.session_user_id, mf_inf=mf_inf, parent=self
+            )
+            self.dialog = mf_attr_dlg
+            self.dialog.exec_()  # Öffnet den Dialog modal
+        except Exception as e:
+            print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
+
+    def on_address_attr_btn_click(self, address_inf: Addresses):
+        try:
+            address_attr_dlg: QDialog = AddressAttrDialog(
+                session_user_id=self.session_user_id,
+                address_inf=address_inf,
+                parent=self,
+            )
+            self.dialog = address_attr_dlg
+            self.dialog.exec_()
+        except Exception as e:
+            print(f"Fehler beim Öffnen der Adressendialogs: {e}")
 
     @get_file_path
     def on_import_articles_list_btn_click(self, file_path):

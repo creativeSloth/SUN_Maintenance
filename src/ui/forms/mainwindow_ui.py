@@ -16,9 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
-    QHeaderView, QMainWindow, QPushButton, QSizePolicy,
-    QSpacerItem, QStackedWidget, QTableWidget, QTableWidgetItem,
-    QVBoxLayout, QWidget)
+    QHeaderView, QMainWindow, QPushButton, QScrollArea,
+    QSizePolicy, QSpacerItem, QStackedWidget, QTableWidget,
+    QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -120,26 +120,39 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.header_frame)
 
-        self.frame = QFrame(self.centralwidget)
-        self.frame.setObjectName(u"frame")
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame)
+        self.main_body_frame = QFrame(self.centralwidget)
+        self.main_body_frame.setObjectName(u"main_body_frame")
+        sizePolicy.setHeightForWidth(self.main_body_frame.sizePolicy().hasHeightForWidth())
+        self.main_body_frame.setSizePolicy(sizePolicy)
+        self.main_body_frame.setFrameShape(QFrame.StyledPanel)
+        self.main_body_frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.main_body_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.frame_4 = QFrame(self.frame)
-        self.frame_4.setObjectName(u"frame_4")
+        self.menu_frame_1 = QFrame(self.main_body_frame)
+        self.menu_frame_1.setObjectName(u"menu_frame_1")
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.frame_4.sizePolicy().hasHeightForWidth())
-        self.frame_4.setSizePolicy(sizePolicy4)
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_9 = QVBoxLayout(self.frame_4)
+        sizePolicy4.setHeightForWidth(self.menu_frame_1.sizePolicy().hasHeightForWidth())
+        self.menu_frame_1.setSizePolicy(sizePolicy4)
+        self.menu_frame_1.setFrameShape(QFrame.StyledPanel)
+        self.menu_frame_1.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_24 = QVBoxLayout(self.menu_frame_1)
+        self.verticalLayout_24.setObjectName(u"verticalLayout_24")
+        self.scrollArea = QScrollArea(self.menu_frame_1)
+        self.scrollArea.setObjectName(u"scrollArea")
+        sizePolicy2.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy2)
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 189, 774))
+        self.verticalLayout_9 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_9.setSpacing(0)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.menu_frame_2 = QFrame(self.frame_4)
+        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.menu_frame_2 = QFrame(self.scrollAreaWidgetContents)
         self.menu_frame_2.setObjectName(u"menu_frame_2")
         sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         sizePolicy5.setHorizontalStretch(0)
@@ -308,6 +321,24 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.frame_11)
 
+        self.frame_19 = QFrame(self.ref_dat_dropdown)
+        self.frame_19.setObjectName(u"frame_19")
+        self.frame_19.setFrameShape(QFrame.StyledPanel)
+        self.frame_19.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_25 = QVBoxLayout(self.frame_19)
+        self.verticalLayout_25.setSpacing(0)
+        self.verticalLayout_25.setObjectName(u"verticalLayout_25")
+        self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.menu_addresses_btn = QPushButton(self.frame_19)
+        self.menu_addresses_btn.setObjectName(u"menu_addresses_btn")
+        self.menu_addresses_btn.setMinimumSize(QSize(120, 30))
+        self.menu_addresses_btn.setMaximumSize(QSize(120, 30))
+
+        self.verticalLayout_25.addWidget(self.menu_addresses_btn)
+
+
+        self.verticalLayout_6.addWidget(self.frame_19)
+
 
         self.verticalLayout_10.addWidget(self.ref_dat_dropdown, 0, Qt.AlignLeft|Qt.AlignTop)
 
@@ -371,34 +402,27 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.frame_3, 0, Qt.AlignLeft|Qt.AlignTop)
 
-        self.side_menu_frame = QFrame(self.menu_frame_2)
-        self.side_menu_frame.setObjectName(u"side_menu_frame")
-        self.side_menu_frame.setFrameShape(QFrame.StyledPanel)
-        self.side_menu_frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_2 = QVBoxLayout(self.side_menu_frame)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-
-        self.verticalLayout_3.addWidget(self.side_menu_frame, 0, Qt.AlignLeft|Qt.AlignTop)
-
 
         self.verticalLayout_9.addWidget(self.menu_frame_2, 0, Qt.AlignTop)
 
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
-        self.horizontalLayout_2.addWidget(self.frame_4)
+        self.verticalLayout_24.addWidget(self.scrollArea)
 
-        self.main_body_frame = QFrame(self.frame)
-        self.main_body_frame.setObjectName(u"main_body_frame")
-        sizePolicy.setHeightForWidth(self.main_body_frame.sizePolicy().hasHeightForWidth())
-        self.main_body_frame.setSizePolicy(sizePolicy)
-        self.main_body_frame.setFrameShape(QFrame.StyledPanel)
-        self.main_body_frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_7 = QVBoxLayout(self.main_body_frame)
+
+        self.horizontalLayout_2.addWidget(self.menu_frame_1)
+
+        self.content_body_frame = QFrame(self.main_body_frame)
+        self.content_body_frame.setObjectName(u"content_body_frame")
+        sizePolicy.setHeightForWidth(self.content_body_frame.sizePolicy().hasHeightForWidth())
+        self.content_body_frame.setSizePolicy(sizePolicy)
+        self.content_body_frame.setFrameShape(QFrame.StyledPanel)
+        self.content_body_frame.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_7 = QVBoxLayout(self.content_body_frame)
         self.verticalLayout_7.setSpacing(0)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.stackedWidget = QStackedWidget(self.main_body_frame)
+        self.stackedWidget = QStackedWidget(self.content_body_frame)
         self.stackedWidget.setObjectName(u"stackedWidget")
         sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
         self.stackedWidget.setSizePolicy(sizePolicy)
@@ -437,6 +461,54 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.usr_permissions_page)
         self.projects_page = QWidget()
         self.projects_page.setObjectName(u"projects_page")
+        self.verticalLayout_2 = QVBoxLayout(self.projects_page)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.frame_16 = QFrame(self.projects_page)
+        self.frame_16.setObjectName(u"frame_16")
+        sizePolicy.setHeightForWidth(self.frame_16.sizePolicy().hasHeightForWidth())
+        self.frame_16.setSizePolicy(sizePolicy)
+        self.frame_16.setFrameShape(QFrame.StyledPanel)
+        self.frame_16.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_22 = QVBoxLayout(self.frame_16)
+        self.verticalLayout_22.setObjectName(u"verticalLayout_22")
+        self.frame_18 = QFrame(self.frame_16)
+        self.frame_18.setObjectName(u"frame_18")
+        self.frame_18.setFrameShape(QFrame.StyledPanel)
+        self.frame_18.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_8 = QHBoxLayout(self.frame_18)
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.new_project_btn = QPushButton(self.frame_18)
+        self.new_project_btn.setObjectName(u"new_project_btn")
+        self.new_project_btn.setMinimumSize(QSize(120, 30))
+        self.new_project_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_8.addWidget(self.new_project_btn)
+
+        self.horizontalSpacer_5 = QSpacerItem(392, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_8.addItem(self.horizontalSpacer_5)
+
+        self.import_project_btn = QPushButton(self.frame_18)
+        self.import_project_btn.setObjectName(u"import_project_btn")
+        self.import_project_btn.setMinimumSize(QSize(120, 30))
+        self.import_project_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_8.addWidget(self.import_project_btn)
+
+
+        self.verticalLayout_22.addWidget(self.frame_18)
+
+        self.projects_overview_tbl = QTableWidget(self.frame_16)
+        self.projects_overview_tbl.setObjectName(u"projects_overview_tbl")
+        self.projects_overview_tbl.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.projects_overview_tbl.setSortingEnabled(True)
+        self.projects_overview_tbl.verticalHeader().setVisible(False)
+
+        self.verticalLayout_22.addWidget(self.projects_overview_tbl)
+
+
+        self.verticalLayout_2.addWidget(self.frame_16)
+
         self.stackedWidget.addWidget(self.projects_page)
         self.articles_page = QWidget()
         self.articles_page.setObjectName(u"articles_page")
@@ -543,12 +615,63 @@ class Ui_MainWindow(object):
         self.verticalLayout_19.addWidget(self.frame_12)
 
         self.stackedWidget.addWidget(self.manufacturers_page)
+        self.addresses_page = QWidget()
+        self.addresses_page.setObjectName(u"addresses_page")
+        self.verticalLayout_26 = QVBoxLayout(self.addresses_page)
+        self.verticalLayout_26.setObjectName(u"verticalLayout_26")
+        self.frame_17 = QFrame(self.addresses_page)
+        self.frame_17.setObjectName(u"frame_17")
+        sizePolicy.setHeightForWidth(self.frame_17.sizePolicy().hasHeightForWidth())
+        self.frame_17.setSizePolicy(sizePolicy)
+        self.frame_17.setFrameShape(QFrame.StyledPanel)
+        self.frame_17.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_23 = QVBoxLayout(self.frame_17)
+        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
+        self.frame_20 = QFrame(self.frame_17)
+        self.frame_20.setObjectName(u"frame_20")
+        self.frame_20.setFrameShape(QFrame.StyledPanel)
+        self.frame_20.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_7 = QHBoxLayout(self.frame_20)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.new_address_btn = QPushButton(self.frame_20)
+        self.new_address_btn.setObjectName(u"new_address_btn")
+        self.new_address_btn.setMinimumSize(QSize(120, 30))
+        self.new_address_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_7.addWidget(self.new_address_btn)
+
+        self.horizontalSpacer_4 = QSpacerItem(392, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_4)
+
+        self.import_addresses_btn = QPushButton(self.frame_20)
+        self.import_addresses_btn.setObjectName(u"import_addresses_btn")
+        self.import_addresses_btn.setMinimumSize(QSize(120, 30))
+        self.import_addresses_btn.setMaximumSize(QSize(120, 30))
+
+        self.horizontalLayout_7.addWidget(self.import_addresses_btn)
+
+
+        self.verticalLayout_23.addWidget(self.frame_20)
+
+        self.addresses_overview_tbl = QTableWidget(self.frame_17)
+        self.addresses_overview_tbl.setObjectName(u"addresses_overview_tbl")
+        self.addresses_overview_tbl.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.addresses_overview_tbl.setSortingEnabled(True)
+        self.addresses_overview_tbl.verticalHeader().setVisible(False)
+
+        self.verticalLayout_23.addWidget(self.addresses_overview_tbl)
+
+
+        self.verticalLayout_26.addWidget(self.frame_17)
+
+        self.stackedWidget.addWidget(self.addresses_page)
         self.modules_page = QWidget()
         self.modules_page.setObjectName(u"modules_page")
         self.stackedWidget.addWidget(self.modules_page)
-        self.service_maint_page = QWidget()
-        self.service_maint_page.setObjectName(u"service_maint_page")
-        self.stackedWidget.addWidget(self.service_maint_page)
+        self.service_main_page = QWidget()
+        self.service_main_page.setObjectName(u"service_main_page")
+        self.stackedWidget.addWidget(self.service_main_page)
         self.service_analysis_page = QWidget()
         self.service_analysis_page.setObjectName(u"service_analysis_page")
         self.stackedWidget.addWidget(self.service_analysis_page)
@@ -556,16 +679,16 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.stackedWidget)
 
 
-        self.horizontalLayout_2.addWidget(self.main_body_frame)
+        self.horizontalLayout_2.addWidget(self.content_body_frame)
 
 
-        self.verticalLayout.addWidget(self.frame)
+        self.verticalLayout.addWidget(self.main_body_frame)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget.setCurrentIndex(8)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -584,13 +707,18 @@ class Ui_MainWindow(object):
         self.menu_inverters_btn.setText(QCoreApplication.translate("MainWindow", u"Wechselrichter", None))
         self.menu_modules_btn.setText(QCoreApplication.translate("MainWindow", u"Module", None))
         self.menu_manufacturers_btn.setText(QCoreApplication.translate("MainWindow", u"Hersteller", None))
+        self.menu_addresses_btn.setText(QCoreApplication.translate("MainWindow", u"Adressen", None))
         self.menu_usr_btn.setText(QCoreApplication.translate("MainWindow", u"Benutzer", None))
         self.menu_usr_overview_btn.setText(QCoreApplication.translate("MainWindow", u"\u00dcbersicht", None))
         self.menu_usr_roles_btn.setText(QCoreApplication.translate("MainWindow", u"Rollen", None))
         self.menu_usr_permissions_btn.setText(QCoreApplication.translate("MainWindow", u"Rechte", None))
+        self.new_project_btn.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
+        self.import_project_btn.setText(QCoreApplication.translate("MainWindow", u"Import", None))
         self.new_article_btn.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
         self.import_articles_list_btn.setText(QCoreApplication.translate("MainWindow", u"Import", None))
         self.new_manufacturer_btn.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
         self.import_manufacturer_btn.setText(QCoreApplication.translate("MainWindow", u"Import", None))
+        self.new_address_btn.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
+        self.import_addresses_btn.setText(QCoreApplication.translate("MainWindow", u"Import", None))
     # retranslateUi
 

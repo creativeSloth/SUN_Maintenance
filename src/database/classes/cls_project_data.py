@@ -66,7 +66,7 @@ class Projects(BASE):
     project_name = Column(String, nullable=False)
     sys_perf = Column(String, nullable=True)
 
-    comission_date = Column(DateTime, nullable=True)
+    comission_date = Column(String, nullable=True)
 
     description = Column(String, nullable=True)
 
@@ -117,12 +117,12 @@ class Addresses(BASE):
 
     __tablename__ = DB_TABLENAME_ADDRESSES
     id = Column(Integer, primary_key=True)
-    address_line1 = Column(String, nullable=False)
+    address_line1 = Column(String, nullable=True)
     address_line2 = Column(String, nullable=True)
-    city = Column(String, nullable=False)
-    state = Column(String, nullable=False)
-    country = Column(String, nullable=False)
-    postal_code = Column(String, nullable=False)
+    city = Column(String, nullable=True)
+    state = Column(String, nullable=True)
+    country = Column(String, nullable=True)
+    postal_code = Column(String, nullable=True)
 
     date_created = Column(
         String,

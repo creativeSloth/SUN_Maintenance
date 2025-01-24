@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QDialog, QLineEdit, QMainWindow
 from database.classes.cls_user_role_system import Users
 from database.queries.q_users import login_user
 from styles.styles_Handler import initialize_ui_style
+from ui.classes.app_context import ApplicationContext
 from ui.classes.main_window import MainWindow
 from ui.classes.register_form import RegisterForm
 from ui.forms.loginform import Ui_LoginForm
@@ -47,6 +48,8 @@ class LoginForm(QMainWindow):
 
             self.main_window: QMainWindow = MainWindow(session_user_id=usr_id)
             self.main_window.showMaximized()
+            app_context = ApplicationContext()
+            app_context.set_main_window(self.main_window)
             self.close()
             if getattr(self, "register_form", None):
                 self.register_form.close()

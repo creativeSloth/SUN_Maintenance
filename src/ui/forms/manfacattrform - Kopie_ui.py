@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'manfacattrform.ui'
+## Form generated from reading UI file 'manfacattrform - Kopie.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.3
 ##
@@ -32,17 +32,17 @@ class Ui_ManFacAttrDialog(object):
         ManFacAttrDialog.setSizePolicy(sizePolicy)
         self.verticalLayout_2 = QVBoxLayout(ManFacAttrDialog)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.ManfacAttr = QFrame(ManFacAttrDialog)
-        self.ManfacAttr.setObjectName(u"ManfacAttr")
-        sizePolicy.setHeightForWidth(self.ManfacAttr.sizePolicy().hasHeightForWidth())
-        self.ManfacAttr.setSizePolicy(sizePolicy)
-        self.ManfacAttr.setMinimumSize(QSize(0, 400))
-        self.ManfacAttr.setMaximumSize(QSize(16777215, 16777215))
-        self.ManfacAttr.setFrameShape(QFrame.StyledPanel)
-        self.ManfacAttr.setFrameShadow(QFrame.Raised)
-        self.verticalLayout = QVBoxLayout(self.ManfacAttr)
+        self.ManfacDialog = QFrame(ManFacAttrDialog)
+        self.ManfacDialog.setObjectName(u"ManfacDialog")
+        sizePolicy.setHeightForWidth(self.ManfacDialog.sizePolicy().hasHeightForWidth())
+        self.ManfacDialog.setSizePolicy(sizePolicy)
+        self.ManfacDialog.setMinimumSize(QSize(0, 400))
+        self.ManfacDialog.setMaximumSize(QSize(16777215, 16777215))
+        self.ManfacDialog.setFrameShape(QFrame.StyledPanel)
+        self.ManfacDialog.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self.ManfacDialog)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.frame_5 = QFrame(self.ManfacAttr)
+        self.frame_5 = QFrame(self.ManfacDialog)
         self.frame_5.setObjectName(u"frame_5")
         self.frame_5.setMinimumSize(QSize(0, 40))
         self.frame_5.setMaximumSize(QSize(16777215, 40))
@@ -67,7 +67,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_5)
 
-        self.frame_2 = QFrame(self.ManfacAttr)
+        self.frame_2 = QFrame(self.ManfacDialog)
         self.frame_2.setObjectName(u"frame_2")
         sizePolicy.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
         self.frame_2.setSizePolicy(sizePolicy)
@@ -100,7 +100,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_2, 0, Qt.AlignHCenter)
 
-        self.frame_4 = QFrame(self.ManfacAttr)
+        self.frame_4 = QFrame(self.ManfacDialog)
         self.frame_4.setObjectName(u"frame_4")
         sizePolicy.setHeightForWidth(self.frame_4.sizePolicy().hasHeightForWidth())
         self.frame_4.setSizePolicy(sizePolicy)
@@ -133,7 +133,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_4, 0, Qt.AlignHCenter)
 
-        self.frame_8 = QFrame(self.ManfacAttr)
+        self.frame_8 = QFrame(self.ManfacDialog)
         self.frame_8.setObjectName(u"frame_8")
         sizePolicy.setHeightForWidth(self.frame_8.sizePolicy().hasHeightForWidth())
         self.frame_8.setSizePolicy(sizePolicy)
@@ -166,7 +166,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_8, 0, Qt.AlignHCenter)
 
-        self.frame_7 = QFrame(self.ManfacAttr)
+        self.frame_7 = QFrame(self.ManfacDialog)
         self.frame_7.setObjectName(u"frame_7")
         sizePolicy.setHeightForWidth(self.frame_7.sizePolicy().hasHeightForWidth())
         self.frame_7.setSizePolicy(sizePolicy)
@@ -199,7 +199,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_7, 0, Qt.AlignHCenter)
 
-        self.frame_10 = QFrame(self.ManfacAttr)
+        self.frame_10 = QFrame(self.ManfacDialog)
         self.frame_10.setObjectName(u"frame_10")
         sizePolicy.setHeightForWidth(self.frame_10.sizePolicy().hasHeightForWidth())
         self.frame_10.setSizePolicy(sizePolicy)
@@ -232,7 +232,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_10, 0, Qt.AlignHCenter)
 
-        self.frame_9 = QFrame(self.ManfacAttr)
+        self.frame_9 = QFrame(self.ManfacDialog)
         self.frame_9.setObjectName(u"frame_9")
         sizePolicy.setHeightForWidth(self.frame_9.sizePolicy().hasHeightForWidth())
         self.frame_9.setSizePolicy(sizePolicy)
@@ -265,7 +265,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_9, 0, Qt.AlignHCenter)
 
-        self.frame_11 = QFrame(self.ManfacAttr)
+        self.frame_11 = QFrame(self.ManfacDialog)
         self.frame_11.setObjectName(u"frame_11")
         sizePolicy.setHeightForWidth(self.frame_11.sizePolicy().hasHeightForWidth())
         self.frame_11.setSizePolicy(sizePolicy)
@@ -298,7 +298,7 @@ class Ui_ManFacAttrDialog(object):
 
         self.verticalLayout.addWidget(self.frame_11, 0, Qt.AlignHCenter)
 
-        self.frame_3 = QFrame(self.ManfacAttr)
+        self.frame_3 = QFrame(self.ManfacDialog)
         self.frame_3.setObjectName(u"frame_3")
         sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
         self.frame_3.setSizePolicy(sizePolicy)
@@ -368,7 +368,7 @@ class Ui_ManFacAttrDialog(object):
         self.verticalLayout.addWidget(self.frame_3)
 
 
-        self.verticalLayout_2.addWidget(self.ManfacAttr)
+        self.verticalLayout_2.addWidget(self.ManfacDialog)
 
         self.buttonBox = QDialogButtonBox(ManFacAttrDialog)
         self.buttonBox.setObjectName(u"buttonBox")

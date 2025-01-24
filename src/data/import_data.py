@@ -33,7 +33,6 @@ def import_articles_from_file(self, filename: str = None):
         # Raise an error if the file extension is unsupported
         raise ValueError(f"Unsupported file type: {extension}")
 
-    print(df)
     import_articles_from_df(self, df)
 
 
