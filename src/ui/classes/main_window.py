@@ -219,11 +219,11 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(f"Fehler beim Öffnen des Artikeldialogs: {e}")
 
-    def on_project_attr_btn_click(self, project_inf: Projects):
+    def on_project_attr_btn_click(self, project_id: int):
         try:
             project_attr_dlg: QDialog = ProjectAttrDialog(
                 session_user_id=self.session_user_id,
-                project_inf=project_inf,
+                project_id=project_id,
                 parent=self,
             )
             self.dialog = project_attr_dlg
@@ -241,11 +241,11 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
 
-    def on_address_attr_btn_click(self, address_inf: Addresses):
+    def on_address_attr_btn_click(self, address_id: int):
         try:
             address_attr_dlg: QDialog = AddressAttrDialog(
                 session_user_id=self.session_user_id,
-                address_inf=address_inf,
+                address_id=address_id,
                 parent=self,
             )
             self.dialog = address_attr_dlg

@@ -7,13 +7,14 @@ from database.classes.cls_article_data import Articles, Manufacturers
 from database.classes.cls_project_data import Addresses, Projects
 from database.classes.cls_user_role_system import Users
 from database.queries.q_ref_data import (
-    get_address_infos,
+    get_address_s_infos,
     get_articles_infos,
     get_manufacturers_infos,
     get_project_s_infos,
 )
 from database.queries.q_users import get_usrs_infos
 from ui.buttons.create import create_pb
+from ui.constants.c_buttons import ADDRESS_TYPES
 from ui.tables.decorators import customize_table_row
 from ui.utils.u_DB_content import conc_DB_table_contents
 
@@ -304,8 +305,8 @@ def get_projects_table_content(self) -> List[Dict]:
     for project_inf in projects_infs:
         pb = create_pb(
             self,
-            on_btn_pressed=lambda _, project=project_inf: self.on_project_attr_btn_click(
-                project_inf=project
+            on_btn_pressed=lambda _, proj_id=project_inf.id: self.on_project_attr_btn_click(
+                project_id=proj_id
             ),
             btn_type="user_attrs",
             source_obj=project_inf,
@@ -347,7 +348,7 @@ def get_projects_table_content(self) -> List[Dict]:
     return unpacked_projects_infos, headers
 
 
-def get_addresses_table_content(self, mode: int = 0) -> List[Dict]:
+def get_addresses_table_content(self, mode: str = None) -> List[Dict]:
     """
     Get the content for the QTableWidget.
     :param self: Main window
@@ -355,7 +356,7 @@ def get_addresses_table_content(self, mode: int = 0) -> List[Dict]:
     :return: A list of dictionaries containing the data for the table.
     :rtype: List[Dict]
     """
-    address_infs: List[Addresses] = get_address_infos()
+    address_infs: List[Addresses] = get_address_s_infos()
     headers = [
         "Adresse bearbeiten",
         "Name",
@@ -368,7 +369,7 @@ def get_addresses_table_content(self, mode: int = 0) -> List[Dict]:
     unpacked_addresses_infos = []
     address_inf: Addresses = None
     for address_inf in address_infs:
-        pb = set_pb_by_mode(self, address_inf, mode)
+        pb = set_pb_by_mode(self, address_inf.id, mode)
         values = [
             pb,
             address_inf.address_line1,
@@ -383,23 +384,24 @@ def get_addresses_table_content(self, mode: int = 0) -> List[Dict]:
     return unpacked_addresses_infos, headers
 
 
-def set_pb_by_mode(self, address_inf: Addresses, mode: int = 0):
-    if mode == 0:
+def set_pb_by_mode(self, address_id: int, mode: str = None):
+
+    if mode is None:
         pb = create_pb(
             self,
-            on_btn_pressed=lambda _, address=address_inf: self.on_address_attr_btn_click(
-                address_inf=address
+            on_btn_pressed=lambda _, addr_id=address_id: self.on_address_attr_btn_click(
+                address_id=addr_id
             ),
             btn_type="user_attrs",
-            source_obj=address_inf,
+            source_obj=get_address_s_infos(address_id=address_id)[0],
         )
-    elif mode == 1:
+    elif mode in ADDRESS_TYPES:
         pb = create_pb(
             self,
-            on_btn_pressed=lambda _, address=address_inf: self.on_transfer_address_btn_click(
-                address_inf=address
+            on_btn_pressed=lambda _, addr_id=address_id: self.on_transfer_address_btn_click(
+                address_id=addr_id
             ),
             btn_type="user_attrs",
-            source_obj=address_inf,
+            source_obj=get_address_s_infos(address_id=address_id)[0],
         )
     return pb

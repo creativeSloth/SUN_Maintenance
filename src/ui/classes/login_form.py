@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QLineEdit, QMainWindow
+from sqlalchemy import true
 
 from database.classes.cls_user_role_system import Users
 from database.queries.q_users import login_user
@@ -44,6 +45,11 @@ class LoginForm(QMainWindow):
 
         # Prüfen ob Benutzername und Passwort gültig sind und bei Erfolg einloggen
         user_existed, pwd_verified, usr_id = login_user(usr=usr, pwd=pwd)
+        ##########################     DEVMODE     #############################
+        user_existed = True
+        pwd_verified = True
+        usr_id = 0
+        ########################################################################
         if user_existed and pwd_verified:
 
             self.main_window: QMainWindow = MainWindow(session_user_id=usr_id)

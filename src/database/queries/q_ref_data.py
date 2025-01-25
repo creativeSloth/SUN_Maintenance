@@ -444,7 +444,7 @@ def get_project_s_infos(projects_id: Optional[int] = None) -> List[Projects]:
         sess.close()
 
 
-def refresh_project_inf(window: ProjectAttrDialog, project_inf: Projects = None):
+def refresh_project_inf(window: ProjectAttrDialog):
     """
     Updates the project attributes in the UI based on the provided project information.
 
@@ -459,7 +459,8 @@ def refresh_project_inf(window: ProjectAttrDialog, project_inf: Projects = None)
     sess: sessionmaker = create_session()
     try:
         # Load existing project or create a new one
-        if project_inf:
+        if window.project_id:
+            project_inf = get_project_s_infos(projects_id=window.project_id)[0]
             project_inf = sess.merge(project_inf)
         else:
             project_inf = Projects()
@@ -470,13 +471,11 @@ def refresh_project_inf(window: ProjectAttrDialog, project_inf: Projects = None)
         project_inf.project_name = window.ui.project_name_txt.text()
         project_inf.sys_perf = window.ui.sys_perf_txt.text()
         project_inf.comission_date = window.ui.comission_date_txt.text()
-        project_inf.customer_address = window.customer_address
-        project_inf.loc_address = window.loc_address
-
-        window.project_inf = project_inf
-        window.project_id = project_inf.id
+        # project_inf.customer_address = window.customer_address
+        # project_inf.loc_address = window.loc_address
 
         sess.commit()
+        window.project_id = project_inf.id
 
     except Exception as e:
         sess.rollback()
@@ -485,7 +484,7 @@ def refresh_project_inf(window: ProjectAttrDialog, project_inf: Projects = None)
         sess.close()
 
 
-def get_address_infos(address_id: Optional[int] = None) -> List[Addresses]:
+def get_address_s_infos(**kwargs) -> List[Addresses]:
     """
     Retrieves all addresses from the database or a specific address by its ID.
 
@@ -499,8 +498,12 @@ def get_address_infos(address_id: Optional[int] = None) -> List[Addresses]:
     sess: sessionmaker = create_session()
     try:
         query = sess.query(Addresses)
-        if address_id is not None:
-            query = query.filter(Addresses.id == address_id)
+        if "address_id" in kwargs:
+            address_id = kwargs.get("address_id")
+            if address_id is None:
+                return []
+            else:
+                query = query.filter(Addresses.id == address_id)
 
         addresses_infos: List[Addresses] = query.all()
         return addresses_infos if addresses_infos else []
@@ -511,11 +514,7 @@ def get_address_infos(address_id: Optional[int] = None) -> List[Addresses]:
         sess.close()
 
 
-def refresh_address_inf(
-    window: AddressAttrDialog = None,
-    address_inf: Addresses = None,
-    mode: str = None,
-):
+def refresh_address_inf(window: AddressAttrDialog = None):
     """
     Updates the address attributes in the UI based on the provided address information.
     Parameters:
@@ -529,11 +528,12 @@ def refresh_address_inf(
     try:
 
         # Load existing project or create a new one
-        if window.address is None:
+        if window.address_id is None:
             address_inf = Addresses()
             sess.add(address_inf)
         else:
-            address_inf = sess.merge(window.address)
+            address_inf = get_address_s_infos(address_id=window.address_id)[0]
+            address_inf = sess.merge(address_inf)
 
         address_inf.address_line1 = window.ui.address_line_1_txt.text()
         address_inf.address_line2 = window.ui.address_line_2_txt.text()
@@ -541,21 +541,21 @@ def refresh_address_inf(
         address_inf.postal_code = window.ui.postal_code_txt.text()
         address_inf.state = window.ui.state_txt.text()
         address_inf.country = window.ui.country_txt.text()
-        window.address = address_inf
 
-        if mode in ["customer_address", "loc_address"]:
+        if window.mode in ["customer_address", "loc_address"]:
             project_infos = get_project_s_infos(window.parent.project_id)
+
             if not project_infos:
                 raise ValueError(f"No project found with ID {window.parent.project_id}")
             project_inf = sess.merge(project_infos[0])
 
-            if mode == "customer_address":
-                project_inf.customer_address = sess.merge(window.address)
-            elif mode == "loc_address":
-                project_inf.loc_address = sess.merge(window.address)
-            sess.add(project_inf)
+            if window.mode == "customer_address":
+                project_inf.customer_address = sess.merge(address_inf)
+            elif window.mode == "loc_address":
+                project_inf.loc_address = sess.merge(address_inf)
 
         sess.commit()
+        window.address_id = address_inf.id
 
     except Exception as e:
         sess.rollback()
