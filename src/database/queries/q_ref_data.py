@@ -26,6 +26,7 @@ from ui.classes.dlg_address import AddressAttrDialog
 from ui.classes.dlg_article import ArticleAttrDialog
 from ui.classes.dlg_manufacturer import ManufacturerAttrDialog
 from ui.classes.dlg_project import ProjectAttrDialog
+from ui.constants.c_buttons import ADDRESS_TYPES
 
 
 def get_manufacturers_infos(
@@ -542,16 +543,16 @@ def refresh_address_inf(window: AddressAttrDialog = None):
         address_inf.state = window.ui.state_txt.text()
         address_inf.country = window.ui.country_txt.text()
 
-        if window.mode in ["customer_address", "loc_address"]:
+        if window.mode in ADDRESS_TYPES:
             project_infos = get_project_s_infos(window.parent.project_id)
 
             if not project_infos:
                 raise ValueError(f"No project found with ID {window.parent.project_id}")
             project_inf = sess.merge(project_infos[0])
 
-            if window.mode == "customer_address":
+            if window.mode == ADDRESS_TYPES[0]:
                 project_inf.customer_address = sess.merge(address_inf)
-            elif window.mode == "loc_address":
+            elif window.mode == ADDRESS_TYPES[1]:
                 project_inf.loc_address = sess.merge(address_inf)
 
         sess.commit()

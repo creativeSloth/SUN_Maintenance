@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QDialog
 from database.classes.cls_project_data import Addresses, Projects
 from styles.styles_Handler import initialize_ui_style
 from ui.classes.dlg_address import AddressAttrDialog
+from ui.constants.c_buttons import ADDRESS_TYPES
 from ui.forms.projectattrform import Ui_ProjectAttrDialog
 from ui.utils.u_DB_content import conc_DB_table_contents
 
@@ -21,7 +22,7 @@ class ProjectAttrDialog(QDialog):
         self.ui = Ui_ProjectAttrDialog()
         self.ui.setupUi(self)
         self.setWindowTitle("Projektinformation")
-        self.setFixedSize(1200, 600)
+        self.setFixedSize(800, 600)
         self.mainwindow = parent
         self.session_user_id: int = session_user_id
         self.project_id: int = project_id
@@ -81,7 +82,7 @@ class ProjectAttrDialog(QDialog):
         self.ui.change_customer_adress_btn.clicked.connect(
             lambda: self.on_change_customer_address_btn_click()
         )
-        self.ui.change_customer_adress_btn.clicked.connect(
+        self.ui.change_loc_adress_btn.clicked.connect(
             lambda: self.on_change_loc_address_btn_click()
         )
 
@@ -99,7 +100,7 @@ class ProjectAttrDialog(QDialog):
             session_user_id=self.session_user_id,
             address_id=address_id,
             parent=self,
-            mode="customer_address",
+            mode=ADDRESS_TYPES[0],
         )
 
         if address_dialog.exec_() == QDialog.Accepted:
@@ -134,7 +135,7 @@ class ProjectAttrDialog(QDialog):
             session_user_id=self.session_user_id,
             address_id=address_id,
             parent=self,
-            mode="loc_address",
+            mode=ADDRESS_TYPES[1],
         )
 
         if address_dialog.exec_() == QDialog.Accepted:

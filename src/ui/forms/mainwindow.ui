@@ -959,7 +959,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>4</number>
+             <number>8</number>
             </property>
             <widget class="QWidget" name="dashboard"/>
             <widget class="QWidget" name="usr_overview_page">

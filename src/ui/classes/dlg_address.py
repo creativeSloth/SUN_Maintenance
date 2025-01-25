@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QDialog
 
 from database.classes.cls_project_data import Addresses
 from ui.classes.app_context import ApplicationContext
+from ui.constants.c_buttons import ADDRESS_TYPES
 from ui.forms.addressattrform import Ui_AddressAttrDialog
 
 
@@ -49,7 +50,7 @@ class AddressAttrDialog(QDialog):
             self.ui.country_txt.clear()
             self.address_id = None
 
-        if mode in ["customer_address", "loc_address"]:
+        if mode in ADDRESS_TYPES:
             self.init_overview_table()
 
         self.ui.buttonBox.accepted.connect(lambda: self.on_accept_btn_click())

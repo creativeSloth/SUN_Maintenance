@@ -205,7 +205,15 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(f"Fehler beim Öffnen des Herstellerdialogs: {e}")
 
-    def on_new_address_btn_click(self): ...
+    def on_new_address_btn_click(self):
+        try:
+            addr_attr_dlg: QDialog = AddressAttrDialog(
+                session_user_id=self.session_user_id, parent=self
+            )
+            self.dialog = addr_attr_dlg
+            self.dialog.exec_()  # Öffnet den Dialog modal
+        except Exception as e:
+            print(f"Fehler beim Öffnen des Adressdialogs: {e}")
 
     def on_article_attr_btn_click(self, article_infs: type(BASE)):  # type: ignore
         try:
