@@ -34,10 +34,29 @@ Some features may still be incomplete or experimental.
 ```bash
 SUN_Maintenance/
 │
-├── src/                    # Source code (main project logic)
+├── src/                          # Main source code of the project
+│   │
+│   ├── main.py                   # Entry point of the application
+│   │
+│   ├── maintenance/              # Core maintenance logic
+│   │   ├── __init__.py
+│   │   ├── system_check.py       # System status and health checks
+│   │   ├── cleanup.py            # Log and temporary file cleanup
+│   │   └── update_tasks.py       # Maintenance and update routines
+│   │
+│   ├── utils/                    # Helper and utility modules
+│   │   ├── __init__.py
+│   │   ├── logger.py             # Logging utilities
+│   │   ├── config_loader.py      # Configuration file handling
+│   │   └── file_utils.py         # File and path utilities
+│   │
+│   └── config/                   # Configuration files
+│       ├── settings.json         # Main configuration file
+│       └── paths.json            # System and project paths
 │
-├── requirements.txt        # Python dependencies
-├── README.md               # Project documentation
+├── requirements.txt              # Python dependencies
+├── README.md                     # Project documentation
+└── .gitignore                    # Files ignored by Git
 ```
 
 ---
