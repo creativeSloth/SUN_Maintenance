@@ -61,6 +61,59 @@ SUN_Maintenance/
 
 ---
 
+## Structure Explanation
+
+### `src/main.py`
+
+This is the main entry point of the project.
+
+It is responsible for:
+
+* starting the application
+* loading the configuration
+* calling maintenance tasks
+* coordinating the different modules
+
+---
+
+### `src/maintenance/`
+
+This folder contains the **core logic of the project**.
+
+Typical responsibilities:
+
+* checking system status
+* running maintenance routines
+* handling automated tasks
+* managing updates and cleanup processes
+
+---
+
+### `src/utils/`
+
+This folder contains reusable helper functions.
+
+Why this matters:
+
+* avoids duplicated code
+* keeps the main logic clean
+* centralizes logging and configuration handling
+* makes the project easier to extend later
+
+---
+
+### `src/config/`
+
+This folder stores configuration files instead of hard-coding values inside the code.
+
+Advantages:
+
+* easier to adapt to different systems
+* cleaner architecture
+* better separation between logic and configuration
+
+---
+
 ## Requirements
 
 The project currently requires:
