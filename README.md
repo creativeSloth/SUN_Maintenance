@@ -26,10 +26,13 @@ The application starts with a **login screen** and supports **user registration*
 
 | Layer | Technology |
 |---|---|
-| GUI | PyQt5 + Qt Designer (`.ui` files) |
-| ORM / Database | SQLAlchemy (local SQLite) |
+| GUI | PyQt5 5.15 + Qt Designer (`.ui` files) |
+| ORM / Database | SQLAlchemy 2.0 (local SQLite) |
+| Data processing | Pandas 2.0, NumPy 1.24 |
+| File handling | openpyxl (Excel .xlsx), odfpy (ODS / LibreOffice) |
 | Password handling | Hashed credentials via `u_pwd.py` |
 | Data import | Custom import logic (`data/import_data.py`) |
+| XML handling | defusedxml (secure XML parsing) |
 | Styling | Custom QSS stylesheet |
 | Packaging | PyInstaller-ready (`build.py`) |
 
@@ -114,8 +117,13 @@ SUN_Maintenance is a follow-up project to [SUN_DOC](https://github.com/creativeS
 
 ```
 Python 3.10+
-PyQt5
-SQLAlchemy
+PyQt5==5.15.11
+SQLAlchemy==2.0.32
+pandas==2.0.3
+numpy==1.24.4
+openpyxl==3.1.5
+odfpy==1.4.1
+defusedxml==0.7.1
 ```
 
 Install dependencies:
