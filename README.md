@@ -1,103 +1,142 @@
 # SUN_Maintenance
 
-## Status
+**Desktop application for structured maintenance management of PV service operations.**
 
-⚠️ This project is currently under active development.
+Built with Python and PyQt5, SUN_Maintenance is a multi-user desktop tool for managing articles, projects, manufacturers, and addresses in a PV service environment. It includes a full login and user role system, database-backed data management, and a modular PyQt5 GUI.
 
-The codebase is still evolving, and functionality, structure, and dependencies may change at any time. This repository is not yet intended for production use.
-
----
-
-## Purpose
-
-`SUN_Maintenance` is a Python-based maintenance and automation project for the SUN system environment.
-
-The goal of the project is to automate maintenance tasks such as system checks, monitoring, and maintenance workflows in a structured and reusable way.
+> ⚠️ This project is currently under active development. Structure and functionality may change at any time.
 
 ---
 
-## Current State
+## What it does
 
-The repository currently contains:
+SUN_Maintenance provides a structured interface for managing service-related master data across multiple entity types:
 
-* Initial project structure
-* Core Python modules inside the `src/` directory
-* Dependency definition via `requirements.txt`
-* Early-stage maintenance logic
+- **Articles** – manage and attribute component data
+- **Projects** – track and manage service projects
+- **Manufacturers** – maintain manufacturer reference data
+- **Addresses** – manage address records linked to entities
+- **Users** – user accounts with role-based access control
 
-Some features may still be incomplete or experimental.
+The application starts with a **login screen** and supports **user registration**, ensuring data access is controlled per user role.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| GUI | PyQt5 + Qt Designer (`.ui` files) |
+| ORM / Database | SQLAlchemy (local SQLite) |
+| Password handling | Hashed credentials via `u_pwd.py` |
+| Data import | Custom import logic (`data/import_data.py`) |
+| Styling | Custom QSS stylesheet |
+| Packaging | PyInstaller-ready (`build.py`) |
+
+---
+
+## Project Structure
+
+```
+SUN_Maintenance/
+│
+├── src/
+│   ├── main.py                        # Entry point – initialises DB, starts login form
+│   ├── build.py                       # PyInstaller build script
+│   │
+│   ├── data/
+│   │   └── import_data.py             # Data import logic
+│   │
+│   ├── database/
+│   │   ├── classes/
+│   │   │   ├── _initializer.py        # DB initialisation
+│   │   │   ├── cls_article_data.py    # Article ORM model
+│   │   │   ├── cls_project_data.py    # Project ORM model
+│   │   │   ├── cls_user_role_system.py# User & role ORM models
+│   │   │   └── cls_enums.py           # Shared enumerations
+│   │   ├── constants/
+│   │   │   ├── c_db_classes.py        # DB class constants
+│   │   │   └── c_role_system.py       # Role system constants
+│   │   ├── queries/
+│   │   │   ├── q_ref_data.py          # Reference data queries
+│   │   │   ├── q_role_system.py       # Role system queries
+│   │   │   └── q_users.py             # User queries
+│   │   └── utils/
+│   │       ├── u_db_sess.py           # Session management
+│   │       ├── u_pwd.py               # Password hashing & verification
+│   │       └── u_queries.py           # Query utilities
+│   │
+│   ├── directories/
+│   │   ├── constants/
+│   │   │   └── c_directories.py       # Path constants
+│   │   ├── decorators/
+│   │   │   └── d_directories.py       # Path-related decorators
+│   │   └── directories_handler.py     # Static directory setup
+│   │
+│   ├── styles/
+│   │   ├── constants.py               # Style constants
+│   │   ├── styles_Handler.py          # Style initialisation
+│   │   └── stylesheet.qss             # Custom QSS stylesheet
+│   │
+│   └── ui/
+│       ├── buttons/                   # Button creation & customisation
+│       ├── classes/
+│       │   ├── app_context.py         # Application context
+│       │   ├── login_form.py          # Login window logic
+│       │   ├── register_form.py       # Registration window logic
+│       │   ├── main_window.py         # Main window logic
+│       │   ├── dlg_article.py         # Article dialog
+│       │   ├── dlg_project.py         # Project dialog
+│       │   ├── dlg_manufacturer.py    # Manufacturer dialog
+│       │   ├── dlg_address.py         # Address dialog
+│       │   └── dlg_user.py            # User dialog
+│       ├── constants/                 # UI constants (buttons, tables)
+│       ├── forms/                     # Qt Designer .ui files + generated Python
+│       ├── icons/                     # PNG icon assets
+│       ├── main_body/
+│       │   └── usr_overview.py        # User overview panel
+│       ├── tables/                    # Table population & utilities
+│       └── utils/                     # UI helper functions
+│
+├── requirements.txt                   # Python dependencies
+└── README.md                          # Project documentation
+```
+
+---
+
+## Background
+
+SUN_Maintenance is a follow-up project to [SUN_DOC](https://github.com/creativeSloth/SUN_DOC), developed to address more complex data management needs in PV service operations. Compared to SUN_DOC, this project introduces a proper multi-user architecture with login, registration, and role-based access — all implemented independently without formal software engineering guidance.
 
 ---
 
 ## Requirements
 
-The project currently requires:
-
-```bash
-Python 3.8+
-pip
+```
+Python 3.10+
+PyQt5
+SQLAlchemy
 ```
 
 Install dependencies:
-
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Running the Project
-
-Since the project is still in development, there is no stable release version yet.
-
-To run the current development version:
-
+Run the application:
 ```bash
-git clone https://github.com/creativeSloth/SUN_Maintenance.git
-cd SUN_Maintenance
-pip install -r requirements.txt
-python src/main.py
+cd src
+python main.py
 ```
 
-If `main.py` changes in future versions, check the `src/` folder for the current entry point.
-
 ---
 
-## Development Goals
+## Status
 
-The long-term goal of this project is to provide:
-
-* Automated system maintenance
-* Monitoring and health checks
-* Structured Python modules for maintenance workflows
-* Reusable automation scripts
-* A clean and extendable project architecture
-
----
-
-## Contributing
-
-Since the project is still under development:
-
-* Expect breaking changes
-* Documentation may not always be complete
-* New features are still being added
-
-If you want to contribute:
-
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Create a pull request
-
----
-
-## Notes
-
-This project is currently experimental and mainly intended for development and testing purposes.
+Active development — not yet intended for production use. Core UI and database structure are functional; further features are still being added.
 
 ---
 
 ## Author
 
-GitHub: https://github.com/creativeSloth
+GitHub: [creativeSloth](https://github.com/creativeSloth)
