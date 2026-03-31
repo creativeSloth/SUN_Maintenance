@@ -8,6 +8,15 @@ Built with Python and PyQt5, SUN_Maintenance is a multi-user desktop tool for ma
 
 ---
 
+## System Requirements
+Python 3.8.x (mandatory; the project is not compatible with Python versions >3.8)
+Virtual environment recommended
+All dependencies listed in requirements.txt
+
+⚠️ Make sure to create a Python 3.8 virtual environment before installing dependencies.
+
+---
+
 ## What it does
 
 SUN_Maintenance provides a structured interface for managing service-related master data across multiple entity types:
@@ -116,7 +125,7 @@ SUN_Maintenance is a follow-up project to [SUN_DOC](https://github.com/creativeS
 ## Requirements
 
 ```
-Python 3.10+
+# Must be run on Python 3.8.x
 PyQt5==5.15.11
 SQLAlchemy==2.0.32
 pandas==2.0.3
@@ -128,6 +137,8 @@ defusedxml==0.7.1
 
 Install dependencies:
 ```bash
+python3.8 -m venv .venv38
+source .venv38/bin/activate
 pip install -r requirements.txt
 ```
 
